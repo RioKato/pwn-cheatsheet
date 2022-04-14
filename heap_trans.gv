@@ -1,12 +1,13 @@
 digraph {
-  graph [pad = "0.1", ranksep = "1", nodesep = "0.7"];
+  graph [pad = "0.1", ranksep = "1", nodesep = "0.5"];
   node [shape = doublecircle]; free malloc;
   node [shape = circle];
 
   free -> tcache [style = "dashed", label = "1"];
   free -> fast [style = "dashed", label = "2"];
-  free -> top [style = "dashed", label = "3", color = "red"];
-  free -> unsorted [style = "dashed", label = "4"];
+  free -> unsorted [style = "dashed", label = "3"];
+  free -> top [style = "dashed", label = "c", color = "red"];
+  free -> unsorted [style = "dashed", label = "c", color = "red"];
 
   tcache -> malloc [color = "red"];
 
@@ -15,7 +16,7 @@ digraph {
   unsorted -> small [label = "3"];
   unsorted -> large [label = "4", color = "red"];
   unsorted -> unsorted [label = "s"];
-  unsorted -> top [style = "dashed", label = "c", color = "red"];
+  unsorted -> top [style = "dashed", label = "c"];
   unsorted -> unsorted [style = "dashed", label = "c", color = "red"];
 
   fast -> malloc [label = "1"];
@@ -28,12 +29,12 @@ digraph {
   small -> malloc [label = "1"];
   small -> tcache [label = "2", color = "red"];
   small -> unsorted [label = "s"];
-  small -> top [style = "dashed", label = "c", color = "red"];
+  small -> top [style = "dashed", label = "c"];
   small -> unsorted [style = "dashed", label = "c", color = "red"];
 
   large -> malloc;
   large -> unsorted [label = "s"];
-  large -> top [style = "dashed", label = "c", color = "red"];
+  large -> top [style = "dashed", label = "c"];
   large -> unsorted [style = "dashed", label = "c", color = "red"];
 
   top -> malloc [label = "s"];

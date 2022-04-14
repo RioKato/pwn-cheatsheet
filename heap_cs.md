@@ -3,15 +3,15 @@
 ## Transition
 ![heap_trans](./heap_trans.jpg)
 
-| symbol       | description                   |
-| ------------ | ----------------------------- |
-| arrow        | malloc                        |
-| dotted arrow | free                          |
-| red arrow    | weak path                     |
-| c            | (for \| back)word consolidate |
-| m            | malloc consolidate            |
-| s            | split the chunk               |
-| 0 ~ 4        | priority (0: high, 4: low)    |
+| symbol       | description                 |
+| ------------ | --------------------------- |
+| arrow        | malloc                      |
+| dotted arrow | free                        |
+| red arrow    | weak path                   |
+| c            | (for\|back)word consolidate |
+| m            | malloc consolidate          |
+| s            | split the chunk             |
+| 0 ~ 4        | priority (0: high, 4: low)  |
 
 | path                   | method | description                                                    |
 | ---------------------- | ------ | -------------------------------------------------------------- |
