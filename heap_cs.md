@@ -44,3 +44,11 @@
 | largebin [0x400, 0x410] | O     | -    | X        |
 | largebin [0x420 ~]      | -     | -    | X        |
 
+## Target
+| variables                                        | trigger         | memo                                                                   |
+| ------------------------------------------------ | --------------- | ---------------------------------------------------------------------- |
+| _dl_open_hook                                    | malloc_printerr | malloc_printer &rarr; __libc_message &rarr; backtrace_and_maps         |
+| _rtld_global [ld.so]                             | exit            | create fake fini_array                                                 |
+| __printf_arginfo_table + __printf_function_table | printf          |                                                                        |
+| stderr + _pointer_chk_guard                      | __malloc_assert | point stderr vtable to _IO_cookie_jumps. __malloc_assert &rarr; fflush |
+
