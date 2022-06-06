@@ -54,7 +54,7 @@
 | __malloc_initialize_hook                         | malloc (at initialization)                      |                                         |
 | __memalign_hook                                  | aligned_alloc, memalign, posix_memalign, valloc |                                         |
 | _dl_open_hook                                    | ? &rarr; __libc_dlopen_mode, __libc_dlsym       |                                         |
-| _rtld_global._dl_ns[0]._ns_loaded [in ld.so]     | exit &rarr; ... &rarr; _dl_fini                 | create fake fini_array                  |
+| (ld.so) _rtld_global._dl_ns[0]._ns_loaded        | exit &rarr; ... &rarr; _dl_fini                 | create fake fini_array                  |
 | __printf_arginfo_table + __printf_function_table | printf                                          |                                         |
 | stderr + __pointer_chk_guard_local               | __malloc_assert &rarr; fflush                   | point stderr vtable to _IO_cookie_jumps |
 
