@@ -56,5 +56,5 @@
 | _dl_open_hook                                    | ? &rarr; __libc_dlopen_mode, __libc_dlsym       |                                         |
 | _rtld_global [ld.so]                             | exit &rarr; ... &rarr; _dl_fini                 | create fake fini_array                  |
 | __printf_arginfo_table + __printf_function_table | printf                                          |                                         |
-| stderr + _pointer_chk_guard                      | __malloc_assert &rarr; fflush                   | point stderr vtable to _IO_cookie_jumps |
+| stderr + __pointer_chk_guard_local               | __malloc_assert &rarr; fflush                   | point stderr vtable to _IO_cookie_jumps |
 
