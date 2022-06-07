@@ -1,7 +1,8 @@
 digraph {
   malloc_printerr -> __libc_message -> abort -> _IO_flush_all_lockp;
-  exit -> _IO_flush_all_lockp;
-  exit -> _dl_fini;
+  exit -> __run_exit_handlers -> _IO_flush_all_lockp;
+  __run_exit_handlers -> _dl_fini;
   _IO_flush_all_lockp -> _IO_file_overflow;
   __malloc_assert -> fflush -> _IO_file_sync;
+  __malloc_assert -> abort;
 }
