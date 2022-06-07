@@ -53,7 +53,7 @@
 | __after_morecore_hook                            | sbrk                                            |                            |
 | __malloc_initialize_hook                         | malloc (at initialization)                      |                            |
 | __memalign_hook                                  | aligned_alloc, memalign, posix_memalign, valloc |                            |
-| _dl_open_hook                                    | __libc_dlopen_mode, __libc_dlsym                |                            |
+| _dl_open_hook                                    | dlopen, dlsym                                   |                            |
 | (ld.so) _rtld_global._dl_ns[0]._ns_loaded        | _dl_fini                                        |                            |
 | __printf_arginfo_table + __printf_function_table | printf                                          |                            |
 | stderr + fs:[0x30]                               | _IO_file_sync                                   | vtable == _IO_cookie_jumps |
