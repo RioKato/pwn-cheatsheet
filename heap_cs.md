@@ -57,4 +57,5 @@
 | (ld.so) _rtld_global._dl_ns[0]._ns_loaded        | exit &rarr; ... &rarr; _dl_fini                 | create fake link_map & fini_array       |
 | __printf_arginfo_table + __printf_function_table | printf                                          |                                         |
 | stderr + __pointer_chk_guard_local               | __malloc_assert &rarr; fflush                   | point stderr vtable to _IO_cookie_jumps |
-
+| __exit_funcs + fs:[0x30]                         | exit                                            |                                         |
+| tls_dtor_list + fs:[0x30]                        | exit                                            |                                         |
