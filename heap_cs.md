@@ -60,5 +60,6 @@
 | _IO_list_all + fs:[0x30]                         | _IO_file_overflow                               | vtable == _IO_cookie_jumps |
 | __exit_funcs + fs:[0x30]                         | exit                                            |                            |
 | tls_dtor_list + fs:[0x30]                        | exit                                            |                            |
+| global_max_fast                                  |                                                 |                            |
 
 ![terminate](./terminate.jpg)
