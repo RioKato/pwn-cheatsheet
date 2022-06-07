@@ -54,7 +54,7 @@
 | __malloc_initialize_hook                         | malloc (at initialization)                      |                            |
 | __memalign_hook                                  | aligned_alloc, memalign, posix_memalign, valloc |                            |
 | _dl_open_hook                                    | dlopen, dlsym                                   |                            |
-| (ld.so) _rtld_global._dl_ns[0]._ns_loaded        | _dl_fini                                        |                            |
+| _rtld_global._dl_ns[0]._ns_loaded                | _dl_fini                                        | _rtld_global is in ld.so   |
 | __printf_arginfo_table + __printf_function_table | printf                                          |                            |
 | stderr + fs:[0x30]                               | _IO_file_sync                                   | vtable == _IO_cookie_jumps |
 | _IO_list_all + fs:[0x30]                         | _IO_file_overflow                               | vtable == _IO_cookie_jumps |
