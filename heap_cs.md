@@ -59,7 +59,7 @@
 | stderr + fs:[0x30]                               | _IO_file_sync                                   | vtable == _IO_cookie_jumps |
 | _IO_list_all + fs:[0x30]                         | _IO_file_overflow                               | vtable == _IO_cookie_jumps |
 | __exit_funcs + fs:[0x30]                         | __run_exit_handlers                             |                            |
-| tls_dtor_list + fs:[0x30]                        | __run_exit_handlers                             |                            |
+| tls_dtor_list + fs:[0x30]                        | __call_tls_dtors                                |                            |
 | global_max_fast                                  |                                                 |                            |
 
 ![terminate](./terminate.jpg)
