@@ -56,7 +56,8 @@
 | _dl_open_hook                                    | __libc_dlopen_mode, __libc_dlsym                |                            |
 | (ld.so) _rtld_global._dl_ns[0]._ns_loaded        | _dl_fini                                        |                            |
 | __printf_arginfo_table + __printf_function_table | printf                                          |                            |
-| stderr + fs:[0x30]                               | _IO_file_XXX                                    | vtable == _IO_cookie_jumps |
+| stderr + fs:[0x30]                               | _IO_file_sync                                   | vtable == _IO_cookie_jumps |
+| _IO_list_all + fs:[0x30]                         | _IO_file_overflow                               | vtable == _IO_cookie_jumps |
 | __exit_funcs + fs:[0x30]                         | exit                                            |                            |
 | tls_dtor_list + fs:[0x30]                        | exit                                            |                            |
 
