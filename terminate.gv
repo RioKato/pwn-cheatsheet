@@ -2,8 +2,11 @@ digraph {
   malloc_printerr -> __libc_message -> abort;
   exit -> __run_exit_handlers;
   __run_exit_handlers -> __call_tls_dtors [label = "1"];
-  __run_exit_handlers -> _dl_fini [label = "2"];
-  __run_exit_handlers-> _IO_flush_all_lockp [label = "3"];
+  __run_exit_handlers -> "onfct / atfct / cxafct" [label = "2"];
+  __run_exit_handlers -> __libc_atexit [label = "3"];
+  "onfct / atfct / cxafct" -> _dl_fini;
+  __libc_atexit ->_IO_flush_all_lockp;
+
   _IO_flush_all_lockp -> _IO_file_overflow;
   __malloc_assert -> fflush [label = "1"];
   __malloc_assert -> abort [label = "2"];

@@ -45,20 +45,20 @@
 | large [0x420 ~]         | -     | -    | X        |
 
 ## Target
-| variables                                       | trigger                                         | memo                                                                                                                   |
-| ----------------------------------------------- | ----------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
-| __malloc_hook                                   | malloc                                          |                                                                                                                        |
-| __free_hook                                     | free                                            |                                                                                                                        |
-| __realloc_hook                                  | realloc                                         |                                                                                                                        |
-| __after_morecore_hook                           | sbrk                                            |                                                                                                                        |
-| __malloc_initialize_hook                        | malloc (at initialization)                      |                                                                                                                        |
-| __memalign_hook                                 | aligned_alloc, memalign, posix_memalign, valloc |                                                                                                                        |
-| _dl_open_hook                                   | dlopen, dlsym                                   |                                                                                                                        |
-| _rtld_global._dl_ns[0]._ns_loaded               | _dl_fini                                        | _rtld_global is in ld.so                                                                                               |
-| global_max_fast                                 |                                                 |                                                                                                                        |
-| __printf_arginfo_table, __printf_function_table | printf                                          |                                                                                                                        |
-| stderr, fs:[0x30]                               | _IO_file_sync                                   | vtable == _IO_cookie_jumps, Whether stderr is in libc or exe depends on the situation. debug and check __malloc_assert |
-| __exit_funcs, fs:[0x30]                         | __run_exit_handlers                             |                                                                                                                        |
-| tls_dtor_list, fs:[0x30]                        | __call_tls_dtors                                |                                                                                                                        |
+| variables                                       | trigger                                         | memo                                                                                  |
+| ----------------------------------------------- | ----------------------------------------------- | ------------------------------------------------------------------------------------- |
+| __malloc_hook                                   | malloc                                          |                                                                                       |
+| __free_hook                                     | free                                            |                                                                                       |
+| __realloc_hook                                  | realloc                                         |                                                                                       |
+| __after_morecore_hook                           | sbrk                                            |                                                                                       |
+| __malloc_initialize_hook                        | malloc (at initialization)                      |                                                                                       |
+| __memalign_hook                                 | aligned_alloc, memalign, posix_memalign, valloc |                                                                                       |
+| _dl_open_hook                                   | dlopen, dlsym                                   |                                                                                       |
+| _rtld_global._dl_ns[0]._ns_loaded               | _dl_fini                                        | _rtld_global is in ld.so                                                              |
+| global_max_fast                                 |                                                 |                                                                                       |
+| __printf_arginfo_table, __printf_function_table | printf                                          |                                                                                       |
+| stderr, fs:[0x30], vtable == _IO_cookie_jumps   | _IO_file_sync                                   | Whether stderr is in libc or exe depends on the code. debug and check __malloc_assert |
+| __exit_funcs, fs:[0x30]                         | __run_exit_handlers                             |                                                                                       |
+| tls_dtor_list, fs:[0x30]                        | __call_tls_dtors                                |                                                                                       |
 
 ![terminate](./terminate.jpg)
