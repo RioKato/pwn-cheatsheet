@@ -3,6 +3,9 @@ digraph {
   exit -> __run_exit_handlers;
   __run_exit_handlers -> __call_tls_dtors [label = "1"];
   __run_exit_handlers -> "_dl_fini = onfct / atfct / cxafct" [label = "2"];
+  "_dl_fini = onfct / atfct / cxafct" -> __do_global_dtors_aux;
+  __do_global_dtors_aux -> __cxa_finalize;
+  __cxa_finalize -> cxafn;
   __run_exit_handlers -> "_IO_flush_all_lockp = __libc_atexit" [label = "3"];
   "_IO_flush_all_lockp = __libc_atexit"  -> _IO_file_overflow;
   __malloc_assert -> fflush [label = "1"];

@@ -56,6 +56,7 @@
 | _dl_open_hook                                   | dlopen, dlsym                                   |                                                                                       |
 | _rtld_global._dl_ns[0]._ns_loaded               | _dl_fini                                        | _rtld_global is in ld.so                                                              |
 | global_max_fast                                 |                                                 |                                                                                       |
+| .fini_array                                     |                                                 |
 | __printf_arginfo_table, __printf_function_table | printf                                          |                                                                                       |
 | stderr, fs:[0x30], vtable == _IO_cookie_jumps   | _IO_file_sync                                   | Whether stderr is in libc or exe depends on the code. debug and check __malloc_assert |
 | __exit_funcs, fs:[0x30]                         | __run_exit_handlers                             |                                                                                       |
