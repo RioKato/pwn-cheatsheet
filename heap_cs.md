@@ -11,7 +11,7 @@
 | c            | (for\|back)word consolidate |
 | m            | malloc consolidate          |
 | s            | split the chunk             |
-| 0 ~ 4        | priority (0: high, 4: low)  |
+| 1 ~ 4        | priority (1: high, 4: low)  |
 
 | path                   | method | description                                                    |
 | ---------------------- | ------ | -------------------------------------------------------------- |
@@ -43,6 +43,20 @@
 | small [0x90 ~ 0x3f0]    | O     | -    | X        |
 | large [0x400, 0x410]    | O     | -    | X        |
 | large [0x420 ~]         | -     | -    | X        |
+
+## Mmap
+The following conditions are required for mmap to be called.
+
+`SIZE >= mp_.mmap_threshold && SIZE > main_arena->top.size`
+where
+`main_arena->top.size <= main_arena->system_mem`
+
+Therefore, if you reserve a chunk with a size larger than 0x21000, mmap will be called.
+
+| variables              | Intial value |
+| ---------------------- | ------------ |
+| mp_.mmap_threshold     | 0x20000      |
+| main_arena->system_mem | 0x21000      |
 
 ## Target
 | variables                                       | trigger                                         | memo                                                                                  |
