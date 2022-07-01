@@ -1,6 +1,5 @@
 # Kernel Pwn Cheat Sheet
 
-
 ## Kernel Version
 ```
 commit 09688c0166e76ce2fb85e86b9d99be8b0084cdf9 (HEAD -> master, tag: v5.17-rc8, origin/master, origin/HEAD)
@@ -9,6 +8,8 @@ Date:   Sun Mar 13 13:23:37 2022 -0700
 
     Linux 5.17-rc8
 ```
+## Rturn to usermode
+* [swapgs\_restore\_regs\_and\_return\_to\_usermode](https://github.com/torvalds/linux/blob/35ce8ae9ae2e471f92759f9d6880eab42cc1c3b6/arch/x86/entry/entry_64.S#L587)
 
 ## Structures
 ### Summary
