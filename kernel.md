@@ -79,7 +79,13 @@ Date:   Sun Mar 13 13:23:37 2022 -0700
 
 ## Variables
 ### modprobe\_path
-do\_execve &rarr; do\_execveat\_common &rarr; bprm\_execve &rarr; exec\_binprm &rarr; search\_binary\_handler
+do\_execve
+
+do\_execveat\_common
+
+bprm\_execve
+
+exec\_binprm
 
 [search\_binary\_handler](https://github.com/torvalds/linux/blob/f0bc21b268c1464603192a00851cdbbf7c2cdc36/fs/exec.c#L1739-L1743)
 
