@@ -4,7 +4,7 @@
 ![heap_trans](./heap_trans.jpg)
 
 | symbol       | description                 |
-| ------------ | --------------------------- |
+|--------------|-----------------------------|
 | arrow        | malloc                      |
 | dotted arrow | free                        |
 | red arrow    | weak path                   |
@@ -14,7 +14,7 @@
 | 1 ~ 4        | priority (1: high, 4: low)  |
 
 | path                   | method | description                                                    |
-| ---------------------- | ------ | -------------------------------------------------------------- |
+|------------------------|--------|----------------------------------------------------------------|
 | fast &rarr; malloc     | malloc | 1st chunk in fast bin when tcache is empty                     |
 | fast &rarr; tcache     | malloc | 2nd ~ 8th chunks in fast bin when tcache is empty              |
 | unsorted &rarr; tcache | malloc | 1st ~ 7th just-fit chunks in unsorted bin when tcache is empty |
@@ -25,7 +25,7 @@
 ## Bins
 
 |          | size         | type |
-| -------- | ------------ | ---- |
+|----------|--------------|------|
 | tcache   | 0x20 ~ 0x410 | FILO |
 | fast     | 0x20 ~ 0x80  | FILO |
 | unsorted | 0x20 ~       | FIFO |
@@ -42,14 +42,14 @@ however
 Therefore, if you reserve a chunk with a size larger than 0x21000, mmap will be called.
 
 | variables              | intial value |
-| ---------------------- | ------------ |
+|------------------------|--------------|
 | mp_.mmap_threshold     | 0x20000      |
 | main_arena->system_mem | 0x21000      |
 
 ## Double Free
 
 | 1st \ nth               | tcahe | fast | unsorted |
-| ----------------------- | ----- | ---- | -------- |
+|-------------------------|-------|------|----------|
 | tcache                  | X     | X    | X        |
 | fast                    | O     | O    | -        |
 | unsorted [0x20 ~ 0x80]  | O     | O    | X        |
@@ -63,7 +63,7 @@ Therefore, if you reserve a chunk with a size larger than 0x21000, mmap will be 
 ## Target
 
 | variables                                       | trigger                                         | memo                                                                                  |
-| ----------------------------------------------- | ----------------------------------------------- | ------------------------------------------------------------------------------------- |
+|-------------------------------------------------|-------------------------------------------------|---------------------------------------------------------------------------------------|
 | __malloc_hook                                   | malloc                                          |                                                                                       |
 | __free_hook                                     | free                                            |                                                                                       |
 | __realloc_hook                                  | realloc                                         |                                                                                       |

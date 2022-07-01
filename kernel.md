@@ -14,16 +14,15 @@ Date:   Sun Mar 13 13:23:37 2022 -0700
 ## Structures
 ### Summary
 
-| structure       | heap            |
-| --------------- | --------------- |
-| shm\_file\_data | kmalloc-32      |
-| seq\_operations | kmalloc-32      |
-| msg\_msg        | kmalloc-64 ~ 1k |
-| msg\_msgseg     | kmalloc-8 ~ 1k  |
-| timerfd\_ctx    | kmalloc-256     |
-| tty\_struct     | kmalloc-1024    |
-| setxattr        | kmalloc-8 ~     |
-
+| structure       | kmalloc |
+|-----------------|---------|
+| shm\_file\_data | 32      |
+| seq\_operations | 32      |
+| msg\_msg        | 64 ~ 1k |
+| msg\_msgseg     | 8 ~ 1k  |
+| timerfd\_ctx    | 256     |
+| tty\_struct     | 1024    |
+| setxattr        | 8 ~     |
 
 ### [shm\_file\_data](https://github.com/torvalds/linux/blob/85b6d24646e4125c591639841169baa98a2da503/ipc/shm.c#L83)
 * [do\_shmat](https://github.com/torvalds/linux/blob/85b6d24646e4125c591639841169baa98a2da503/ipc/shm.c#L1608)
@@ -46,7 +45,9 @@ Date:   Sun Mar 13 13:23:37 2022 -0700
 * [unix98\_pty\_init](https://github.com/torvalds/linux/blob/f6038cf46e376e21a689605e64ab5152e673ac7e/drivers/tty/pty.c#L937-L938)
 	* [tty\_default\_fops](https://github.com/torvalds/linux/blob/d6d9d17abac8d337ecb052b47e918ca9c0b4ba1b/drivers/tty/tty_io.c#L3501-L3504)
 		* [tty\_fops](https://github.com/torvalds/linux/blob/d6d9d17abac8d337ecb052b47e918ca9c0b4ba1b/drivers/tty/tty_io.c#L471-L484)
-
+* [ptmx\_open](https://github.com/torvalds/linux/blob/f6038cf46e376e21a689605e64ab5152e673ac7e/drivers/tty/pty.c#L834)
+	* [tty\_init\_dev](https://github.com/torvalds/linux/blob/d6d9d17abac8d337ecb052b47e918ca9c0b4ba1b/drivers/tty/tty_io.c#L1412)
+		* [alloc\_tty\_struct](https://github.com/torvalds/linux/blob/d6d9d17abac8d337ecb052b47e918ca9c0b4ba1b/drivers/tty/tty_io.c#L3091)
 * [tty\_ioctl(1)](https://github.com/torvalds/linux/blob/d6d9d17abac8d337ecb052b47e918ca9c0b4ba1b/drivers/tty/tty_io.c#L2662-L2665)
 	* [tty\_paranoia\_check](https://github.com/torvalds/linux/blob/d6d9d17abac8d337ecb052b47e918ca9c0b4ba1b/drivers/tty/tty_io.c#L268-L272)
 		* `#define TTY_MAGIC 0x5401`
@@ -58,6 +59,13 @@ Date:   Sun Mar 13 13:23:37 2022 -0700
 
 
 ## Variables
+### Summary
+
+| variable       | path                          |
+|----------------|-------------------------------|
+| modprobe\_path | /proc/sys/kernel/modprobe     |
+| core\_pattern  | /proc/sys/kernel/core_pattern |
+
 ### modprobe\_path
 * do\_execve
 	* do\_execveat\_common
