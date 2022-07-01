@@ -1,4 +1,4 @@
-# Heap Cheat Sheet
+# Heap Pwn Cheat Sheet
 
 ## Transition
 ![heap_trans](./heap_trans.jpg)
