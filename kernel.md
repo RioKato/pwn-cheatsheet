@@ -13,16 +13,16 @@ Date:   Sun Mar 13 13:23:37 2022 -0700
 
 ## Structures
 
-| structure       | kmalloc   |
-|-----------------|-----------|
-| shm\_file\_data | 32        |
-| seq\_operations | 32        |
-| msg\_msg        | 64 ~ 1024 |
-| msg\_msgseg     | 8 ~ 1024  |
-| timerfd\_ctx    | 256       |
-| tty\_struct     | 1024      |
-| pipe\_buffer    | 1024      |
-| setxattr        | 8 ~       |
+| structure       | slab      | flag               | memo            |
+|-----------------|-----------|--------------------|-----------------|
+| shm\_file\_data | 32        | GFP_KERNEL         |                 |
+| seq\_operations | 32        | GFP_KERNEL_ACCOUNT | /proc/self/stat |
+| msg\_msg        | 64 ~ 1024 | GFP_KERNEL_ACCOUNT |                 |
+| msg\_msgseg     | 8 ~ 1024  | GFP_KERNEL_ACCOUNT |                 |
+| timerfd\_ctx    | 256       | GFP_KERNEL         |                 |
+| tty\_struct     | 1024      | GFP_KERNEL         | /dev/ptmx       |
+| pipe\_buffer    | 1024      | GFP_KERNEL_ACCOUNT |                 |
+| setxattr        | 8 ~       | GFP_KERNEL         |                 |
 
 ### [shm\_file\_data](https://github.com/torvalds/linux/blob/85b6d24646e4125c591639841169baa98a2da503/ipc/shm.c#L83)
 * [do\_shmat](https://github.com/torvalds/linux/blob/85b6d24646e4125c591639841169baa98a2da503/ipc/shm.c#L1608)
@@ -46,6 +46,7 @@ Date:   Sun Mar 13 13:23:37 2022 -0700
 ### [timerfd\_ctx](https://github.com/torvalds/linux/blob/66f7b0c8aadd2785fc29f2c71477ebc16f4e38cc/fs/timerfd.c#L31)
 * [timerfd\_create](https://github.com/torvalds/linux/blob/66f7b0c8aadd2785fc29f2c71477ebc16f4e38cc/fs/timerfd.c#L428)
 * [timerfd\_release](https://github.com/torvalds/linux/blob/66f7b0c8aadd2785fc29f2c71477ebc16f4e38cc/fs/timerfd.c#L245)
+	* `kfree_rcu`
 
 ### [tty\_struct](https://github.com/torvalds/linux/blob/4072254f96f954ec0d34899f15d987803b6d76a2/include/linux/tty.h#L195-L200)
 * [unix98\_pty\_init](https://github.com/torvalds/linux/blob/f6038cf46e376e21a689605e64ab5152e673ac7e/drivers/tty/pty.c#L937-L938)
