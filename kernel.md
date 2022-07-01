@@ -14,15 +14,15 @@ Date:   Sun Mar 13 13:23:37 2022 -0700
 ## Structures
 ### Summary
 
-| structure       | heap         |
-| --------------- | ------------ |
-| shm\_file\_data | kmalloc-32   |
-| seq\_operations | kmalloc-32   |
-| msg\_msg        | kmalloc-64 ~ |
-| msg\_msgseg     | kmalloc-8 ~  |
-| timerfd\_ctx    | kmalloc-256  |
-| tty\_struct     | kmalloc-1024 |
-| setxattr        | kmalloc-8 ~  |
+| structure       | heap            |
+| --------------- | --------------- |
+| shm\_file\_data | kmalloc-32      |
+| seq\_operations | kmalloc-32      |
+| msg\_msg        | kmalloc-64 ~ 1k |
+| msg\_msgseg     | kmalloc-8 ~ 1k  |
+| timerfd\_ctx    | kmalloc-256     |
+| tty\_struct     | kmalloc-1024    |
+| setxattr        | kmalloc-8 ~     |
 
 
 ### [shm\_file\_data](https://github.com/torvalds/linux/blob/85b6d24646e4125c591639841169baa98a2da503/ipc/shm.c#L83)
