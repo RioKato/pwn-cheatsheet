@@ -1,5 +1,6 @@
 # Kernel Pwn Cheat Sheet
 
+
 ## Kernel Version
 ```
 commit 09688c0166e76ce2fb85e86b9d99be8b0084cdf9 (HEAD -> master, tag: v5.17-rc8, origin/master, origin/HEAD)
@@ -8,7 +9,20 @@ Date:   Sun Mar 13 13:23:37 2022 -0700
 
     Linux 5.17-rc8
 ```
+
 ## Structures
+### Summary
+| structure       | heap         |
+| ---             | ---          |
+| shm\_file\_data | kmalloc-32 ~ |
+| seq\_operations | kmalloc-32 ~ |
+| msg\_msg        | kmalloc-64 ~ |
+| msg\_msgseg     | kmalloc-8 ~  |
+| timerfd\_ctx    | kmalloc-256  |
+| tty\_struct     | kmalloc-1024 |
+| setxattr        | kmalloc-8 ~  |
+
+
 ### shm\_file\_data
 [shm\_file\_data](https://github.com/torvalds/linux/blob/85b6d24646e4125c591639841169baa98a2da503/ipc/shm.c#L83)
 
@@ -32,6 +46,13 @@ Date:   Sun Mar 13 13:23:37 2022 -0700
 
 [do\_msgrcv](https://github.com/torvalds/linux/blob/18319498fdd4cdf8c1c2c48cd432863b1f915d6f/ipc/msg.c#L1152-L1155)
 * `#define MSG_COPY 040000`
+
+### timerfd\_ctx
+[timerfd\_ctx](https://github.com/torvalds/linux/blob/66f7b0c8aadd2785fc29f2c71477ebc16f4e38cc/fs/timerfd.c#L31)
+
+[timerfd\_create](https://github.com/torvalds/linux/blob/66f7b0c8aadd2785fc29f2c71477ebc16f4e38cc/fs/timerfd.c#L428)
+
+[timerfd\_release](https://github.com/torvalds/linux/blob/66f7b0c8aadd2785fc29f2c71477ebc16f4e38cc/fs/timerfd.c#L245)
 
 ### tty\_struct
 [tty\_struct](https://github.com/torvalds/linux/blob/4072254f96f954ec0d34899f15d987803b6d76a2/include/linux/tty.h#L195-L200)
