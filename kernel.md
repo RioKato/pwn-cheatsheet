@@ -13,15 +13,16 @@ Date:   Sun Mar 13 13:23:37 2022 -0700
 
 ## Structures
 
-| structure       | kmalloc |
-|-----------------|---------|
-| shm\_file\_data | 32      |
-| seq\_operations | 32      |
-| msg\_msg        | 64 ~ 1k |
-| msg\_msgseg     | 8 ~ 1k  |
-| timerfd\_ctx    | 256     |
-| tty\_struct     | 1024    |
-| setxattr        | 8 ~     |
+| structure       | kmalloc   |
+|-----------------|-----------|
+| shm\_file\_data | 32        |
+| seq\_operations | 32        |
+| msg\_msg        | 64 ~ 1024 |
+| msg\_msgseg     | 8 ~ 1024  |
+| timerfd\_ctx    | 256       |
+| tty\_struct     | 1024      |
+| pipe\_buffer    | 1024      |
+| setxattr        | 8 ~       |
 
 ### [shm\_file\_data](https://github.com/torvalds/linux/blob/85b6d24646e4125c591639841169baa98a2da503/ipc/shm.c#L83)
 * [do\_shmat](https://github.com/torvalds/linux/blob/85b6d24646e4125c591639841169baa98a2da503/ipc/shm.c#L1608)
@@ -58,6 +59,24 @@ Date:   Sun Mar 13 13:23:37 2022 -0700
 		* `#define TTY_MAGIC 0x5401`
 	* [tty\_pair\_get\_tty](https://github.com/torvalds/linux/blob/d6d9d17abac8d337ecb052b47e918ca9c0b4ba1b/drivers/tty/tty_io.c#L2645-L2646)
 	* `tty->ops->ioctl`
+
+### [pipe\_buffer](https://github.com/torvalds/linux/blob/1998f19324d24df7de4e74d81503b4299eb99e7d/include/linux/pipe_fs_i.h#L26)
+* [do\_pipe2](https://github.com/torvalds/linux/blob/2ed147f015af2b48f41c6f0b6746aa9ea85c19f3/fs/pipe.c#L1010)
+	* [do\_pipe\_flags](https://github.com/torvalds/linux/blob/2ed147f015af2b48f41c6f0b6746aa9ea85c19f3/fs/pipe.c#L962)
+		* [create\_pipe\_files](https://github.com/torvalds/linux/blob/2ed147f015af2b48f41c6f0b6746aa9ea85c19f3/fs/pipe.c#L913)
+			* [get\_pipe\_inode](https://github.com/torvalds/linux/blob/2ed147f015af2b48f41c6f0b6746aa9ea85c19f3/fs/pipe.c#L881-L888)
+				* [alloc\_pipe\_info](https://github.com/torvalds/linux/blob/2ed147f015af2b48f41c6f0b6746aa9ea85c19f3/fs/pipe.c#L785-L808)
+			* [pipefifo\_fops](https://github.com/torvalds/linux/blob/2ed147f015af2b48f41c6f0b6746aa9ea85c19f3/fs/pipe.c#L1218)
+* [close\_fd](https://github.com/torvalds/linux/blob/e386dfc56f837da66d00a078e5314bc8382fab83/fs/file.c#L642)
+	* [filp\_close](https://github.com/torvalds/linux/blob/bd303368b776eead1c29e6cdda82bde7128b82a7/fs/open.c#L1330)
+		* fput
+			* [fput\_many](https://github.com/torvalds/linux/blob/a3580ac9b7a394a7d780448ba75cc5348d8a9e04/fs/file_table.c#L377)
+				* \_\_\_\_fput
+					* [\_\_fput](https://github.com/torvalds/linux/blob/a3580ac9b7a394a7d780448ba75cc5348d8a9e04/fs/file_table.c#L317)
+						* [pipe\_release](https://github.com/torvalds/linux/blob/2ed147f015af2b48f41c6f0b6746aa9ea85c19f3/fs/pipe.c#L734)
+							* [put\_pipe\_info](https://github.com/torvalds/linux/blob/2ed147f015af2b48f41c6f0b6746aa9ea85c19f3/fs/pipe.c#L711)
+								* [free\_pipe\_info](https://github.com/torvalds/linux/blob/2ed147f015af2b48f41c6f0b6746aa9ea85c19f3/fs/pipe.c#L844)
+									* [pipe\_buf\_release](https://github.com/torvalds/linux/blob/1998f19324d24df7de4e74d81503b4299eb99e7d/include/linux/pipe_fs_i.h#L203)
 
 ### setxattr
 * [setxattr](https://github.com/torvalds/linux/blob/6961fed420146297467efe4bc022458818839a1a/fs/xattr.c#L563-L577)
