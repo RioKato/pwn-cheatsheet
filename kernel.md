@@ -44,7 +44,7 @@ Date:   Sun Mar 13 13:23:37 2022 -0700
 * [do\_msgrcv](https://github.com/torvalds/linux/blob/18319498fdd4cdf8c1c2c48cd432863b1f915d6f/ipc/msg.c#L1152-L1155)
 	* `#define MSG_COPY 040000`
 
-## [subprocess\_info](https://github.com/torvalds/linux/blob/55e6074e3fa67e1fb9ec140904db7e6cae6eda4b/include/linux/umh.h#L19)
+### [subprocess\_info](https://github.com/torvalds/linux/blob/55e6074e3fa67e1fb9ec140904db7e6cae6eda4b/include/linux/umh.h#L19)
 * [\_\_sys\_socket](https://github.com/torvalds/linux/blob/0fc95dec096c2133942c382396172ae4487b4d57/net/socket.c#L1561)
 	* sock_create
 		* [\_\_sock\_create](https://github.com/torvalds/linux/blob/0fc95dec096c2133942c382396172ae4487b4d57/net/socket.c#L1449)
