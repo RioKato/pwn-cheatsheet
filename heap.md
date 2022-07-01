@@ -41,7 +41,7 @@ however
 
 Therefore, if you reserve a chunk with a size larger than 0x21000, mmap will be called.
 
-| variables              | intial value |
+| variable               | intial value |
 |------------------------|--------------|
 | mp_.mmap_threshold     | 0x20000      |
 | main_arena->system_mem | 0x21000      |
@@ -60,9 +60,9 @@ Therefore, if you reserve a chunk with a size larger than 0x21000, mmap will be 
 | large [0x400, 0x410]    | O     | -    | X        |
 | large [0x420 ~]         | -     | -    | X        |
 
-## Target
+## Variables
 
-| variables                                       | trigger                                         | memo                                                                                  |
+| variable                                        | trigger                                         | memo                                                                                  |
 |-------------------------------------------------|-------------------------------------------------|---------------------------------------------------------------------------------------|
 | __malloc_hook                                   | malloc                                          |                                                                                       |
 | __free_hook                                     | free                                            |                                                                                       |
