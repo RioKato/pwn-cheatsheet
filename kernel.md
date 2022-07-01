@@ -13,9 +13,9 @@ Date:   Sun Mar 13 13:23:37 2022 -0700
 ## Structures
 ### Summary
 | structure       | heap         |
-| ---             | ---          |
-| shm\_file\_data | kmalloc-32 ~ |
-| seq\_operations | kmalloc-32 ~ |
+| --------------- | ------------ |
+| shm\_file\_data | kmalloc-32   |
+| seq\_operations | kmalloc-32   |
 | msg\_msg        | kmalloc-64 ~ |
 | msg\_msgseg     | kmalloc-8 ~  |
 | timerfd\_ctx    | kmalloc-256  |
