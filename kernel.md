@@ -11,6 +11,17 @@ Date:   Sun Mar 13 13:23:37 2022 -0700
 ## Rturn to usermode
 * [swapgs\_restore\_regs\_and\_return\_to\_usermode](https://github.com/torvalds/linux/blob/35ce8ae9ae2e471f92759f9d6880eab42cc1c3b6/arch/x86/entry/entry_64.S#L587)
 
+## Kmalloc
+* [kmalloc](https://github.com/torvalds/linux/blob/93dd04ab0b2b32ae6e70284afc764c577156658e/include/linux/slab.h#L586)
+	* [\_\_kmalloc](https://github.com/torvalds/linux/blob/9c01e9af171f13cf6573f404ecaf96dfa48233ab/mm/slub.c#L4415-L4420)
+		* [kmalloc\_slab](https://github.com/torvalds/linux/blob/f56caedaf94f9ced5dbfcdb0060a3e788d2078af/mm/slab_common.c#L736)
+			* [kmalloc\_type](https://github.com/torvalds/linux/blob/93dd04ab0b2b32ae6e70284afc764c577156658e/include/linux/slab.h#L353)
+				* `__GFP_ACCOUNT -> KMALLOC_CGROUP`
+		* [slab\_alloc](https://github.com/torvalds/linux/blob/9c01e9af171f13cf6573f404ecaf96dfa48233ab/mm/slub.c#L3238)
+			* [slab\_alloc\_node](https://github.com/torvalds/linux/blob/9c01e9af171f13cf6573f404ecaf96dfa48233ab/mm/slub.c#L3185-L3222)
+				* [\_\_slab\_alloc](https://github.com/torvalds/linux/blob/9c01e9af171f13cf6573f404ecaf96dfa48233ab/mm/slub.c#L3105)
+					* [\_\_\_slab\_alloc](https://github.com/torvalds/linux/blob/9c01e9af171f13cf6573f404ecaf96dfa48233ab/mm/slub.c#L2990-L3009)
+
 ## Structures
 
 | structure        | slab      | flag               | memo                      |
