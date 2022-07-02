@@ -46,7 +46,7 @@ Date:   Sun Mar 13 13:23:37 2022 -0700
 
 ### [subprocess\_info](https://github.com/torvalds/linux/blob/55e6074e3fa67e1fb9ec140904db7e6cae6eda4b/include/linux/umh.h#L19)
 * [\_\_sys\_socket](https://github.com/torvalds/linux/blob/0fc95dec096c2133942c382396172ae4487b4d57/net/socket.c#L1561)
-	* sock_create
+	* [sock\_create](https://github.com/torvalds/linux/blob/0fc95dec096c2133942c382396172ae4487b4d57/net/socket.c#L1519)
 		* [\_\_sock\_create](https://github.com/torvalds/linux/blob/0fc95dec096c2133942c382396172ae4487b4d57/net/socket.c#L1449)
 			* [\_\_request\_module](https://github.com/torvalds/linux/blob/17652f4240f7a501ecc13e9fdb06982569cde51f/kernel/kmod.c#L170)
 				* [call\_modprobe](https://github.com/torvalds/linux/blob/17652f4240f7a501ecc13e9fdb06982569cde51f/kernel/kmod.c#L93)
@@ -84,7 +84,7 @@ Date:   Sun Mar 13 13:23:37 2022 -0700
 				* `ops->release`
 
 ### setxattr
-* [setxattr](https://github.com/torvalds/linux/blob/6961fed420146297467efe4bc022458818839a1a/fs/xattr.c#L563)
+* [setxattr](https://github.com/torvalds/linux/blob/6961fed420146297467efe4bc022458818839a1a/fs/xattr.c#L563-L577)
 
 
 ## Variables
@@ -95,10 +95,10 @@ Date:   Sun Mar 13 13:23:37 2022 -0700
 | core\_pattern  | /proc/sys/kernel/core_pattern |
 
 ### modprobe\_path
-* do\_execve
-	* do\_execveat\_common
-		* bprm\_execve
-			* exec\_binprm
+* [do\_execve](https://github.com/torvalds/linux/blob/f0bc21b268c1464603192a00851cdbbf7c2cdc36/fs/exec.c#L1994)
+	* [do\_execveat\_common](https://github.com/torvalds/linux/blob/f0bc21b268c1464603192a00851cdbbf7c2cdc36/fs/exec.c#L1926)
+		* [bprm\_execve](https://github.com/torvalds/linux/blob/f0bc21b268c1464603192a00851cdbbf7c2cdc36/fs/exec.c#L1837)
+			* [exec\_binprm](https://github.com/torvalds/linux/blob/f0bc21b268c1464603192a00851cdbbf7c2cdc36/fs/exec.c#L1768)
 				* [search\_binary\_handler](https://github.com/torvalds/linux/blob/f0bc21b268c1464603192a00851cdbbf7c2cdc36/fs/exec.c#L1739-L1743)
 					* [\_\_request\_module](https://github.com/torvalds/linux/blob/17652f4240f7a501ecc13e9fdb06982569cde51f/kernel/kmod.c#L170)
 						* [call\_modprobe](https://github.com/torvalds/linux/blob/17652f4240f7a501ecc13e9fdb06982569cde51f/kernel/kmod.c#L93-L98)
