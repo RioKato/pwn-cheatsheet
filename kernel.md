@@ -16,7 +16,9 @@ Date:   Sun Mar 13 13:23:37 2022 -0700
 	* [\_\_kmalloc](https://github.com/torvalds/linux/blob/9c01e9af171f13cf6573f404ecaf96dfa48233ab/mm/slub.c#L4415-L4420)
 		* [kmalloc\_slab](https://github.com/torvalds/linux/blob/f56caedaf94f9ced5dbfcdb0060a3e788d2078af/mm/slab_common.c#L736)
 			* [kmalloc\_type](https://github.com/torvalds/linux/blob/93dd04ab0b2b32ae6e70284afc764c577156658e/include/linux/slab.h#L353)
-				* `__GFP_ACCOUNT -> KMALLOC_CGROUP`
+				* `#define GFP_KERNEL_ACCOUNT (GFP_KERNEL | __GFP_ACCOUNT)`
+				* `GFP_KERNEL` &rarr; `KMALLOC_NORMAL`
+				* `GFP_KERNEL_ACCOUNT` &rarr; `KMALLOC_CGROUP`
 		* [slab\_alloc](https://github.com/torvalds/linux/blob/9c01e9af171f13cf6573f404ecaf96dfa48233ab/mm/slub.c#L3238)
 			* [slab\_alloc\_node](https://github.com/torvalds/linux/blob/9c01e9af171f13cf6573f404ecaf96dfa48233ab/mm/slub.c#L3185-L3222)
 				* [\_\_slab\_alloc](https://github.com/torvalds/linux/blob/9c01e9af171f13cf6573f404ecaf96dfa48233ab/mm/slub.c#L3105)
