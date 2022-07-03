@@ -51,7 +51,7 @@ Date:   Sun Mar 13 13:23:37 2022 -0700
 * [seq\_read\_iter](https://github.com/torvalds/linux/blob/372904c080be44629d84bb15ed5e12eed44b5f9f/fs/seq_file.c#L225)
 	* `m->op->start`
 
-### [msg\_msg](https://github.com/torvalds/linux/blob/34b56df922b10ac2876f268c522951785bf333fd/include/linux/msg.h#L9) / [msg\_msgseg](https://github.com/torvalds/linux/blob/137ec390fad41928307216ea9f91acf5cf6f4204/ipc/msgutil.c#L37)
+### [msg\_msg](https://github.com/torvalds/linux/blob/34b56df922b10ac2876f268c522951785bf333fd/include/linux/msg.h#L9), [msg\_msgseg](https://github.com/torvalds/linux/blob/137ec390fad41928307216ea9f91acf5cf6f4204/ipc/msgutil.c#L37)
 * [msgsnd](https://github.com/torvalds/linux/blob/18319498fdd4cdf8c1c2c48cd432863b1f915d6f/ipc/msg.c#L968)
 	* [ksys\_msgsnd](https://github.com/torvalds/linux/blob/18319498fdd4cdf8c1c2c48cd432863b1f915d6f/ipc/msg.c#L962)
 		* [do\_msgsnd](https://github.com/torvalds/linux/blob/18319498fdd4cdf8c1c2c48cd432863b1f915d6f/ipc/msg.c#L858)
@@ -90,7 +90,7 @@ Date:   Sun Mar 13 13:23:37 2022 -0700
 	* `tty->ops->ioctl`
 
 ### [pipe\_buffer](https://github.com/torvalds/linux/blob/1998f19324d24df7de4e74d81503b4299eb99e7d/include/linux/pipe_fs_i.h#L26)
-* [pipe2](https://github.com/torvalds/linux/blob/2ed147f015af2b48f41c6f0b6746aa9ea85c19f3/fs/pipe.c#L1028)
+* [pipe](https://github.com/torvalds/linux/blob/2ed147f015af2b48f41c6f0b6746aa9ea85c19f3/fs/pipe.c#L1033), [pipe2](https://github.com/torvalds/linux/blob/2ed147f015af2b48f41c6f0b6746aa9ea85c19f3/fs/pipe.c#L1028)
 	* [do\_pipe2](https://github.com/torvalds/linux/blob/2ed147f015af2b48f41c6f0b6746aa9ea85c19f3/fs/pipe.c#L1010)
 		* [do\_pipe\_flags](https://github.com/torvalds/linux/blob/2ed147f015af2b48f41c6f0b6746aa9ea85c19f3/fs/pipe.c#L962)
 			* [create\_pipe\_files](https://github.com/torvalds/linux/blob/2ed147f015af2b48f41c6f0b6746aa9ea85c19f3/fs/pipe.c#L913)
