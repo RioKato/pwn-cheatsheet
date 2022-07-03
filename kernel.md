@@ -30,8 +30,8 @@ Date:   Sun Mar 13 13:23:37 2022 -0700
 |------------------|-----------|--------------------|---------------------------|
 | shm\_file\_data  | 32        | GFP_KERNEL         |                           |
 | seq\_operations  | 32        | GFP_KERNEL_ACCOUNT | /proc/self/stat           |
-| msg\_msg         | 64 ~ 1024 | GFP_KERNEL_ACCOUNT |                           |
-| msg\_msgseg      | 8 ~ 1024  | GFP_KERNEL_ACCOUNT |                           |
+| msg\_msg         | 64 ~ 4096 | GFP_KERNEL_ACCOUNT |                           |
+| msg\_msgseg      | 8 ~ 4096  | GFP_KERNEL_ACCOUNT |                           |
 | subprocess\_info | 128       | GFP_KERNEL         | `socket(22, AF_INET, 0);` |
 | timerfd\_ctx     | 256       | GFP_KERNEL         |                           |
 | tty\_struct      | 1024      | GFP_KERNEL         | /dev/ptmx                 |
