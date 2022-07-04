@@ -62,7 +62,7 @@ Date:   Sun Mar 13 13:23:37 2022 -0700
 * gain root privileges
 	* (kernel) `commit_creds(prepare_kernel_cred(NULL));`
 * break out of namespaces
-| * (kernel) `switch_task_namespaces(find_task_by_vpid(1), init_nsproxy);`
+	* (kernel) `switch_task_namespaces(find_task_by_vpid(1), init_nsproxy);`
 	* (user) `setns(open("/proc/1/ns/mnt", O_RDONLY), 0);`
 	* (user) `setns(open("/proc/1/ns/pid", O_RDONLY), 0);`
 	* (user) `setns(open("/proc/1/ns/net", O_RDONLY), 0);`
