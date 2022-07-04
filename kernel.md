@@ -31,17 +31,19 @@ Date:   Sun Mar 13 13:23:37 2022 -0700
 * [task\_struct](https://github.com/torvalds/linux/blob/67d6212afda218d564890d1674bab28e8612170f/include/linux/sched.h#L728)
 	* [thread\_info](https://github.com/torvalds/linux/blob/5443f98fb9e06e765e24f9d894bf028accad8f71/arch/x86/include/asm/thread_info.h#L56)
 	* [cred](https://github.com/torvalds/linux/blob/c54b245d011855ea91c5beff07f1db74143ce614/include/linux/cred.h#L110)
+		* [init\_cred](https://github.com/torvalds/linux/blob/a55d07294f1e9b576093bdfa95422f8119941e83/kernel/cred.c#L41)
 	* tasks
 		* [init\_task](https://github.com/torvalds/linux/blob/71f8de7092cb2cf95e3f7055df139118d1445597/init/init_task.c#L64)
-			* [init\_cred](https://github.com/torvalds/linux/blob/a55d07294f1e9b576093bdfa95422f8119941e83/kernel/cred.c#L41)
 	* comm
 
-### Seccomp
+
+## Seccomp
 * [seccomp](https://github.com/torvalds/linux/blob/495ac3069a6235bfdf516812a2a9b256671bbdf9/kernel/seccomp.c#L1973)
 	* [do\_seccomp](https://github.com/torvalds/linux/blob/495ac3069a6235bfdf516812a2a9b256671bbdf9/kernel/seccomp.c#L1952)
 		* [seccomp\_set\_mode\_strict](https://github.com/torvalds/linux/blob/495ac3069a6235bfdf516812a2a9b256671bbdf9/kernel/seccomp.c#L1353)
 			* [seccomp\_assign\_mode](https://github.com/torvalds/linux/blob/495ac3069a6235bfdf516812a2a9b256671bbdf9/kernel/seccomp.c#L457)
 				* [set\_task\_syscall\_work](https://github.com/torvalds/linux/blob/7ad639840acf2800b5f387c495795f995a67a329/include/linux/thread_info.h#L157)
+
 
 ## Functions
 
