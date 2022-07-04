@@ -9,6 +9,17 @@ Date:   Sun Mar 13 13:23:37 2022 -0700
     Linux 5.17-rc8
 ```
 
+## Kernel config
+
+| CONFIG_KALLSYMS, CONFIG_KALLSYMS_ALL | /proc/sys/kernel/kptr_restrict             |
+| CONFIG_USERFAULTFD                   | /proc/sys/vm/unprivileged_userfaultfd      |
+| CONFIG_STATIC_USERMODEHELPER         |                                            |
+| CONFIG_SLAB_FREELIST_RANDOM          |                                            |
+| CONFIG_SLAB_FREELIST_HARDENED        |                                            |
+| CONFIG_FG_KASLR                      |                                            |
+| CONFIG_BPF                           | /proc/sys/kernel/unprivileged_bpf_disabled |
+
+
 ## Rturn to usermode
 * [swapgs\_restore\_regs\_and\_return\_to\_usermode](https://github.com/torvalds/linux/blob/35ce8ae9ae2e471f92759f9d6880eab42cc1c3b6/arch/x86/entry/entry_64.S#L587)
 
@@ -31,9 +42,9 @@ Date:   Sun Mar 13 13:23:37 2022 -0700
 * [task\_struct](https://github.com/torvalds/linux/blob/67d6212afda218d564890d1674bab28e8612170f/include/linux/sched.h#L728)
 	* [thread\_info](https://github.com/torvalds/linux/blob/5443f98fb9e06e765e24f9d894bf028accad8f71/arch/x86/include/asm/thread_info.h#L56)
 	* [cred](https://github.com/torvalds/linux/blob/c54b245d011855ea91c5beff07f1db74143ce614/include/linux/cred.h#L110)
-		* [init\_cred](https://github.com/torvalds/linux/blob/a55d07294f1e9b576093bdfa95422f8119941e83/kernel/cred.c#L41)
 	* tasks
 		* [init\_task](https://github.com/torvalds/linux/blob/71f8de7092cb2cf95e3f7055df139118d1445597/init/init_task.c#L64)
+			* [init\_cred](https://github.com/torvalds/linux/blob/a55d07294f1e9b576093bdfa95422f8119941e83/kernel/cred.c#L41)
 	* comm
 
 
@@ -45,12 +56,14 @@ Date:   Sun Mar 13 13:23:37 2022 -0700
 				* [set\_task\_syscall\_work](https://github.com/torvalds/linux/blob/7ad639840acf2800b5f387c495795f995a67a329/include/linux/thread_info.h#L157)
 
 
-## Functions
-
-| snippet                                                                                                                                                                                                         | description             |
-|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------|
-| `commit_creds(prepare_kernel_cred(NULL))`                                                                                                                                                                       | gain root privileges    |
-| `switch_task_namespaces(find_task_by_vpid(1), init_nsproxy)`<br>`setns(open("/proc/1/ns/mnt", O_RDONLY), 0);`<br>`setns(open("/proc/1/ns/pid", O_RDONLY), 0);`<br>`setns(open("/proc/1/ns/net", O_RDONLY), 0);` | break out of namespaces |
+## Snippet
+* gain root privileges
+	* (kernel) `commit_creds(prepare_kernel_cred(NULL));`
+* break out of namespaces
+| * (kernel) `switch_task_namespaces(find_task_by_vpid(1), init_nsproxy);`
+	* (user) `setns(open("/proc/1/ns/mnt", O_RDONLY), 0);`
+	* (user) `setns(open("/proc/1/ns/pid", O_RDONLY), 0);`
+	* (user) `setns(open("/proc/1/ns/net", O_RDONLY), 0);`
 
 
 ## Structures
