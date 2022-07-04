@@ -1,6 +1,6 @@
 # Kernel Pwn Cheat Sheet
 
-## Kernel Version
+## Kernel version
 ```
 commit 09688c0166e76ce2fb85e86b9d99be8b0084cdf9 (HEAD -> master, tag: v5.17-rc8, origin/master, origin/HEAD)
 Author: Linus Torvalds <torvalds@linux-foundation.org>
