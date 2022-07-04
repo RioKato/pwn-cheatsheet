@@ -1,8 +1,8 @@
 
-MD= heap.pdf kernel.pdf
+PDF= heap.pdf kernel.pdf v8.pdf
 JPG= heap_trans.jpg terminate.jpg
 
-OBJ= $(JPG) $(MD)
+OBJ= $(JPG) $(PDF)
 
 %.jpg: %.gv
 	dot -Tjpg $< -o $@
