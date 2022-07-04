@@ -47,10 +47,10 @@ Date:   Sun Mar 13 13:23:37 2022 -0700
 
 ## Functions
 
-| snippet                                                      | description             |
-|--------------------------------------------------------------|-------------------------|
-| `commit_creds(prepare_kernel_cred(NULL))`                    | gain root privileges    |
-| `switch_task_namespaces(find_task_by_vpid(1), init_nsproxy)` | break out of namespaces |
+| snippet                                                                                                                                                                                                         | description             |
+|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------|
+| `commit_creds(prepare_kernel_cred(NULL))`                                                                                                                                                                       | gain root privileges    |
+| `switch_task_namespaces(find_task_by_vpid(1), init_nsproxy)`<br>`setns(open("/proc/1/ns/mnt", O_RDONLY), 0);`<br>`setns(open("/proc/1/ns/pid", O_RDONLY), 0);`<br>`setns(open("/proc/1/ns/net", O_RDONLY), 0);` | break out of namespaces |
 
 
 ## Structures
