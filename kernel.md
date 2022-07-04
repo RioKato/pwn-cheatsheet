@@ -11,6 +11,8 @@ Date:   Sun Mar 13 13:23:37 2022 -0700
 
 ## Kernel config
 
+| config                               | path                                       |
+|--------------------------------------|--------------------------------------------|
 | CONFIG_KALLSYMS, CONFIG_KALLSYMS_ALL | /proc/sys/kernel/kptr_restrict             |
 | CONFIG_USERFAULTFD                   | /proc/sys/vm/unprivileged_userfaultfd      |
 | CONFIG_STATIC_USERMODEHELPER         |                                            |
