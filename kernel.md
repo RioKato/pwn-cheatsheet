@@ -22,9 +22,12 @@ Date:   Sun Mar 13 13:23:37 2022 -0700
 | CONFIG_BPF                           | /proc/sys/kernel/unprivileged_bpf_disabled |
 
 
-## Rturn to usermode
+## Syscall
 
-* [swapgs\_restore\_regs\_and\_return\_to\_usermode](https://github.com/torvalds/linux/blob/35ce8ae9ae2e471f92759f9d6880eab42cc1c3b6/arch/x86/entry/entry_64.S#L587)
+* [entry\_SYSCALL\_64](https://github.com/torvalds/linux/blob/35ce8ae9ae2e471f92759f9d6880eab42cc1c3b6/arch/x86/entry/entry_64.S#L87)
+	* [do\_syscall\_64](https://github.com/torvalds/linux/blob/1dfb0f47aca11350f45f8c04c3b83f0e829adfa9/arch/x86/entry/common.c#L80)
+		* [do\_syscall\_x64](https://github.com/torvalds/linux/blob/1dfb0f47aca11350f45f8c04c3b83f0e829adfa9/arch/x86/entry/common.c#L50)
+	* [swapgs\_restore\_regs\_and\_return\_to\_usermode](https://github.com/torvalds/linux/blob/35ce8ae9ae2e471f92759f9d6880eab42cc1c3b6/arch/x86/entry/entry_64.S#L587)
 
 
 ## Kmalloc
