@@ -22,6 +22,7 @@ Date:   Sun Mar 13 13:23:37 2022 -0700
 | CONFIG_SLAB_FREELIST_HARDENED        |                                            |
 | CONFIG_FG_KASLR                      |                                            |
 | CONFIG_BPF                           | /proc/sys/kernel/unprivileged_bpf_disabled |
+| CONFIG_SMP                           | multi-processor                            |
 
 
 ## Syscall
@@ -32,24 +33,35 @@ Date:   Sun Mar 13 13:23:37 2022 -0700
 	* [swapgs\_restore\_regs\_and\_return\_to\_usermode](https://github.com/torvalds/linux/blob/35ce8ae9ae2e471f92759f9d6880eab42cc1c3b6/arch/x86/entry/entry_64.S#L587)
 
 
-## Kmalloc
+## Kmalloc, Kfree
 
-* [kmalloc](https://github.com/torvalds/linux/blob/93dd04ab0b2b32ae6e70284afc764c577156658e/include/linux/slab.h#L586)
+* [kmem\_cache](https://github.com/torvalds/linux/blob/40f3bf0cb04c91d33531b1b95788ad2f0e4062cf/include/linux/slub_def.h#L91)
+	* [kmem\_cache\_cpu](https://github.com/torvalds/linux/blob/40f3bf0cb04c91d33531b1b95788ad2f0e4062cf/include/linux/slub_def.h#L49-L51)
+		* `freelist`
+		* [slab](https://github.com/torvalds/linux/blob/e3a8b6a1e70c37702054ae3c7c07ed828435d8ee/mm/slab.h#L35-L37)
+			* `slab_cache`
+			* `freelist`
+	* [kmem\_cache\_node](https://github.com/torvalds/linux/blob/e3a8b6a1e70c37702054ae3c7c07ed828435d8ee/mm/slab.h#L746)
+* [kmalloc](https://github.com/torvalds/linux/blob/93dd04ab0b2b32ae6e70284afc764c577156658e/include/linux/slab.h#L581-L583)
 	* if CONFIG_SLUB
-		* [\_\_kmalloc](https://github.com/torvalds/linux/blob/9c01e9af171f13cf6573f404ecaf96dfa48233ab/mm/slub.c#L4407)
-			* [kmalloc\_slab](https://github.com/torvalds/linux/blob/f56caedaf94f9ced5dbfcdb0060a3e788d2078af/mm/slab_common.c#L736)
-				* [kmalloc\_type](https://github.com/torvalds/linux/blob/93dd04ab0b2b32ae6e70284afc764c577156658e/include/linux/slab.h#L353)
-					* `#define GFP_KERNEL_ACCOUNT (GFP_KERNEL | __GFP_ACCOUNT)`
-					* `GFP_KERNEL` &rarr; `KMALLOC_NORMAL`
-					* `GFP_KERNEL_ACCOUNT` &rarr; `KMALLOC_CGROUP`
+		* [kmalloc\_caches](https://github.com/torvalds/linux/blob/f56caedaf94f9ced5dbfcdb0060a3e788d2078af/mm/slab_common.c#L674-L675)
+		* [kmalloc\_type](https://github.com/torvalds/linux/blob/93dd04ab0b2b32ae6e70284afc764c577156658e/include/linux/slab.h#L332)
+			* `#define GFP_KERNEL_ACCOUNT (GFP_KERNEL | __GFP_ACCOUNT)`
+			* `GFP_KERNEL` &rarr; `KMALLOC_NORMAL`
+			* `GFP_KERNEL_ACCOUNT` &rarr; `KMALLOC_CGROUP`
+		* [kmem\_cache\_alloc\_trace](https://github.com/torvalds/linux/blob/9c01e9af171f13cf6573f404ecaf96dfa48233ab/mm/slub.c#L3253)
 			* [slab\_alloc](https://github.com/torvalds/linux/blob/9c01e9af171f13cf6573f404ecaf96dfa48233ab/mm/slub.c#L3238)
-				* [slab\_alloc\_node](https://github.com/torvalds/linux/blob/9c01e9af171f13cf6573f404ecaf96dfa48233ab/mm/slub.c#L3165-L3196)
+				* [slab\_alloc\_node](https://github.com/torvalds/linux/blob/9c01e9af171f13cf6573f404ecaf96dfa48233ab/mm/slub.c#L3165-L3198)
 					* [\_\_slab\_alloc](https://github.com/torvalds/linux/blob/9c01e9af171f13cf6573f404ecaf96dfa48233ab/mm/slub.c#L3105)
 						* [\_\_\_slab\_alloc](https://github.com/torvalds/linux/blob/9c01e9af171f13cf6573f404ecaf96dfa48233ab/mm/slub.c#L2990-L3009)
+					* [get\_freepointer\_safe](https://github.com/torvalds/linux/blob/9c01e9af171f13cf6573f404ecaf96dfa48233ab/mm/slub.c#L371)
+						* [freelist\_ptr](https://github.com/torvalds/linux/blob/9c01e9af171f13cf6573f404ecaf96dfa48233ab/mm/slub.c#L334-L335)
 * if CONFIG_SLUB
 	* [kfree](https://github.com/torvalds/linux/blob/9c01e9af171f13cf6573f404ecaf96dfa48233ab/mm/slub.c#L4562)
 		* [slab\_free](https://github.com/torvalds/linux/blob/9c01e9af171f13cf6573f404ecaf96dfa48233ab/mm/slub.c#L3510)
-			* [do\_slab\_free](https://github.com/torvalds/linux/blob/9c01e9af171f13cf6573f404ecaf96dfa48233ab/mm/slub.c#L3450-L3460)
+			* [do\_slab\_free](https://github.com/torvalds/linux/blob/9c01e9af171f13cf6573f404ecaf96dfa48233ab/mm/slub.c#L3432-L3434)
+				* `likely(slab == c->slab)` &rarr; `likely(slab == slab->slab_cache->cpu_slab->slab)`
+				* [\_\_slab\_free](https://github.com/torvalds/linux/blob/9c01e9af171f13cf6573f404ecaf96dfa48233ab/mm/slub.c#L3328)
 
 
 ## Task 
