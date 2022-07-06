@@ -175,6 +175,8 @@ Date:   Sun Mar 13 13:23:37 2022 -0700
 				* [get\_pipe\_inode](https://github.com/torvalds/linux/blob/2ed147f015af2b48f41c6f0b6746aa9ea85c19f3/fs/pipe.c#L881-L888)
 					* [alloc\_pipe\_info](https://github.com/torvalds/linux/blob/2ed147f015af2b48f41c6f0b6746aa9ea85c19f3/fs/pipe.c#L785-L808)
 				* [pipefifo\_fops](https://github.com/torvalds/linux/blob/2ed147f015af2b48f41c6f0b6746aa9ea85c19f3/fs/pipe.c#L1218)
+* [pipe\_write](https://github.com/torvalds/linux/blob/2ed147f015af2b48f41c6f0b6746aa9ea85c19f3/fs/pipe.c#L522-L525)
+	* `buf->ops = &anon_pipe_buf_ops;`
 * [pipe\_release](https://github.com/torvalds/linux/blob/2ed147f015af2b48f41c6f0b6746aa9ea85c19f3/fs/pipe.c#L734)
 	* [put\_pipe\_info](https://github.com/torvalds/linux/blob/2ed147f015af2b48f41c6f0b6746aa9ea85c19f3/fs/pipe.c#L711)
 		* [free\_pipe\_info](https://github.com/torvalds/linux/blob/2ed147f015af2b48f41c6f0b6746aa9ea85c19f3/fs/pipe.c#L844)
