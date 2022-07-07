@@ -44,7 +44,7 @@ Date:   Sun Mar 13 13:23:37 2022 -0700
 			* `freelist`
 	* [kmem\_cache\_node](https://github.com/torvalds/linux/blob/e3a8b6a1e70c37702054ae3c7c07ed828435d8ee/mm/slab.h#L746)
 * [kmalloc](https://github.com/torvalds/linux/blob/93dd04ab0b2b32ae6e70284afc764c577156658e/include/linux/slab.h#L581-L583)
-	* if CONFIG_SLUB
+	* case CONFIG\_SLUB
 		* [kmalloc\_caches](https://github.com/torvalds/linux/blob/f56caedaf94f9ced5dbfcdb0060a3e788d2078af/mm/slab_common.c#L674-L675)
 		* [kmalloc\_type](https://github.com/torvalds/linux/blob/93dd04ab0b2b32ae6e70284afc764c577156658e/include/linux/slab.h#L332)
 			* `#define GFP_KERNEL_ACCOUNT (GFP_KERNEL | __GFP_ACCOUNT)`
@@ -57,7 +57,7 @@ Date:   Sun Mar 13 13:23:37 2022 -0700
 						* [\_\_\_slab\_alloc](https://github.com/torvalds/linux/blob/9c01e9af171f13cf6573f404ecaf96dfa48233ab/mm/slub.c#L2990-L3009)
 					* [get\_freepointer\_safe](https://github.com/torvalds/linux/blob/9c01e9af171f13cf6573f404ecaf96dfa48233ab/mm/slub.c#L371)
 						* [freelist\_ptr](https://github.com/torvalds/linux/blob/9c01e9af171f13cf6573f404ecaf96dfa48233ab/mm/slub.c#L334-L335)
-* if CONFIG_SLUB
+* case CONFIG\_SLUB
 	* [kfree](https://github.com/torvalds/linux/blob/9c01e9af171f13cf6573f404ecaf96dfa48233ab/mm/slub.c#L4562)
 		* [slab\_free](https://github.com/torvalds/linux/blob/9c01e9af171f13cf6573f404ecaf96dfa48233ab/mm/slub.c#L3510)
 			* [do\_slab\_free](https://github.com/torvalds/linux/blob/9c01e9af171f13cf6573f404ecaf96dfa48233ab/mm/slub.c#L3432-L3434)
@@ -80,7 +80,7 @@ Date:   Sun Mar 13 13:23:37 2022 -0700
 * [map](https://github.com/torvalds/linux/blob/251a7b3edc197a3947b8cb56fffe61d811aba0a5/Documentation/x86/x86_64/mm.rst#L45-L50)
 	* `page_offset_base`
 		* `/dev/mem`
-		* this range is returned by kmalloc
+		* this address range is returned by kmalloc
 	* `vmalloc_base`
 	* `vmemmap_base`
 * [page](https://github.com/torvalds/linux/blob/5c26f6ac9416b63d093e29c30e79b3297e425472/include/linux/mm_types.h#L72)
@@ -94,7 +94,7 @@ Date:   Sun Mar 13 13:23:37 2022 -0700
 	* [PFN\_PHYS](https://github.com/torvalds/linux/blob/b24413180f5600bcb3bb70fbed5cf186b60864bd/include/linux/pfn.h#L21)
 		* [PAGE\_SHIFT](https://github.com/torvalds/linux/blob/c164fbb40c43f8041f4d05ec9996d8ee343c92b1/arch/x86/include/asm/page_types.h#L10)
 	* [page\_to\_pfn](https://github.com/torvalds/linux/blob/bb1c50d3967f69f413b333713c2718d48d1ab7ea/include/asm-generic/memory_model.h#L52)
-		* if CONFIG\_SPARSEMEM\_VMEMMAP
+		* case CONFIG\_SPARSEMEM\_VMEMMAP
 			* [\_\_page\_to\_pfn](https://github.com/torvalds/linux/blob/bb1c50d3967f69f413b333713c2718d48d1ab7ea/include/asm-generic/memory_model.h#L26)
 				* [vmemmap](https://github.com/torvalds/linux/blob/e96ec8cf9ca12a8d6b3b896a2eccd4b92a1893ab/arch/x86/include/asm/pgtable_64.h#L256)
 					* [VMEMMAP\_START](https://github.com/torvalds/linux/blob/14df32670291588036a498051a54cd8462d7f611/arch/x86/include/asm/pgtable_64_types.h#L135)
@@ -216,10 +216,11 @@ Date:   Sun Mar 13 13:23:37 2022 -0700
 
 ## Variables
 
-| variable       | path                          |
-|----------------|-------------------------------|
-| modprobe\_path | /proc/sys/kernel/modprobe     |
-| core\_pattern  | /proc/sys/kernel/core_pattern |
+| variable       | memo                            |
+|----------------|---------------------------------|
+| modprobe\_path | /proc/sys/kernel/modprobe       |
+| core\_pattern  | /proc/sys/kernel/core_pattern   |
+| n\_tty\_ops    | (read) `scanf`, (ioctl) `fgets` |
 
 ### modprobe\_path
 
@@ -240,4 +241,12 @@ Date:   Sun Mar 13 13:23:37 2022 -0700
 	* [format\_corename](https://github.com/torvalds/linux/blob/f0bc21b268c1464603192a00851cdbbf7c2cdc36/fs/coredump.c#L199)
 	* [call\_usermodehelper\_setup](https://github.com/torvalds/linux/blob/48207f7d41c8bdae94d2aae11620ed76fee95d45/kernel/umh.c#L358)
 	* [call\_usermodehelper\_exec](https://github.com/torvalds/linux/blob/48207f7d41c8bdae94d2aae11620ed76fee95d45/kernel/umh.c#L404)
+
+
+### [n\_tty\_ops](https://github.com/torvalds/linux/blob/3593030761630e09200072a4bd06468892c27be3/drivers/tty/n_tty.c#L2392)
+
+* [tty\_struct](https://github.com/torvalds/linux/blob/4072254f96f954ec0d34899f15d987803b6d76a2/include/linux/tty.h#L204)
+	* [tty\_ldisc](https://github.com/torvalds/linux/blob/40f4268cddb93d17a11579920d940c2dca8b9445/include/linux/tty_ldisc.h#L237)
+* [n\_tty\_init](https://github.com/torvalds/linux/blob/3593030761630e09200072a4bd06468892c27be3/drivers/tty/n_tty.c#L2418)
+	* [tty\_register\_ldisc](https://github.com/torvalds/linux/blob/cbb68f91995001c79a9b89dcf6a25d22c7b92872/drivers/tty/tty_ldisc.c#L67)
 
