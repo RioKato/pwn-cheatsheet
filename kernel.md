@@ -151,7 +151,7 @@ Date:   Sun Mar 13 13:23:37 2022 -0700
 * [seq\_read\_iter](https://github.com/torvalds/linux/blob/372904c080be44629d84bb15ed5e12eed44b5f9f/fs/seq_file.c#L225)
 	* `m->op->start`
 
-## [ldt\_struct](https://github.com/torvalds/linux/blob/157807123c94acc8dcddd08a2335bd0173c5d68d/arch/x86/include/asm/mmu_context.h#L36)
+### [ldt\_struct](https://github.com/torvalds/linux/blob/157807123c94acc8dcddd08a2335bd0173c5d68d/arch/x86/include/asm/mmu_context.h#L36)
 
 * [modify\_ldt](https://github.com/torvalds/linux/blob/ec403e2ae0dfc85996aad6e944a98a16e6dfcc6d/arch/x86/kernel/ldt.c#L665-L666)
 	* [write\_ldt](https://github.com/torvalds/linux/blob/ec403e2ae0dfc85996aad6e944a98a16e6dfcc6d/arch/x86/kernel/ldt.c#L625)
