@@ -11,18 +11,18 @@ Date:   Sun Mar 13 13:23:37 2022 -0700
 
 ## Kernel config
 
-| config                               | memo                                       |
-|--------------------------------------|--------------------------------------------|
-| CONFIG_KALLSYMS, CONFIG_KALLSYMS_ALL | /proc/sys/kernel/kptr_restrict             |
-| CONFIG_USERFAULTFD                   | /proc/sys/vm/unprivileged_userfaultfd      |
-| CONFIG_STATIC_USERMODEHELPER         |                                            |
-| CONFIG_SLUB                          | default allocator                          |
-| CONFIG_SLAB                          |                                            |
-| CONFIG_SLAB_FREELIST_RANDOM          |                                            |
-| CONFIG_SLAB_FREELIST_HARDENED        |                                            |
-| CONFIG_FG_KASLR                      |                                            |
-| CONFIG_BPF                           | /proc/sys/kernel/unprivileged_bpf_disabled |
-| CONFIG_SMP                           | multi-processor                            |
+| config                        | memo                                       |
+|-------------------------------|--------------------------------------------|
+| CONFIG_KALLSYMS               | /proc/sys/kernel/kptr_restrict             |
+| CONFIG_USERFAULTFD            | /proc/sys/vm/unprivileged_userfaultfd      |
+| CONFIG_STATIC_USERMODEHELPER  |                                            |
+| CONFIG_SLUB                   | default allocator                          |
+| CONFIG_SLAB                   |                                            |
+| CONFIG_SLAB_FREELIST_RANDOM   |                                            |
+| CONFIG_SLAB_FREELIST_HARDENED |                                            |
+| CONFIG_FG_KASLR               |                                            |
+| CONFIG_BPF                    | /proc/sys/kernel/unprivileged_bpf_disabled |
+| CONFIG_SMP                    | multi-processor                            |
 
 
 ## Syscall
