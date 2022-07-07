@@ -81,8 +81,8 @@ Date:   Sun Mar 13 13:23:37 2022 -0700
 
 * [map](https://github.com/torvalds/linux/blob/251a7b3edc197a3947b8cb56fffe61d811aba0a5/Documentation/x86/x86_64/mm.rst#L45-L50)
 	* `page_offset_base`
-		* `/dev/mem`
-		* this address range is returned by kmalloc
+		* heap base address (by kmalloc) and is mapped to /dev/mem
+		* `secondary_startup_64` can be found at `page_offset_base + offset`
 	* `vmalloc_base`
 	* `vmemmap_base`
 * [page](https://github.com/torvalds/linux/blob/5c26f6ac9416b63d093e29c30e79b3297e425472/include/linux/mm_types.h#L72)
