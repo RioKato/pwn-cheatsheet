@@ -125,9 +125,9 @@ Date:   Sun Mar 13 13:23:37 2022 -0700
 
 | structure        | size          | flag (v5.14+)      | memo                      |
 |------------------|---------------|--------------------|---------------------------|
+| ldt\_struct      | 16            | GFP_KERNEL_ACCOUNT |                           |
 | shm\_file\_data  | 32            | GFP_KERNEL         |                           |
 | seq\_operations  | 32            | GFP_KERNEL_ACCOUNT | /proc/self/stat           |
-| ldt\_struct      | 16            | GFP_KERNEL_ACCOUNT |                           |
 | msg\_msg         | 48 ~ 4096     | GFP_KERNEL_ACCOUNT |                           |
 | msg\_msgseg      | 8 ~ 4096      | GFP_KERNEL_ACCOUNT |                           |
 | subprocess\_info | 96            | GFP_KERNEL         | `socket(22, AF_INET, 0);` |
