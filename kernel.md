@@ -46,7 +46,7 @@ Date:   Sun Mar 13 13:23:37 2022 -0700
 * [kmalloc](https://github.com/torvalds/linux/blob/93dd04ab0b2b32ae6e70284afc764c577156658e/include/linux/slab.h#L581-L583)
 	* case CONFIG\_SLUB
 		* [kmalloc\_index](https://github.com/torvalds/linux/blob/93dd04ab0b2b32ae6e70284afc764c577156658e/include/linux/slab.h#L414)
-			* [\_\_kmalloc\\_index](https://github.com/torvalds/linux/blob/93dd04ab0b2b32ae6e70284afc764c577156658e/include/linux/slab.h#L369-L370)
+			* [\_\_kmalloc\_index](https://github.com/torvalds/linux/blob/93dd04ab0b2b32ae6e70284afc764c577156658e/include/linux/slab.h#L369-L370)
 		* [kmalloc\_caches](https://github.com/torvalds/linux/blob/f56caedaf94f9ced5dbfcdb0060a3e788d2078af/mm/slab_common.c#L674-L675)
 		* [kmalloc\_type](https://github.com/torvalds/linux/blob/93dd04ab0b2b32ae6e70284afc764c577156658e/include/linux/slab.h#L332)
 			* `#define GFP_KERNEL_ACCOUNT (GFP_KERNEL | __GFP_ACCOUNT)`
