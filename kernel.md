@@ -123,18 +123,28 @@ Date:   Sun Mar 13 13:23:37 2022 -0700
 
 ## Structures
 
-| structure        | slab                 | flag (v5.14+)      | memo                      |
-|------------------|----------------------|--------------------|---------------------------|
-| shm\_file\_data  | 32                   | GFP_KERNEL         |                           |
-| seq\_operations  | 32                   | GFP_KERNEL_ACCOUNT | /proc/self/stat           |
-| ldt\_struct      | (slub) 16, (slab) 32 | GFP_KERNEL_ACCOUNT |                           |
-| msg\_msg         | 64 ~ 4096            | GFP_KERNEL_ACCOUNT |                           |
-| msg\_msgseg      | 8 ~ 4096             | GFP_KERNEL_ACCOUNT |                           |
-| subprocess\_info | 128                  | GFP_KERNEL         | `socket(22, AF_INET, 0);` |
-| timerfd\_ctx     | 256                  | GFP_KERNEL         |                           |
-| tty\_struct      | 1024                 | GFP_KERNEL         | /dev/ptmx                 |
-| pipe\_buffer     | 1024                 | GFP_KERNEL_ACCOUNT |                           |
-| setxattr         | 8 ~                  | GFP_KERNEL         |                           |
+| structure        | size          | flag (v5.14+)      | memo                      |
+|------------------|---------------|--------------------|---------------------------|
+| shm\_file\_data  | 32            | GFP_KERNEL         |                           |
+| seq\_operations  | 32            | GFP_KERNEL_ACCOUNT | /proc/self/stat           |
+| ldt\_struct      | 16            | GFP_KERNEL_ACCOUNT |                           |
+| msg\_msg         | 48 ~ 4096     | GFP_KERNEL_ACCOUNT |                           |
+| msg\_msgseg      | 8 ~ 4096      | GFP_KERNEL_ACCOUNT |                           |
+| subprocess\_info | 96            | GFP_KERNEL         | `socket(22, AF_INET, 0);` |
+| timerfd\_ctx     | 216           | GFP_KERNEL         |                           |
+| tty\_struct      | 696           | GFP_KERNEL         | /dev/ptmx                 |
+| pipe\_buffer     | 640 = 40 x 16 | GFP_KERNEL_ACCOUNT |                           |
+| setxattr         | 0 ~           | GFP_KERNEL         |                           |
+
+### [ldt\_struct](https://github.com/torvalds/linux/blob/157807123c94acc8dcddd08a2335bd0173c5d68d/arch/x86/include/asm/mmu_context.h#L36)
+
+* [modify\_ldt](https://github.com/torvalds/linux/blob/ec403e2ae0dfc85996aad6e944a98a16e6dfcc6d/arch/x86/kernel/ldt.c#L665-L666)
+	* [write\_ldt](https://github.com/torvalds/linux/blob/ec403e2ae0dfc85996aad6e944a98a16e6dfcc6d/arch/x86/kernel/ldt.c#L625)
+		* [alloc\_ldt\_struct](https://github.com/torvalds/linux/blob/ec403e2ae0dfc85996aad6e944a98a16e6dfcc6d/arch/x86/kernel/ldt.c#L157)
+	* [read\_ldt](https://github.com/torvalds/linux/blob/ec403e2ae0dfc85996aad6e944a98a16e6dfcc6d/arch/x86/kernel/ldt.c#L520-L523)
+		* [desc\_struct](https://github.com/torvalds/linux/blob/097ee5b778b8970e1c2ed3ca1631b297d90acd61/arch/x86/include/asm/desc_defs.h#L16)
+		* `copy_to_user`
+			* copy_to_user won't panic the kernel when accessing wrong address
 
 ### [shm\_file\_data](https://github.com/torvalds/linux/blob/85b6d24646e4125c591639841169baa98a2da503/ipc/shm.c#L83)
 
@@ -150,16 +160,6 @@ Date:   Sun Mar 13 13:23:37 2022 -0700
 		* [single\_open](https://github.com/torvalds/linux/blob/372904c080be44629d84bb15ed5e12eed44b5f9f/fs/seq_file.c#L575)
 * [seq\_read\_iter](https://github.com/torvalds/linux/blob/372904c080be44629d84bb15ed5e12eed44b5f9f/fs/seq_file.c#L225)
 	* `m->op->start`
-
-### [ldt\_struct](https://github.com/torvalds/linux/blob/157807123c94acc8dcddd08a2335bd0173c5d68d/arch/x86/include/asm/mmu_context.h#L36)
-
-* [modify\_ldt](https://github.com/torvalds/linux/blob/ec403e2ae0dfc85996aad6e944a98a16e6dfcc6d/arch/x86/kernel/ldt.c#L665-L666)
-	* [write\_ldt](https://github.com/torvalds/linux/blob/ec403e2ae0dfc85996aad6e944a98a16e6dfcc6d/arch/x86/kernel/ldt.c#L625)
-		* [alloc\_ldt\_struct](https://github.com/torvalds/linux/blob/ec403e2ae0dfc85996aad6e944a98a16e6dfcc6d/arch/x86/kernel/ldt.c#L157)
-	* [read\_ldt](https://github.com/torvalds/linux/blob/ec403e2ae0dfc85996aad6e944a98a16e6dfcc6d/arch/x86/kernel/ldt.c#L520-L523)
-		* [desc\_struct](https://github.com/torvalds/linux/blob/097ee5b778b8970e1c2ed3ca1631b297d90acd61/arch/x86/include/asm/desc_defs.h#L16)
-		* `copy_to_user`
-			* copy_to_user won't panic the kernel when accessing wrong address
 
 ### [msg\_msg](https://github.com/torvalds/linux/blob/34b56df922b10ac2876f268c522951785bf333fd/include/linux/msg.h#L9), [msg\_msgseg](https://github.com/torvalds/linux/blob/137ec390fad41928307216ea9f91acf5cf6f4204/ipc/msgutil.c#L37)
 
@@ -211,6 +211,7 @@ Date:   Sun Mar 13 13:23:37 2022 -0700
 			* [create\_pipe\_files](https://github.com/torvalds/linux/blob/2ed147f015af2b48f41c6f0b6746aa9ea85c19f3/fs/pipe.c#L913)
 				* [get\_pipe\_inode](https://github.com/torvalds/linux/blob/2ed147f015af2b48f41c6f0b6746aa9ea85c19f3/fs/pipe.c#L881-L888)
 					* [alloc\_pipe\_info](https://github.com/torvalds/linux/blob/2ed147f015af2b48f41c6f0b6746aa9ea85c19f3/fs/pipe.c#L785-L808)
+						* `#define PIPE_DEF_BUFFERS 16`
 				* [pipefifo\_fops](https://github.com/torvalds/linux/blob/2ed147f015af2b48f41c6f0b6746aa9ea85c19f3/fs/pipe.c#L1218)
 * [pipe\_write](https://github.com/torvalds/linux/blob/2ed147f015af2b48f41c6f0b6746aa9ea85c19f3/fs/pipe.c#L522-L525)
 	* `buf->ops = &anon_pipe_buf_ops;`
