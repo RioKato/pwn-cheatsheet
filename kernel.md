@@ -132,8 +132,8 @@ Date:   Sun Mar 13 13:23:37 2022 -0700
 | msg\_msgseg      | 8 ~ 4096      | GFP_KERNEL_ACCOUNT |                           |
 | subprocess\_info | 96            | GFP_KERNEL         | `socket(22, AF_INET, 0);` |
 | timerfd\_ctx     | 216           | GFP_KERNEL         |                           |
-| tty\_struct      | 696           | GFP_KERNEL         | /dev/ptmx                 |
 | pipe\_buffer     | 640 = 40 x 16 | GFP_KERNEL_ACCOUNT |                           |
+| tty\_struct      | 696           | GFP_KERNEL         | /dev/ptmx                 |
 | setxattr         | 0 ~           | GFP_KERNEL         |                           |
 
 ### [ldt\_struct](https://github.com/torvalds/linux/blob/157807123c94acc8dcddd08a2335bd0173c5d68d/arch/x86/include/asm/mmu_context.h#L36)
@@ -189,20 +189,6 @@ Date:   Sun Mar 13 13:23:37 2022 -0700
 * [timerfd\_release](https://github.com/torvalds/linux/blob/66f7b0c8aadd2785fc29f2c71477ebc16f4e38cc/fs/timerfd.c#L245)
 	* `kfree_rcu`
 
-### [tty\_struct](https://github.com/torvalds/linux/blob/4072254f96f954ec0d34899f15d987803b6d76a2/include/linux/tty.h#L195)
-
-* [unix98\_pty\_init](https://github.com/torvalds/linux/blob/f6038cf46e376e21a689605e64ab5152e673ac7e/drivers/tty/pty.c#L937-L938)
-	* [tty\_default\_fops](https://github.com/torvalds/linux/blob/d6d9d17abac8d337ecb052b47e918ca9c0b4ba1b/drivers/tty/tty_io.c#L3501-L3504)
-		* [tty\_fops](https://github.com/torvalds/linux/blob/d6d9d17abac8d337ecb052b47e918ca9c0b4ba1b/drivers/tty/tty_io.c#L471-L484)
-* [ptmx\_open](https://github.com/torvalds/linux/blob/f6038cf46e376e21a689605e64ab5152e673ac7e/drivers/tty/pty.c#L834)
-	* [tty\_init\_dev](https://github.com/torvalds/linux/blob/d6d9d17abac8d337ecb052b47e918ca9c0b4ba1b/drivers/tty/tty_io.c#L1412)
-		* [alloc\_tty\_struct](https://github.com/torvalds/linux/blob/d6d9d17abac8d337ecb052b47e918ca9c0b4ba1b/drivers/tty/tty_io.c#L3091)
-* [tty\_ioctl](https://github.com/torvalds/linux/blob/d6d9d17abac8d337ecb052b47e918ca9c0b4ba1b/drivers/tty/tty_io.c#L2662-L2781)
-	* [tty\_paranoia\_check](https://github.com/torvalds/linux/blob/d6d9d17abac8d337ecb052b47e918ca9c0b4ba1b/drivers/tty/tty_io.c#L268-L272)
-		* `#define TTY_MAGIC 0x5401`
-	* [tty\_pair\_get\_tty](https://github.com/torvalds/linux/blob/d6d9d17abac8d337ecb052b47e918ca9c0b4ba1b/drivers/tty/tty_io.c#L2645-L2646)
-	* `tty->ops->ioctl`
-
 ### [pipe\_buffer](https://github.com/torvalds/linux/blob/1998f19324d24df7de4e74d81503b4299eb99e7d/include/linux/pipe_fs_i.h#L26)
 
 * [pipe](https://github.com/torvalds/linux/blob/2ed147f015af2b48f41c6f0b6746aa9ea85c19f3/fs/pipe.c#L1033), [pipe2](https://github.com/torvalds/linux/blob/2ed147f015af2b48f41c6f0b6746aa9ea85c19f3/fs/pipe.c#L1028)
@@ -220,6 +206,20 @@ Date:   Sun Mar 13 13:23:37 2022 -0700
 		* [free\_pipe\_info](https://github.com/torvalds/linux/blob/2ed147f015af2b48f41c6f0b6746aa9ea85c19f3/fs/pipe.c#L844)
 			* [pipe\_buf\_release](https://github.com/torvalds/linux/blob/1998f19324d24df7de4e74d81503b4299eb99e7d/include/linux/pipe_fs_i.h#L203)
 				* `ops->release`
+
+### [tty\_struct](https://github.com/torvalds/linux/blob/4072254f96f954ec0d34899f15d987803b6d76a2/include/linux/tty.h#L195)
+
+* [unix98\_pty\_init](https://github.com/torvalds/linux/blob/f6038cf46e376e21a689605e64ab5152e673ac7e/drivers/tty/pty.c#L937-L938)
+	* [tty\_default\_fops](https://github.com/torvalds/linux/blob/d6d9d17abac8d337ecb052b47e918ca9c0b4ba1b/drivers/tty/tty_io.c#L3501-L3504)
+		* [tty\_fops](https://github.com/torvalds/linux/blob/d6d9d17abac8d337ecb052b47e918ca9c0b4ba1b/drivers/tty/tty_io.c#L471-L484)
+* [ptmx\_open](https://github.com/torvalds/linux/blob/f6038cf46e376e21a689605e64ab5152e673ac7e/drivers/tty/pty.c#L834)
+	* [tty\_init\_dev](https://github.com/torvalds/linux/blob/d6d9d17abac8d337ecb052b47e918ca9c0b4ba1b/drivers/tty/tty_io.c#L1412)
+		* [alloc\_tty\_struct](https://github.com/torvalds/linux/blob/d6d9d17abac8d337ecb052b47e918ca9c0b4ba1b/drivers/tty/tty_io.c#L3091)
+* [tty\_ioctl](https://github.com/torvalds/linux/blob/d6d9d17abac8d337ecb052b47e918ca9c0b4ba1b/drivers/tty/tty_io.c#L2662-L2781)
+	* [tty\_paranoia\_check](https://github.com/torvalds/linux/blob/d6d9d17abac8d337ecb052b47e918ca9c0b4ba1b/drivers/tty/tty_io.c#L268-L272)
+		* `#define TTY_MAGIC 0x5401`
+	* [tty\_pair\_get\_tty](https://github.com/torvalds/linux/blob/d6d9d17abac8d337ecb052b47e918ca9c0b4ba1b/drivers/tty/tty_io.c#L2645-L2646)
+	* `tty->ops->ioctl`
 
 ### setxattr
 
