@@ -75,8 +75,14 @@ Date:   Sun Mar 13 13:23:37 2022 -0700
 			* [init\_cred](https://github.com/torvalds/linux/blob/a55d07294f1e9b576093bdfa95422f8119941e83/kernel/cred.c#L41)
 	* comm
 
-## Physmem
+## Mapping
 
+* [map](https://github.com/torvalds/linux/blob/251a7b3edc197a3947b8cb56fffe61d811aba0a5/Documentation/x86/x86_64/mm.rst#L45-L50)
+	* `page_offset_base`
+		* `/dev/mem`
+		* this range is returned by kmalloc
+	* `vmalloc_base`
+	* `vmemmap_base`
 * [page](https://github.com/torvalds/linux/blob/5c26f6ac9416b63d093e29c30e79b3297e425472/include/linux/mm_types.h#L72)
 	* `sizeof(struct page) == 64`
 * [vmalloc\_to\_page](https://github.com/torvalds/linux/blob/30d3f01191d305c99e8b3f8b1b328fc852270c95/mm/vmalloc.c#L647)
