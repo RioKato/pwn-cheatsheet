@@ -225,6 +225,7 @@ Date:   Sun Mar 13 13:23:37 2022 -0700
 * [setxattr](https://github.com/torvalds/linux/blob/6961fed420146297467efe4bc022458818839a1a/fs/xattr.c#L607)
 	* [path\_setxattr](https://github.com/torvalds/linux/blob/6961fed420146297467efe4bc022458818839a1a/fs/xattr.c#L595-L596)
 		* [setxattr](https://github.com/torvalds/linux/blob/6961fed420146297467efe4bc022458818839a1a/fs/xattr.c#L563-L577)
+			* `vfs_setxattr` may fail. but it's not problem
 
 
 ## Variables
