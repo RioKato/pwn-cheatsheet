@@ -36,7 +36,9 @@ Date:   Sun Mar 13 13:23:37 2022 -0700
 
 ## Kmalloc, Kfree
 
-* [kmem\_cache](https://github.com/torvalds/linux/blob/40f3bf0cb04c91d33531b1b95788ad2f0e4062cf/include/linux/slub_def.h#L91)
+* [kmem\_cache](https://github.com/torvalds/linux/blob/40f3bf0cb04c91d33531b1b95788ad2f0e4062cf/include/linux/slub_def.h#L90)
+	* `offset`
+	* `random`
 	* [kmem\_cache\_cpu](https://github.com/torvalds/linux/blob/40f3bf0cb04c91d33531b1b95788ad2f0e4062cf/include/linux/slub_def.h#L49-L51)
 		* `freelist`
 		* [slab](https://github.com/torvalds/linux/blob/e3a8b6a1e70c37702054ae3c7c07ed828435d8ee/mm/slab.h#L35-L37)
@@ -57,7 +59,7 @@ Date:   Sun Mar 13 13:23:37 2022 -0700
 				* [slab\_alloc\_node](https://github.com/torvalds/linux/blob/9c01e9af171f13cf6573f404ecaf96dfa48233ab/mm/slub.c#L3165-L3198)
 					* [\_\_slab\_alloc](https://github.com/torvalds/linux/blob/9c01e9af171f13cf6573f404ecaf96dfa48233ab/mm/slub.c#L3105)
 						* [\_\_\_slab\_alloc](https://github.com/torvalds/linux/blob/9c01e9af171f13cf6573f404ecaf96dfa48233ab/mm/slub.c#L2990-L3009)
-					* [get\_freepointer\_safe](https://github.com/torvalds/linux/blob/9c01e9af171f13cf6573f404ecaf96dfa48233ab/mm/slub.c#L371)
+					* [get\_freepointer\_safe](https://github.com/torvalds/linux/blob/9c01e9af171f13cf6573f404ecaf96dfa48233ab/mm/slub.c#L369-L371)
 						* [freelist\_ptr](https://github.com/torvalds/linux/blob/9c01e9af171f13cf6573f404ecaf96dfa48233ab/mm/slub.c#L334-L335)
 * case CONFIG\_SLUB
 	* [kfree](https://github.com/torvalds/linux/blob/9c01e9af171f13cf6573f404ecaf96dfa48233ab/mm/slub.c#L4562)
