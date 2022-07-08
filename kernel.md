@@ -77,10 +77,11 @@ Date:   Sun Mar 13 13:23:37 2022 -0700
 * [task\_struct](https://github.com/torvalds/linux/blob/67d6212afda218d564890d1674bab28e8612170f/include/linux/sched.h#L728)
 	* [thread\_info](https://github.com/torvalds/linux/blob/5443f98fb9e06e765e24f9d894bf028accad8f71/arch/x86/include/asm/thread_info.h#L56)
 	* [cred](https://github.com/torvalds/linux/blob/c54b245d011855ea91c5beff07f1db74143ce614/include/linux/cred.h#L110)
-	* tasks
+	* `tasks`
 		* [init\_task](https://github.com/torvalds/linux/blob/71f8de7092cb2cf95e3f7055df139118d1445597/init/init_task.c#L64)
 			* [init\_cred](https://github.com/torvalds/linux/blob/a55d07294f1e9b576093bdfa95422f8119941e83/kernel/cred.c#L41)
-	* comm
+	* `comm`
+		* `prctl(PR_SET_NAME, name);`
 
 ## Mapping
 
@@ -150,7 +151,7 @@ Date:   Sun Mar 13 13:23:37 2022 -0700
 	* [read\_ldt](https://github.com/torvalds/linux/blob/ec403e2ae0dfc85996aad6e944a98a16e6dfcc6d/arch/x86/kernel/ldt.c#L520-L523)
 		* [desc\_struct](https://github.com/torvalds/linux/blob/097ee5b778b8970e1c2ed3ca1631b297d90acd61/arch/x86/include/asm/desc_defs.h#L16)
 		* `copy_to_user`
-			* copy_to_user won't panic the kernel when accessing wrong address
+			* `copy_to_user` won't panic the kernel when accessing wrong address
 
 ### [shm\_file\_data](https://github.com/torvalds/linux/blob/85b6d24646e4125c591639841169baa98a2da503/ipc/shm.c#L83)
 
