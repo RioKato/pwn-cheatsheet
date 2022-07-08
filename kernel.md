@@ -114,6 +114,9 @@ Date:   Sun Mar 13 13:23:37 2022 -0700
 					* [\_\_\_\_cache\_alloc](https://github.com/torvalds/linux/blob/6e48a966dfd18987fec9385566a67d36e2b5fc11/mm/slab.c#L3023)
 						* [cache\_alloc\_refill](https://github.com/torvalds/linux/blob/6e48a966dfd18987fec9385566a67d36e2b5fc11/mm/slab.c#L2891)
 					* [\_\_\_\_cache_alloc_node](https://github.com/torvalds/linux/blob/6e48a966dfd18987fec9385566a67d36e2b5fc11/mm/slab.c#L3156)
+						* [cache\_grow\_begin](https://github.com/torvalds/linux/blob/6e48a966dfd18987fec9385566a67d36e2b5fc11/mm/slab.c#L2618)
+							* [cache\_init\_objs](https://github.com/torvalds/linux/blob/6e48a966dfd18987fec9385566a67d36e2b5fc11/mm/slab.c#L2496)
+								* [shuffle\_freelist](https://github.com/torvalds/linux/blob/6e48a966dfd18987fec9385566a67d36e2b5fc11/mm/slab.c#L2432)
 
 ### kfree
 
