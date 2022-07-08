@@ -1,5 +1,32 @@
 # Kernel Pwn Cheat Sheet
 
+- [Kernel version](#kernel-version)
+- [Kernel config](#kernel-config)
+- [Syscall](#syscall)
+- [Memory allocator](#memory-allocator)
+	- [kmem\_cache](#kmem_cache)
+	- [kmalloc](#kmalloc)
+	- [kfree](#kfree)
+- [Task](#task)
+- [Mapping](#mapping)
+- [Seccomp](#seccomp)
+- [Snippet](#snippet)
+- [Structures](#structures)
+	- [ldt\_struct](#ldt_struct)
+	- [shm\_file\_data](#shm_file_data)
+	- [seq_operations](#seq_operations)
+	- [msg\_msg, msg\_msgseg](#msg_msg-msg_msgseg)
+	- [subprocess\_info](#subprocess_info)
+	- [timerfd\_ctx](#timerfd_ctx)
+	- [pipe\_buffer](#pipe_buffer)
+	- [tty\_struct](#tty_struct)
+	- [setxattr](#setxattr)
+	- [sk\_buff](#sk_buff)
+- [Variables](#variables)
+	- [modprobe\_path](#modprobe_path)
+	- [core\_pattern](#core_pattern)
+	- [n\_tty\_ops](#n_tty_ops)
+
 ## Kernel version
 ```
 commit 09688c0166e76ce2fb85e86b9d99be8b0084cdf9 (HEAD -> master, tag: v5.17-rc8, origin/master, origin/HEAD)
@@ -12,7 +39,7 @@ Date:   Sun Mar 13 13:23:37 2022 -0700
 ## Kernel config
 
 | config                        | memo                                       |
-|-------------------------------|--------------------------------------------|
+| ----------------------------- | ------------------------------------------ |
 | CONFIG_KALLSYMS               | /proc/sys/kernel/kptr_restrict             |
 | CONFIG_USERFAULTFD            | /proc/sys/vm/unprivileged_userfaultfd      |
 | CONFIG_STATIC_USERMODEHELPER  |                                            |
@@ -35,7 +62,9 @@ Date:   Sun Mar 13 13:23:37 2022 -0700
 	* [swapgs\_restore\_regs\_and\_return\_to\_usermode](https://github.com/torvalds/linux/blob/35ce8ae9ae2e471f92759f9d6880eab42cc1c3b6/arch/x86/entry/entry_64.S#L587)
 
 
-## Kmalloc, Kfree
+## Memory allocator
+
+### kmem\_cache
 
 * *case CONFIG\_SLUB*
 	* [kmem\_cache](https://github.com/torvalds/linux/blob/40f3bf0cb04c91d33531b1b95788ad2f0e4062cf/include/linux/slub_def.h#L90)
@@ -51,6 +80,9 @@ Date:   Sun Mar 13 13:23:37 2022 -0700
 	* [kmem\_cache](https://github.com/torvalds/linux/blob/40f3bf0cb04c91d33531b1b95788ad2f0e4062cf/include/linux/slab_def.h#L12)
 		* [array\_cache](https://github.com/torvalds/linux/blob/6e48a966dfd18987fec9385566a67d36e2b5fc11/mm/slab.c#L185)
 		* [kmem\_cache\_node](https://github.com/torvalds/linux/blob/e3a8b6a1e70c37702054ae3c7c07ed828435d8ee/mm/slab.h#L746)
+
+### kmalloc
+
 * [kmalloc](https://github.com/torvalds/linux/blob/93dd04ab0b2b32ae6e70284afc764c577156658e/include/linux/slab.h#L581-L583)
 	* [kmalloc\_index](https://github.com/torvalds/linux/blob/93dd04ab0b2b32ae6e70284afc764c577156658e/include/linux/slab.h#L414)
 		* [\_\_kmalloc\_index](https://github.com/torvalds/linux/blob/93dd04ab0b2b32ae6e70284afc764c577156658e/include/linux/slab.h#L369-L370)
@@ -82,6 +114,9 @@ Date:   Sun Mar 13 13:23:37 2022 -0700
 					* [\_\_\_\_cache\_alloc](https://github.com/torvalds/linux/blob/6e48a966dfd18987fec9385566a67d36e2b5fc11/mm/slab.c#L3023)
 						* [cache\_alloc\_refill](https://github.com/torvalds/linux/blob/6e48a966dfd18987fec9385566a67d36e2b5fc11/mm/slab.c#L2891)
 					* [\_\_\_\_cache_alloc_node](https://github.com/torvalds/linux/blob/6e48a966dfd18987fec9385566a67d36e2b5fc11/mm/slab.c#L3156)
+
+### kfree
+
 * *case CONFIG\_SLUB*
 	* [kfree](https://github.com/torvalds/linux/blob/9c01e9af171f13cf6573f404ecaf96dfa48233ab/mm/slub.c#L4562)
 		* [slab\_free](https://github.com/torvalds/linux/blob/9c01e9af171f13cf6573f404ecaf96dfa48233ab/mm/slub.c#L3510)
@@ -155,7 +190,7 @@ Date:   Sun Mar 13 13:23:37 2022 -0700
 ## Structures
 
 | structure        | size          | flag (v5.14+)      | memo                      |
-|------------------|---------------|--------------------|---------------------------|
+| ---------------- | ------------- | ------------------ | ------------------------- |
 | ldt\_struct      | 16            | GFP_KERNEL_ACCOUNT |                           |
 | shm\_file\_data  | 32            | GFP_KERNEL         |                           |
 | seq\_operations  | 32            | GFP_KERNEL_ACCOUNT | /proc/self/stat           |
@@ -283,7 +318,7 @@ Date:   Sun Mar 13 13:23:37 2022 -0700
 ## Variables
 
 | variable       | memo                            |
-|----------------|---------------------------------|
+| -------------- | ------------------------------- |
 | modprobe\_path | /proc/sys/kernel/modprobe       |
 | core\_pattern  | /proc/sys/kernel/core_pattern   |
 | n\_tty\_ops    | (read) `scanf`, (ioctl) `fgets` |
