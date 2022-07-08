@@ -135,6 +135,7 @@ Date:   Sun Mar 13 13:23:37 2022 -0700
 | pipe\_buffer     | 640 = 40 x 16 | GFP_KERNEL_ACCOUNT |                           |
 | tty\_struct      | 696           | GFP_KERNEL         | /dev/ptmx                 |
 | setxattr         | 0 ~           | GFP_KERNEL         |                           |
+| sk\_buff         | 320 ~         | GFP_KERNEL_ACCOUNT |                           |
 
 ### [ldt\_struct](https://github.com/torvalds/linux/blob/157807123c94acc8dcddd08a2335bd0173c5d68d/arch/x86/include/asm/mmu_context.h#L36)
 
@@ -228,6 +229,24 @@ Date:   Sun Mar 13 13:23:37 2022 -0700
 		* [setxattr](https://github.com/torvalds/linux/blob/6961fed420146297467efe4bc022458818839a1a/fs/xattr.c#L563-L577)
 			* `vfs_setxattr` may fail. but it's not problem
 
+## [sk\_buff](https://github.com/torvalds/linux/blob/364df53c081d93fcfd6b91085ff2650c7f17b3c7/include/linux/skbuff.h#L946-L949)
+
+* [socketpair](https://github.com/torvalds/linux/blob/0fc95dec096c2133942c382396172ae4487b4d57/net/socket.c#L1672)
+	* [\_\_sys\_socketpair](https://github.com/torvalds/linux/blob/0fc95dec096c2133942c382396172ae4487b4d57/net/socket.c#L1619-L1626)
+		* [sock\_create](https://github.com/torvalds/linux/blob/0fc95dec096c2133942c382396172ae4487b4d57/net/socket.c#L1519)
+			* [\_\_sock\_create](https://github.com/torvalds/linux/blob/0fc95dec096c2133942c382396172ae4487b4d57/net/socket.c#L1453-L1470)
+				* case PF_UNIX
+					* [unix\_family\_ops](https://github.com/torvalds/linux/blob/b6459415b384cb829f0b2a4268f211c789f6cf0b/net/unix/af_unix.c#L3409-L3410)
+						* [unix\_create](https://github.com/torvalds/linux/blob/b6459415b384cb829f0b2a4268f211c789f6cf0b/net/unix/af_unix.c#L944)
+							* case SOCK_DGRAM
+								* [unix\_dgram\_ops](https://github.com/torvalds/linux/blob/b6459415b384cb829f0b2a4268f211c789f6cf0b/net/unix/af_unix.c#L809)
+							* [unix_create1](https://github.com/torvalds/linux/blob/b6459415b384cb829f0b2a4268f211c789f6cf0b/net/unix/af_unix.c#L918)
+* [unix\_dgram\_sendmsg](https://github.com/torvalds/linux/blob/b6459415b384cb829f0b2a4268f211c789f6cf0b/net/unix/af_unix.c#L1896-L1898)
+	* [sock\_alloc\_send\_pskb](https://github.com/torvalds/linux/blob/a1cdec57e03a1352e92fbbe7974039dda4efcec0/net/core/sock.c#L2586-L2587)
+		* [alloc\_skb\_with\_frags](https://github.com/torvalds/linux/blob/224102de2ff105a2c05695e66a08f4b5b6b2d19c/net/core/skbuff.c#L5956)
+			* [alloc\_skb](https://github.com/torvalds/linux/blob/364df53c081d93fcfd6b91085ff2650c7f17b3c7/include/linux/skbuff.h#L1158)
+				* [\_\_alloc\_skb](https://github.com/torvalds/linux/blob/224102de2ff105a2c05695e66a08f4b5b6b2d19c/net/core/skbuff.c#L424-L426)
+					* `struct skb_shared_info` is placed at the end of tha data region.
 
 ## Variables
 
