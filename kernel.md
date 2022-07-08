@@ -56,7 +56,7 @@ Date:   Sun Mar 13 13:23:37 2022 -0700
 
 * [entry\_SYSCALL\_64](https://github.com/torvalds/linux/blob/35ce8ae9ae2e471f92759f9d6880eab42cc1c3b6/arch/x86/entry/entry_64.S#L87)
 	* [pt\_regs](https://github.com/torvalds/linux/blob/c6b01dace2cd7f6b3e9174d4d1411755608486f1/arch/x86/include/asm/ptrace.h#L59)
-		* useful for stack pivoting
+		* `pt_regs` can be use for stack pivoting
 	* [do\_syscall\_64](https://github.com/torvalds/linux/blob/1dfb0f47aca11350f45f8c04c3b83f0e829adfa9/arch/x86/entry/common.c#L80)
 		* [do\_syscall\_x64](https://github.com/torvalds/linux/blob/1dfb0f47aca11350f45f8c04c3b83f0e829adfa9/arch/x86/entry/common.c#L50)
 	* [swapgs\_restore\_regs\_and\_return\_to\_usermode](https://github.com/torvalds/linux/blob/35ce8ae9ae2e471f92759f9d6880eab42cc1c3b6/arch/x86/entry/entry_64.S#L587)
@@ -151,7 +151,7 @@ Date:   Sun Mar 13 13:23:37 2022 -0700
 
 * [map](https://github.com/torvalds/linux/blob/251a7b3edc197a3947b8cb56fffe61d811aba0a5/Documentation/x86/x86_64/mm.rst#L45-L50)
 	* `page_offset_base`
-		* heap base address (by kmalloc) and is mapped to /dev/mem
+		* heap base address (by kmalloc) and it is mapped to `/dev/mem`
 		* `secondary_startup_64` can be found at `page_offset_base + offset`
 	* `vmalloc_base`
 	* `vmemmap_base`
@@ -296,7 +296,7 @@ Date:   Sun Mar 13 13:23:37 2022 -0700
 * [setxattr](https://github.com/torvalds/linux/blob/6961fed420146297467efe4bc022458818839a1a/fs/xattr.c#L607)
 	* [path\_setxattr](https://github.com/torvalds/linux/blob/6961fed420146297467efe4bc022458818839a1a/fs/xattr.c#L595-L596)
 		* [setxattr](https://github.com/torvalds/linux/blob/6961fed420146297467efe4bc022458818839a1a/fs/xattr.c#L563-L577)
-			* `vfs_setxattr` may fail. but it's not problem
+			* `vfs_setxattr` may fail, but `kvmalloc` and `kvfree` complete successfully
 
 ### [sk\_buff](https://github.com/torvalds/linux/blob/364df53c081d93fcfd6b91085ff2650c7f17b3c7/include/linux/skbuff.h#L946-L949)
 
@@ -316,7 +316,7 @@ Date:   Sun Mar 13 13:23:37 2022 -0700
 		* [alloc\_skb\_with\_frags](https://github.com/torvalds/linux/blob/224102de2ff105a2c05695e66a08f4b5b6b2d19c/net/core/skbuff.c#L5956)
 			* [alloc\_skb](https://github.com/torvalds/linux/blob/364df53c081d93fcfd6b91085ff2650c7f17b3c7/include/linux/skbuff.h#L1158)
 				* [\_\_alloc\_skb](https://github.com/torvalds/linux/blob/224102de2ff105a2c05695e66a08f4b5b6b2d19c/net/core/skbuff.c#L424-L426)
-					* `struct skb_shared_info` is placed at the end of tha data region.
+					* `struct skb_shared_info` is at the end of `data`
 
 ## Variables
 
