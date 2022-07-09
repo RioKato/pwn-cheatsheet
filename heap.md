@@ -1,5 +1,14 @@
 # Heap Pwn Cheat Sheet
 
+## Glibc version
+```
+commit f94f6d8a3572840d3ba42ab9ace3ea522c99c0c2 (HEAD, tag: glibc-2.35)
+Author: Carlos O'Donell <carlos@redhat.com>
+Date:   Thu Feb 3 00:27:54 2022 -0500
+
+    Create ChangeLog.old/ChangeLog.24.
+```
+
 ## Transition
 ![heap_trans](./heap_trans.jpg)
 
@@ -73,7 +82,7 @@ Therefore, if you reserve a chunk with a size larger than 0x21000, mmap will be 
 | _dl_open_hook                                   | dlopen, dlsym                                   |                                                                                       |
 | _rtld_global._dl_ns[0]._ns_loaded               | _dl_fini                                        | _rtld_global is in ld.so                                                              |
 | global_max_fast                                 |                                                 |                                                                                       |
-| .fini_array                                     |                                                 |
+| .fini_array                                     |                                                 |                                                                                       |
 | __printf_arginfo_table, __printf_function_table | printf                                          |                                                                                       |
 | stderr, fs:[0x30], vtable == _IO_cookie_jumps   | _IO_file_sync                                   | Whether stderr is in libc or exe depends on the code. debug and check __malloc_assert |
 | __exit_funcs, fs:[0x30]                         | __run_exit_handlers                             |                                                                                       |
