@@ -165,7 +165,7 @@ Date:   Sun Mar 13 13:23:37 2022 -0700
 									* [shuffle\_freelist](https://github.com/torvalds/linux/blob/9c01e9af171f13cf6573f404ecaf96dfa48233ab/mm/slub.c#L1878)
 					* [get\_freepointer\_safe](https://github.com/torvalds/linux/blob/9c01e9af171f13cf6573f404ecaf96dfa48233ab/mm/slub.c#L369-L371)
 						* [freelist\_ptr](https://github.com/torvalds/linux/blob/9c01e9af171f13cf6573f404ecaf96dfa48233ab/mm/slub.c#L334-L335)
-							* `*(ptr + kmem_cache.offset) ^ freelist ^ kmem_cache.random`
+						* `get_freepointer_safe(cache, object) = (object + cache->offset) ^ *(object + cache->offset) ^ cache->random`
 	* *case CONFIG\_SLAB*
 		* [kmem\_cache\_alloc\_trace](https://github.com/torvalds/linux/blob/6e48a966dfd18987fec9385566a67d36e2b5fc11/mm/slab.c#L3561)
 			* [slab\_alloc](https://github.com/torvalds/linux/blob/6e48a966dfd18987fec9385566a67d36e2b5fc11/mm/slab.c#L3289-L3290)
