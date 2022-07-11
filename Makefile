@@ -9,7 +9,6 @@ OBJ= $(JPG) $(PDF)
 
 %.pdf: %.md
 	# pandoc $< -o $@ -V geometry:margin=1in -N
-	# markdown-pdf $< -o $@
-	md-to-pdf $<
+	md-to-pdf --stylesheet https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/2.10.0/github-markdown.min.css --body-class markdown-body $<
 
 all: $(OBJ)
