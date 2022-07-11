@@ -63,6 +63,38 @@ Date:   Sun Mar 13 13:23:37 2022 -0700
 			* [init\_cred](https://github.com/torvalds/linux/blob/a55d07294f1e9b576093bdfa95422f8119941e83/kernel/cred.c#L41)
 	* `comm`
 		* `prctl(PR_SET_NAME, name);`
+* [current](https://github.com/torvalds/linux/blob/b24413180f5600bcb3bb70fbed5cf186b60864bd/arch/x86/include/asm/current.h#L18)
+	* [get\_current](https://github.com/torvalds/linux/blob/b24413180f5600bcb3bb70fbed5cf186b60864bd/arch/x86/include/asm/current.h#L15)
+		* [current\_task](https://github.com/torvalds/linux/blob/b24413180f5600bcb3bb70fbed5cf186b60864bd/arch/x86/include/asm/current.h#L11)
+			* [DECLARE\_PER\_CPU](https://github.com/torvalds/linux/blob/06c8839815ac7aa2b44ea3bb3ee1820b08418f55/include/linux/percpu-defs.h#L112)
+				* [DECLARE\_PER\_CPU\_SECTION](https://github.com/torvalds/linux/blob/06c8839815ac7aa2b44ea3bb3ee1820b08418f55/include/linux/percpu-defs.h#L101)
+					* [\_\_PCPU\_ATTRS](https://github.com/torvalds/linux/blob/06c8839815ac7aa2b44ea3bb3ee1820b08418f55/include/linux/percpu-defs.h#L50-L51)
+						* [PER\_CPU\_BASE\_SECTION](https://github.com/torvalds/linux/blob/29813a2297910d5c4be08c7b390054f23dd794a5/include/asm-generic/percpu.h#L53-L59)
+							* *case CONFIG\_SMP*
+								* `#define PER_CPU_BASE_SECTION ".data..percpu"`
+		* [this\_cpu\_read\_stable](https://github.com/torvalds/linux/blob/4719ffecbb0659faf1fd39f4b8eb2674f0042890/arch/x86/include/asm/percpu.h#L226)
+			* [\_\_pcpu\_size\_call\_return](https://github.com/torvalds/linux/blob/06c8839815ac7aa2b44ea3bb3ee1820b08418f55/include/linux/percpu-defs.h#L324)
+				* [this\_cpu\_read\_stable_8](https://github.com/torvalds/linux/blob/4719ffecbb0659faf1fd39f4b8eb2674f0042890/arch/x86/include/asm/percpu.h#L225)
+					* [percpu\_stable\_op](https://github.com/torvalds/linux/blob/4719ffecbb0659faf1fd39f4b8eb2674f0042890/arch/x86/include/asm/percpu.h#L154)
+						* *case CONFIG\_SMP*
+							* `movq %%gs:%P[var], %[val]` where `var = &current_task`
+* [start\_kernel](https://github.com/torvalds/linux/blob/2dba5eb1c73b6ba2988ced07250edeac0f8cbf5a/init/main.c#L954)
+	* [setup\_per\_cpu\_areas](https://github.com/torvalds/linux/blob/20c035764626c56c4f6514936b9ee4be0f4cd962/arch/x86/kernel/setup_percpu.c#L171-L215)
+		* `pcpu_base_addr`
+		* `__per_cpu_start`
+		* *case CONFIG\_SMP*
+			* [per\_cpu\_offset](https://github.com/torvalds/linux/blob/29813a2297910d5c4be08c7b390054f23dd794a5/include/asm-generic/percpu.h#L21)
+				* `__per_cpu_offset`
+		* [switch\_to\_new\_gdt](https://github.com/torvalds/linux/blob/25f8c7785e254779fbd2127c4eced81811e8e421/arch/x86/kernel/cpu/common.c#L645)
+			* [load\_percpu\_segment](https://github.com/torvalds/linux/blob/25f8c7785e254779fbd2127c4eced81811e8e421/arch/x86/kernel/cpu/common.c#L605)
+				* [cpu\_kernelmode\_gs\_base](https://github.com/torvalds/linux/blob/03b122da74b22fbe7cd98184fa5657a9ce13970c/arch/x86/include/asm/processor.h#L448)
+					* [fixed\_percpu\_data](https://github.com/torvalds/linux/blob/03b122da74b22fbe7cd98184fa5657a9ce13970c/arch/x86/include/asm/processor.h#L430)
+					* [per\_cpu](https://github.com/torvalds/linux/blob/06c8839815ac7aa2b44ea3bb3ee1820b08418f55/include/linux/percpu-defs.h#L269)
+						* *case CONFIG\_SMP*
+							* [per\_cpu\_ptr](https://github.com/torvalds/linux/blob/06c8839815ac7aa2b44ea3bb3ee1820b08418f55/include/linux/percpu-defs.h#L236)
+								* [SHIFT\_PERCPU\_PTR](https://github.com/torvalds/linux/blob/06c8839815ac7aa2b44ea3bb3ee1820b08418f55/include/linux/percpu-defs.h#L231)
+									* [RELOC\_HIDE](https://github.com/torvalds/linux/blob/bfb1a7c91fb7758273b4a8d735313d9cc388b502/include/linux/compiler.h#L177)
+					* `gs = &fixed_percpu_data.gs_base + __per_cpu_offset[cpu]`
 
 
 ## Syscall
