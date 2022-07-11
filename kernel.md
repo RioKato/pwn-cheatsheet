@@ -165,19 +165,20 @@ Date:   Sun Mar 13 13:23:37 2022 -0700
 	* `vmalloc_base`
 	* `vmemmap_base`
 * [page](https://github.com/torvalds/linux/blob/5c26f6ac9416b63d093e29c30e79b3297e425472/include/linux/mm_types.h#L72)
-	* `sizeof(struct page) == 64`
 * [vmalloc\_to\_page](https://github.com/torvalds/linux/blob/30d3f01191d305c99e8b3f8b1b328fc852270c95/mm/vmalloc.c#L647)
 * [page\_to\_virt](https://github.com/torvalds/linux/blob/5c26f6ac9416b63d093e29c30e79b3297e425472/include/linux/mm.h#L117)
 	* `page_to_virt(page) = page_offset_base + (((page - vmemmap_base) / 64) << 12)`
 	* [__va](https://github.com/torvalds/linux/blob/92638b4e1b47f97d7269e74465dedf73096f777d/arch/x86/include/asm/page.h#L59)
 		* [PAGE\_OFFSET](https://github.com/torvalds/linux/blob/c164fbb40c43f8041f4d05ec9996d8ee343c92b1/arch/x86/include/asm/page_types.h#L36)
 			* [\_\_PAGE\_OFFSET](https://github.com/torvalds/linux/blob/7fae4c24a2b84a66c7be399727aca11e7a888462/arch/x86/include/asm/page_64_types.h#L45)
+				* `page_offset_base`
 	* [PFN\_PHYS](https://github.com/torvalds/linux/blob/b24413180f5600bcb3bb70fbed5cf186b60864bd/include/linux/pfn.h#L21)
 		* [PAGE\_SHIFT](https://github.com/torvalds/linux/blob/c164fbb40c43f8041f4d05ec9996d8ee343c92b1/arch/x86/include/asm/page_types.h#L10)
 	* [page\_to\_pfn](https://github.com/torvalds/linux/blob/bb1c50d3967f69f413b333713c2718d48d1ab7ea/include/asm-generic/memory_model.h#L52)
 		* [\_\_page\_to\_pfn](https://github.com/torvalds/linux/blob/bb1c50d3967f69f413b333713c2718d48d1ab7ea/include/asm-generic/memory_model.h#L26)
 			* [vmemmap](https://github.com/torvalds/linux/blob/e96ec8cf9ca12a8d6b3b896a2eccd4b92a1893ab/arch/x86/include/asm/pgtable_64.h#L256)
 				* [VMEMMAP\_START](https://github.com/torvalds/linux/blob/14df32670291588036a498051a54cd8462d7f611/arch/x86/include/asm/pgtable_64_types.h#L135)
+					* `vmemmap_base`
 
 
 ## Snippet
