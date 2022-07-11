@@ -76,9 +76,8 @@ Date:   Sun Mar 13 13:23:37 2022 -0700
 			* [DECLARE\_PER\_CPU](https://github.com/torvalds/linux/blob/06c8839815ac7aa2b44ea3bb3ee1820b08418f55/include/linux/percpu-defs.h#L112)
 				* [DECLARE\_PER\_CPU\_SECTION](https://github.com/torvalds/linux/blob/06c8839815ac7aa2b44ea3bb3ee1820b08418f55/include/linux/percpu-defs.h#L101)
 					* [\_\_PCPU\_ATTRS](https://github.com/torvalds/linux/blob/06c8839815ac7aa2b44ea3bb3ee1820b08418f55/include/linux/percpu-defs.h#L50-L51)
-						* [PER\_CPU\_BASE\_SECTION](https://github.com/torvalds/linux/blob/29813a2297910d5c4be08c7b390054f23dd794a5/include/asm-generic/percpu.h#L53-L59)
-							* *case CONFIG\_SMP*
-								* `#define PER_CPU_BASE_SECTION ".data..percpu"`
+						* *case CONFIG\_SMP*
+							* [PER\_CPU\_BASE\_SECTION](https://github.com/torvalds/linux/blob/29813a2297910d5c4be08c7b390054f23dd794a5/include/asm-generic/percpu.h#L55)
 		* [this\_cpu\_read\_stable](https://github.com/torvalds/linux/blob/4719ffecbb0659faf1fd39f4b8eb2674f0042890/arch/x86/include/asm/percpu.h#L226)
 			* [\_\_pcpu\_size\_call\_return](https://github.com/torvalds/linux/blob/06c8839815ac7aa2b44ea3bb3ee1820b08418f55/include/linux/percpu-defs.h#L324)
 				* [this\_cpu\_read\_stable_8](https://github.com/torvalds/linux/blob/4719ffecbb0659faf1fd39f4b8eb2674f0042890/arch/x86/include/asm/percpu.h#L225)
