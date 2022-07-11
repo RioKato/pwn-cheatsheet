@@ -2,13 +2,15 @@
 
 - [Kernel version](#kernel-version)
 - [Kernel config](#kernel-config)
-- [Task](#task)
+- [Process management](#process-management)
+	- [task\_struct](#task_struct)
+	- [current](#current)
 - [Syscall](#syscall)
 - [Memory allocator](#memory-allocator)
 	- [kmem\_cache](#kmem_cache)
 	- [kmalloc](#kmalloc)
 	- [kfree](#kfree)
-- [Mapping](#mapping)
+- [Physmem](#physmem)
 - [Snippet](#snippet)
 - [Structures](#structures)
 	- [ldt\_struct](#ldt_struct)
@@ -52,7 +54,9 @@ Date:   Sun Mar 13 13:23:37 2022 -0700
 | CONFIG_SMP                    | multi-processor                            |
 
 
-## Task
+## Process management
+
+### task\_struct
 
 * [task\_struct](https://github.com/torvalds/linux/blob/67d6212afda218d564890d1674bab28e8612170f/include/linux/sched.h#L728)
 	* [thread\_info](https://github.com/torvalds/linux/blob/5443f98fb9e06e765e24f9d894bf028accad8f71/arch/x86/include/asm/thread_info.h#L56)
@@ -63,6 +67,9 @@ Date:   Sun Mar 13 13:23:37 2022 -0700
 			* [init\_cred](https://github.com/torvalds/linux/blob/a55d07294f1e9b576093bdfa95422f8119941e83/kernel/cred.c#L41)
 	* `comm`
 		* `prctl(PR_SET_NAME, name);`
+
+### current
+
 * [current](https://github.com/torvalds/linux/blob/b24413180f5600bcb3bb70fbed5cf186b60864bd/arch/x86/include/asm/current.h#L18)
 	* [get\_current](https://github.com/torvalds/linux/blob/b24413180f5600bcb3bb70fbed5cf186b60864bd/arch/x86/include/asm/current.h#L15)
 		* [current\_task](https://github.com/torvalds/linux/blob/b24413180f5600bcb3bb70fbed5cf186b60864bd/arch/x86/include/asm/current.h#L11)
@@ -189,9 +196,9 @@ Date:   Sun Mar 13 13:23:37 2022 -0700
 				* `WARN_ON_ONCE(ac->avail > 0 && ac->entry[ac->avail - 1] == objp)`
 
 
-## Mapping
+## Physmem
 
-* [map](https://github.com/torvalds/linux/blob/251a7b3edc197a3947b8cb56fffe61d811aba0a5/Documentation/x86/x86_64/mm.rst#L45-L50)
+* [page tables](https://github.com/torvalds/linux/blob/251a7b3edc197a3947b8cb56fffe61d811aba0a5/Documentation/x86/x86_64/mm.rst#L45-L50)
 	* `page_offset_base`
 		* heap base address (by kmalloc) and it is mapped to `/dev/mem`
 		* `secondary_startup_64` can be found at `page_offset_base + offset`
