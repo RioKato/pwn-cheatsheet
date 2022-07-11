@@ -2,14 +2,13 @@
 
 - [Kernel version](#kernel-version)
 - [Kernel config](#kernel-config)
+- [Task](#task)
 - [Syscall](#syscall)
 - [Memory allocator](#memory-allocator)
 	- [kmem\_cache](#kmem_cache)
 	- [kmalloc](#kmalloc)
 	- [kfree](#kfree)
-- [Task](#task)
 - [Mapping](#mapping)
-- [Seccomp](#seccomp)
 - [Snippet](#snippet)
 - [Structures](#structures)
 	- [ldt\_struct](#ldt_struct)
@@ -26,6 +25,7 @@
 	- [modprobe\_path](#modprobe_path)
 	- [core\_pattern](#core_pattern)
 	- [n\_tty\_ops](#n_tty_ops)
+
 
 ## Kernel version
 ```
@@ -52,12 +52,29 @@ Date:   Sun Mar 13 13:23:37 2022 -0700
 | CONFIG_SMP                    | multi-processor                            |
 
 
+## Task
+
+* [task\_struct](https://github.com/torvalds/linux/blob/67d6212afda218d564890d1674bab28e8612170f/include/linux/sched.h#L728)
+	* [thread\_info](https://github.com/torvalds/linux/blob/5443f98fb9e06e765e24f9d894bf028accad8f71/arch/x86/include/asm/thread_info.h#L56)
+	* [cred](https://github.com/torvalds/linux/blob/c54b245d011855ea91c5beff07f1db74143ce614/include/linux/cred.h#L110)
+	* `tasks`
+		* [init\_task](https://github.com/torvalds/linux/blob/71f8de7092cb2cf95e3f7055df139118d1445597/init/init_task.c#L64)
+			* [init\_cred](https://github.com/torvalds/linux/blob/a55d07294f1e9b576093bdfa95422f8119941e83/kernel/cred.c#L41)
+	* `comm`
+		* `prctl(PR_SET_NAME, name);`
+
+
 ## Syscall
 
 * [entry\_SYSCALL\_64](https://github.com/torvalds/linux/blob/35ce8ae9ae2e471f92759f9d6880eab42cc1c3b6/arch/x86/entry/entry_64.S#L87)
 	* [pt\_regs](https://github.com/torvalds/linux/blob/c6b01dace2cd7f6b3e9174d4d1411755608486f1/arch/x86/include/asm/ptrace.h#L59)
-		* `pt_regs` can be use for stack pivoting
-	* [do\_syscall\_64](https://github.com/torvalds/linux/blob/1dfb0f47aca11350f45f8c04c3b83f0e829adfa9/arch/x86/entry/common.c#L80)
+		* `pt_regs` may be use for stack pivoting
+	* [do\_syscall\_64](https://github.com/torvalds/linux/blob/1dfb0f47aca11350f45f8c04c3b83f0e829adfa9/arch/x86/entry/common.c#L73)
+		* `add_random_kstack_offset();`
+		* [syscall\_enter\_from\_user\_mode](https://github.com/torvalds/linux/blob/6ce895128b3bff738fe8d9dd74747a03e319e466/kernel/entry/common.c#L108)
+			* [\_\_syscall\_enter\_from\_user\_work](https://github.com/torvalds/linux/blob/6ce895128b3bff738fe8d9dd74747a03e319e466/kernel/entry/common.c#L90)
+				* [syscall\_trace\_enter](https://github.com/torvalds/linux/blob/6ce895128b3bff738fe8d9dd74747a03e319e466/kernel/entry/common.c#L67-L71)
+					* `SYSCALL_WORK_SECCOMP`
 		* [do\_syscall\_x64](https://github.com/torvalds/linux/blob/1dfb0f47aca11350f45f8c04c3b83f0e829adfa9/arch/x86/entry/common.c#L50)
 	* [swapgs\_restore\_regs\_and\_return\_to\_usermode](https://github.com/torvalds/linux/blob/35ce8ae9ae2e471f92759f9d6880eab42cc1c3b6/arch/x86/entry/entry_64.S#L587)
 
@@ -138,17 +155,6 @@ Date:   Sun Mar 13 13:23:37 2022 -0700
 				* `WARN_ON_ONCE(ac->avail > 0 && ac->entry[ac->avail - 1] == objp)`
 
 
-## Task 
-
-* [task\_struct](https://github.com/torvalds/linux/blob/67d6212afda218d564890d1674bab28e8612170f/include/linux/sched.h#L728)
-	* [thread\_info](https://github.com/torvalds/linux/blob/5443f98fb9e06e765e24f9d894bf028accad8f71/arch/x86/include/asm/thread_info.h#L56)
-	* [cred](https://github.com/torvalds/linux/blob/c54b245d011855ea91c5beff07f1db74143ce614/include/linux/cred.h#L110)
-	* `tasks`
-		* [init\_task](https://github.com/torvalds/linux/blob/71f8de7092cb2cf95e3f7055df139118d1445597/init/init_task.c#L64)
-			* [init\_cred](https://github.com/torvalds/linux/blob/a55d07294f1e9b576093bdfa95422f8119941e83/kernel/cred.c#L41)
-	* `comm`
-		* `prctl(PR_SET_NAME, name);`
-
 ## Mapping
 
 * [map](https://github.com/torvalds/linux/blob/251a7b3edc197a3947b8cb56fffe61d811aba0a5/Documentation/x86/x86_64/mm.rst#L45-L50)
@@ -171,14 +177,6 @@ Date:   Sun Mar 13 13:23:37 2022 -0700
 		* [\_\_page\_to\_pfn](https://github.com/torvalds/linux/blob/bb1c50d3967f69f413b333713c2718d48d1ab7ea/include/asm-generic/memory_model.h#L26)
 			* [vmemmap](https://github.com/torvalds/linux/blob/e96ec8cf9ca12a8d6b3b896a2eccd4b92a1893ab/arch/x86/include/asm/pgtable_64.h#L256)
 				* [VMEMMAP\_START](https://github.com/torvalds/linux/blob/14df32670291588036a498051a54cd8462d7f611/arch/x86/include/asm/pgtable_64_types.h#L135)
-
-## Seccomp
-
-* [seccomp](https://github.com/torvalds/linux/blob/495ac3069a6235bfdf516812a2a9b256671bbdf9/kernel/seccomp.c#L1973)
-	* [do\_seccomp](https://github.com/torvalds/linux/blob/495ac3069a6235bfdf516812a2a9b256671bbdf9/kernel/seccomp.c#L1952)
-		* [seccomp\_set\_mode\_strict](https://github.com/torvalds/linux/blob/495ac3069a6235bfdf516812a2a9b256671bbdf9/kernel/seccomp.c#L1353)
-			* [seccomp\_assign\_mode](https://github.com/torvalds/linux/blob/495ac3069a6235bfdf516812a2a9b256671bbdf9/kernel/seccomp.c#L457)
-				* [set\_task\_syscall\_work](https://github.com/torvalds/linux/blob/7ad639840acf2800b5f387c495795f995a67a329/include/linux/thread_info.h#L157)
 
 
 ## Snippet
