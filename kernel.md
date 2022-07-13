@@ -11,6 +11,7 @@
 	- [kmalloc](#kmalloc)
 	- [kfree](#kfree)
 - [Physmem](#physmem)
+- [Paging](#paging)
 - [Snippet](#snippet)
 - [Structures](#structures)
 	- [ldt\_struct](#ldt_struct)
@@ -208,7 +209,7 @@ Date:   Sun Mar 13 13:23:37 2022 -0700
 
 * `CR3`, `Page Global Directory`, `Page Upper Directory`, `Page Middle Directory`, `Page Table Entry` are used
 * each register or variable holds an encoded pointer, not a raw pointer
-* the 12~51 bits of each register or valiable indicated the base address of the next directory
+* the 12~51 bits of each register or valiable indicates the base address of the next directory
 * see [5.3.3 4-Kbyte Page Translation / AMD64 Architecture Programmer's Manual, Volume 2](doc/AMD64_Architecture_Programmers_Manual_Volume2.pdf#page=203) for details
 * last byte of `Page Global Directory(PML4E)` often be 0x67(0b01100111)
 
