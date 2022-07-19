@@ -262,6 +262,10 @@ Date:   Sun Mar 13 13:23:37 2022 -0700
 * [stat\_open](https://github.com/torvalds/linux/blob/a130e8fbc7de796eb6e680724d87f4737a26d0ac/fs/proc/stat.c#L226)
 	* [single\_open\_size](https://github.com/torvalds/linux/blob/372904c080be44629d84bb15ed5e12eed44b5f9f/fs/seq_file.c#L600)
 		* [single\_open](https://github.com/torvalds/linux/blob/372904c080be44629d84bb15ed5e12eed44b5f9f/fs/seq_file.c#L575)
+			* `start = single_start`
+			* `next = single_next`
+			* `stop = single_stop`
+			* `show = show`
 * [seq\_read\_iter](https://github.com/torvalds/linux/blob/372904c080be44629d84bb15ed5e12eed44b5f9f/fs/seq_file.c#L225)
 	* `m->op->start`
 
