@@ -1,0 +1,9 @@
+digraph {
+  "Class_A" ->  "Class_B" [style = "dashed", label = "__proto__"]; 
+  "this / receiver" ->  "home_object" -> "super / lookup_start_object" [style = "dashed", label = "__proto__"]; 
+  "Class_A" -> "home_object" [label = "prototype"]; 
+  "Class_B" -> "lookup_start_object(super)" [label = "prototype"]; 
+
+  {rank = same; "Class_A"; "home_object"}
+  {rank = same; "Class_B"; "lookup_start_object(super)"}
+}
