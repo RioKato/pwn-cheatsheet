@@ -160,7 +160,8 @@ Date:   Sun Mar 13 13:23:37 2022 -0700
 			* [slab\_alloc](https://github.com/torvalds/linux/blob/9c01e9af171f13cf6573f404ecaf96dfa48233ab/mm/slub.c#L3238)
 				* [slab\_alloc\_node](https://github.com/torvalds/linux/blob/9c01e9af171f13cf6573f404ecaf96dfa48233ab/mm/slub.c#L3165-L3198)
 					* [\_\_slab\_alloc](https://github.com/torvalds/linux/blob/9c01e9af171f13cf6573f404ecaf96dfa48233ab/mm/slub.c#L3105)
-						* [\_\_\_slab\_alloc](https://github.com/torvalds/linux/blob/9c01e9af171f13cf6573f404ecaf96dfa48233ab/mm/slub.c#L3018)
+						* [\_\_\_slab\_alloc](https://github.com/torvalds/linux/blob/9c01e9af171f13cf6573f404ecaf96dfa48233ab/mm/slub.c#L2895-L2896)
+							* `slab = c->slab = slub_percpu_partial(c);`
 							* [new\_slab](https://github.com/torvalds/linux/blob/9c01e9af171f13cf6573f404ecaf96dfa48233ab/mm/slub.c#L2004-L2005)
 								* [allocate\_slab](https://github.com/torvalds/linux/blob/9c01e9af171f13cf6573f404ecaf96dfa48233ab/mm/slub.c#L1970)
 									* [shuffle\_freelist](https://github.com/torvalds/linux/blob/9c01e9af171f13cf6573f404ecaf96dfa48233ab/mm/slub.c#L1878)
@@ -185,9 +186,10 @@ Date:   Sun Mar 13 13:23:37 2022 -0700
 		* [slab\_free](https://github.com/torvalds/linux/blob/9c01e9af171f13cf6573f404ecaf96dfa48233ab/mm/slub.c#L3510)
 			* [do\_slab\_free](https://github.com/torvalds/linux/blob/9c01e9af171f13cf6573f404ecaf96dfa48233ab/mm/slub.c#L3432-L3434)
 				* `likely(slab == c->slab)` &rarr; `likely(slab == slab->slab_cache->cpu_slab->slab)`
-				* [\_\_slab\_free](https://github.com/torvalds/linux/blob/9c01e9af171f13cf6573f404ecaf96dfa48233ab/mm/slub.c#L3328)
+				* [\_\_slab\_free](https://github.com/torvalds/linux/blob/9c01e9af171f13cf6573f404ecaf96dfa48233ab/mm/slub.c#L3300-L3302)
 					* [set\_freepointer](https://github.com/torvalds/linux/blob/9c01e9af171f13cf6573f404ecaf96dfa48233ab/mm/slub.c#L379-L383)
 						* `BUG_ON(object == fp);`
+					* `put_cpu_partial(s, slab, 1);`
 * *case CONFIG\_SLAB*
 	* [kfree](https://github.com/torvalds/linux/blob/6e48a966dfd18987fec9385566a67d36e2b5fc11/mm/slab.c#L3794)
 		* [\_\_\_cache\_free](https://github.com/torvalds/linux/blob/6e48a966dfd18987fec9385566a67d36e2b5fc11/mm/slab.c#L3448)
@@ -271,6 +273,8 @@ Date:   Sun Mar 13 13:23:37 2022 -0700
 
 ### [msg\_msg](https://github.com/torvalds/linux/blob/34b56df922b10ac2876f268c522951785bf333fd/include/linux/msg.h#L9), [msg\_msgseg](https://github.com/torvalds/linux/blob/137ec390fad41928307216ea9f91acf5cf6f4204/ipc/msgutil.c#L37)
 
+* [msg\_queue](https://github.com/torvalds/linux/blob/18319498fdd4cdf8c1c2c48cd432863b1f915d6f/ipc/msg.c#L59)
+	* `q_messages` &rarr; `msg_msg`
 * [msgsnd](https://github.com/torvalds/linux/blob/18319498fdd4cdf8c1c2c48cd432863b1f915d6f/ipc/msg.c#L968)
 	* [ksys\_msgsnd](https://github.com/torvalds/linux/blob/18319498fdd4cdf8c1c2c48cd432863b1f915d6f/ipc/msg.c#L962)
 		* [do\_msgsnd](https://github.com/torvalds/linux/blob/18319498fdd4cdf8c1c2c48cd432863b1f915d6f/ipc/msg.c#L858)
@@ -342,10 +346,10 @@ Date:   Sun Mar 13 13:23:37 2022 -0700
 	* [\_\_sys\_socketpair](https://github.com/torvalds/linux/blob/0fc95dec096c2133942c382396172ae4487b4d57/net/socket.c#L1619-L1626)
 		* [sock\_create](https://github.com/torvalds/linux/blob/0fc95dec096c2133942c382396172ae4487b4d57/net/socket.c#L1519)
 			* [\_\_sock\_create](https://github.com/torvalds/linux/blob/0fc95dec096c2133942c382396172ae4487b4d57/net/socket.c#L1453-L1470)
-				* *case PF_UNIX*
+				* *case PF\_UNIX*
 					* [unix\_family\_ops](https://github.com/torvalds/linux/blob/b6459415b384cb829f0b2a4268f211c789f6cf0b/net/unix/af_unix.c#L3409-L3410)
 						* [unix\_create](https://github.com/torvalds/linux/blob/b6459415b384cb829f0b2a4268f211c789f6cf0b/net/unix/af_unix.c#L944)
-							* *case SOCK_DGRAM*
+							* *case SOCK\_DGRAM*
 								* [unix\_dgram\_ops](https://github.com/torvalds/linux/blob/b6459415b384cb829f0b2a4268f211c789f6cf0b/net/unix/af_unix.c#L809)
 							* [unix_create1](https://github.com/torvalds/linux/blob/b6459415b384cb829f0b2a4268f211c789f6cf0b/net/unix/af_unix.c#L918)
 								* `sk->sk_allocation	= GFP_KERNEL_ACCOUNT;`
