@@ -53,6 +53,8 @@ Date:   Sun Mar 13 13:23:37 2022 -0700
 | CONFIG_FG_KASLR               |                                            |
 | CONFIG_BPF                    | /proc/sys/kernel/unprivileged_bpf_disabled |
 | CONFIG_SMP                    | multi-processor                            |
+| CONFIG_HAVE_STACKPROTECTOR    | cannary                                    |
+| CONFIG_RANDOMIZE_BASE         | kaslr                                      |
 
 
 ## Process management
@@ -388,6 +390,15 @@ Date:   Sun Mar 13 13:23:37 2022 -0700
 	* [call\_usermodehelper\_setup](https://github.com/torvalds/linux/blob/48207f7d41c8bdae94d2aae11620ed76fee95d45/kernel/umh.c#L358)
 	* [call\_usermodehelper\_exec](https://github.com/torvalds/linux/blob/48207f7d41c8bdae94d2aae11620ed76fee95d45/kernel/umh.c#L404)
 
+### [poweroff\_cmd](https://github.com/torvalds/linux/blob/f78e9de80f5ad15719a069a4e6c11e2777122188/kernel/reboot.c#L420)
+
+* [orderly\_poweroff](https://github.com/torvalds/linux/blob/f78e9de80f5ad15719a069a4e6c11e2777122188/kernel/reboot.c#L499)
+	* [poweroff\_work\_func](https://github.com/torvalds/linux/blob/f78e9de80f5ad15719a069a4e6c11e2777122188/kernel/reboot.c#L483)
+		* [\_\_orderly\_poweroff](https://github.com/torvalds/linux/blob/f78e9de80f5ad15719a069a4e6c11e2777122188/kernel/reboot.c#L462)
+			* [run\_cmd](https://github.com/torvalds/linux/blob/f78e9de80f5ad15719a069a4e6c11e2777122188/kernel/reboot.c#L434)
+				* [call\_usermodehelper](https://github.com/torvalds/linux/blob/48207f7d41c8bdae94d2aae11620ed76fee95d45/kernel/umh.c#L479-L484)
+					* [call\_usermodehelper\_setup](https://github.com/torvalds/linux/blob/48207f7d41c8bdae94d2aae11620ed76fee95d45/kernel/umh.c#L358)
+					* [call\_usermodehelper\_exec](https://github.com/torvalds/linux/blob/48207f7d41c8bdae94d2aae11620ed76fee95d45/kernel/umh.c#L404)
 
 ### [n\_tty\_ops](https://github.com/torvalds/linux/blob/3593030761630e09200072a4bd06468892c27be3/drivers/tty/n_tty.c#L2392)
 
