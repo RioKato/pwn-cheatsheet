@@ -27,6 +27,7 @@
 - [Variables](#variables)
 	- [modprobe\_path](#modprobe_path)
 	- [core\_pattern](#core_pattern)
+	- [poweroff\_cmd](#poweroff_cmd)
 	- [n\_tty\_ops](#n_tty_ops)
 
 
