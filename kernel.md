@@ -249,6 +249,8 @@ Date:   Sun Mar 13 13:23:37 2022 -0700
 
 * [modify\_ldt](https://github.com/torvalds/linux/blob/ec403e2ae0dfc85996aad6e944a98a16e6dfcc6d/arch/x86/kernel/ldt.c#L665-L666)
 	* [write\_ldt](https://github.com/torvalds/linux/blob/ec403e2ae0dfc85996aad6e944a98a16e6dfcc6d/arch/x86/kernel/ldt.c#L625)
+		* `#define LDT_ENTRIES 8192`
+		* `#define LDT_ENTRY_SIZE 8`
 		* [alloc\_ldt\_struct](https://github.com/torvalds/linux/blob/ec403e2ae0dfc85996aad6e944a98a16e6dfcc6d/arch/x86/kernel/ldt.c#L157)
 	* [read\_ldt](https://github.com/torvalds/linux/blob/ec403e2ae0dfc85996aad6e944a98a16e6dfcc6d/arch/x86/kernel/ldt.c#L520-L523)
 		* [desc\_struct](https://github.com/torvalds/linux/blob/097ee5b778b8970e1c2ed3ca1631b297d90acd61/arch/x86/include/asm/desc_defs.h#L16)
