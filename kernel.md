@@ -58,7 +58,7 @@ Date:   Sun Mar 13 13:23:37 2022 -0700
 | CONFIG_SMP                    | multi-processor                            |
 | CONFIG_HAVE_STACKPROTECTOR    | cannary                                    |
 | CONFIG_RANDOMIZE_BASE         | kaslr                                      |
-| CONFIG_HARDENED_USERCOPY      | prevent copying beyond the size of object  |
+| CONFIG_HARDENED_USERCOPY      | prevent copying over object size           |
 
 
 ## Process management
