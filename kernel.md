@@ -13,6 +13,7 @@
 - [Physmem](#physmem)
 - [Paging](#paging)
 - [Copy from/to user](#copy-fromto-user)
+- [Symbol](#symbol)
 - [Snippet](#snippet)
 - [Structures](#structures)
 	- [ldt\_struct](#ldt_struct)
@@ -239,6 +240,16 @@ Date:   Sun Mar 13 13:23:37 2022 -0700
 		* *otherwise*
 			* [check\_object\_size](https://github.com/torvalds/linux/blob/7ad639840acf2800b5f387c495795f995a67a329/include/linux/thread_info.h#L202-L203)
 * [copy\_to\_user](https://github.com/torvalds/linux/blob/a7a08b275a8bbade798c4bdaad07ade68fe7003c/include/linux/uaccess.h#L199)
+
+## Symbol
+
+* [EXPORT\_SYMBOL](https://github.com/torvalds/linux/blob/e1327a127703f94b8838d756cf6eaac506b329a7/include/linux/export.h#L163)
+	* [\_EXPORT\_SYMBOL](https://github.com/torvalds/linux/blob/e1327a127703f94b8838d756cf6eaac506b329a7/include/linux/export.h#L160)
+		* [\_\_EXPORT\_SYMBOL](https://github.com/torvalds/linux/blob/e1327a127703f94b8838d756cf6eaac506b329a7/include/linux/export.h#L135)
+			* [\_\_\_EXPORT\_SYMBOL](https://github.com/torvalds/linux/blob/e1327a127703f94b8838d756cf6eaac506b329a7/include/linux/export.h#L108)
+				* [\_\_KSYMTAB\_ENTRY](https://github.com/torvalds/linux/blob/e1327a127703f94b8838d756cf6eaac506b329a7/include/linux/export.h#L50)
+* [kernel\_symbol\_value](https://github.com/torvalds/linux/blob/67d6212afda218d564890d1674bab28e8612170f/kernel/module.c#L465)
+	* [offset\_to\_ptr](https://github.com/torvalds/linux/blob/bfb1a7c91fb7758273b4a8d735313d9cc388b502/include/linux/compiler.h#L241)
 
 ## Snippet
 
