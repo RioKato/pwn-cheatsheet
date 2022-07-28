@@ -12,6 +12,7 @@
 	- [kfree](#kfree)
 - [Physmem](#physmem)
 - [Paging](#paging)
+- [Copy from/to user](#copy-fromto-user)
 - [Snippet](#snippet)
 - [Structures](#structures)
 	- [ldt\_struct](#ldt_struct)
@@ -56,6 +57,7 @@ Date:   Sun Mar 13 13:23:37 2022 -0700
 | CONFIG_SMP                    | multi-processor                            |
 | CONFIG_HAVE_STACKPROTECTOR    | cannary                                    |
 | CONFIG_RANDOMIZE_BASE         | kaslr                                      |
+| CONFIG_HARDENED_USERCOPY      | prevent copying beyond the size of object  |
 
 
 ## Process management
@@ -217,6 +219,26 @@ Date:   Sun Mar 13 13:23:37 2022 -0700
 * the 12~51 bits of each register or valiable indicates the base address of the next directory
 * see [5.3.3 4-Kbyte Page Translation / AMD64 Architecture Programmer's Manual, Volume 2](doc/AMD64_Architecture_Programmers_Manual_Volume2.pdf#page=203) for details
 * last byte of `Page Global Directory(PML4E)` often be 0x67(0b01100111)
+
+## Copy from/to user
+
+* [copy\_from\_user](https://github.com/torvalds/linux/blob/a7a08b275a8bbade798c4bdaad07ade68fe7003c/include/linux/uaccess.h#L191)
+	* [check\_copy\_size](https://github.com/torvalds/linux/blob/7ad639840acf2800b5f387c495795f995a67a329/include/linux/thread_info.h#L232)
+		* *case CONFIG_HARDENED_USERCOPY*
+			* [check\_object\_size](https://github.com/torvalds/linux/blob/7ad639840acf2800b5f387c495795f995a67a329/include/linux/thread_info.h#L199)
+				* [\_\_check\_object\_size](https://github.com/torvalds/linux/blob/0b3eb091d5759479d44cb793fad2c51ea06bdcec/mm/usercopy.c#L287)
+					* [check\_heap\_object](https://github.com/torvalds/linux/blob/0b3eb091d5759479d44cb793fad2c51ea06bdcec/mm/usercopy.c#L241)
+						* *case CONFIG_HARDENED_USERCOPY*
+							* *case CONFIG\_SLUB*
+								* [\_\_check\_heap\_object](https://github.com/torvalds/linux/blob/9c01e9af171f13cf6573f404ecaf96dfa48233ab/mm/slub.c#L4488-L4489)
+							* *case CONFIG\_SLAB*
+								* [\_\_check\_heap\_object](https://github.com/torvalds/linux/blob/6e48a966dfd18987fec9385566a67d36e2b5fc11/mm/slab.c#L4172-L4173)
+						* *otherwise*
+							* [\_\_check\_heap\_object](https://github.com/torvalds/linux/blob/e3a8b6a1e70c37702054ae3c7c07ed828435d8ee/mm/slab.h#L861-L863)
+						* [check\_page\_span](https://github.com/torvalds/linux/blob/0b3eb091d5759479d44cb793fad2c51ea06bdcec/mm/usercopy.c#L161-L162)
+		* *otherwise*
+			* [check\_object\_size](https://github.com/torvalds/linux/blob/7ad639840acf2800b5f387c495795f995a67a329/include/linux/thread_info.h#L202-L203)
+* [copy\_to\_user](https://github.com/torvalds/linux/blob/a7a08b275a8bbade798c4bdaad07ade68fe7003c/include/linux/uaccess.h#L199)
 
 ## Snippet
 
