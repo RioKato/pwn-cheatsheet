@@ -248,6 +248,7 @@ Date:   Sun Mar 13 13:23:37 2022 -0700
 		* [\_\_EXPORT\_SYMBOL](https://github.com/torvalds/linux/blob/e1327a127703f94b8838d756cf6eaac506b329a7/include/linux/export.h#L135)
 			* [\_\_\_EXPORT\_SYMBOL](https://github.com/torvalds/linux/blob/e1327a127703f94b8838d756cf6eaac506b329a7/include/linux/export.h#L108)
 				* [\_\_KSYMTAB\_ENTRY](https://github.com/torvalds/linux/blob/e1327a127703f94b8838d756cf6eaac506b329a7/include/linux/export.h#L50)
+					* [RO\_DATA](https://github.com/torvalds/linux/blob/95faf6ba654dd334617f347023e65b06d791c4a6/include/asm-generic/vmlinux.lds.h#L484-L489)
 * [kernel\_symbol\_value](https://github.com/torvalds/linux/blob/67d6212afda218d564890d1674bab28e8612170f/kernel/module.c#L465)
 	* [offset\_to\_ptr](https://github.com/torvalds/linux/blob/bfb1a7c91fb7758273b4a8d735313d9cc388b502/include/linux/compiler.h#L241)
 
