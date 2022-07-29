@@ -8,7 +8,7 @@
 - [Syscall](#syscall)
 - [Memory allocator](#memory-allocator)
 	- [kmem\_cache](#kmem_cache)
-- [\_\_kmem\_cache\_create](#__kmem_cache_create)
+	- [\_\_kmem\_cache\_create](#__kmem_cache_create)
 	- [kmalloc](#kmalloc)
 	- [kfree](#kfree)
 - [Physmem](#physmem)
@@ -148,7 +148,7 @@ Date:   Sun Mar 13 13:23:37 2022 -0700
 		* [kmem\_cache\_node](https://github.com/torvalds/linux/blob/e3a8b6a1e70c37702054ae3c7c07ed828435d8ee/mm/slab.h#L746)
 			* `shared`
 
-## \_\_kmem\_cache\_create
+### \_\_kmem\_cache\_create
 
 * *case CONFIG\_SLUB*
 	* [\_\_kmem\_cache\_create](https://github.com/torvalds/linux/blob/9c01e9af171f13cf6573f404ecaf96dfa48233ab/mm/slub.c#L4893)
