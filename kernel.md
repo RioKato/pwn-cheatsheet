@@ -192,10 +192,10 @@ Date:   Sun Mar 13 13:23:37 2022 -0700
 		* [slab\_free](https://github.com/torvalds/linux/blob/9c01e9af171f13cf6573f404ecaf96dfa48233ab/mm/slub.c#L3510)
 			* [do\_slab\_free](https://github.com/torvalds/linux/blob/9c01e9af171f13cf6573f404ecaf96dfa48233ab/mm/slub.c#L3432-L3434)
 				* `likely(slab == c->slab)` &rarr; `likely(slab == slab->slab_cache->cpu_slab->slab)`
+				* [set\_freepointer](https://github.com/torvalds/linux/blob/9c01e9af171f13cf6573f404ecaf96dfa48233ab/mm/slub.c#L379-L383)
+					* `BUG_ON(object == fp);`
+				* `put_cpu_partial(s, slab, 1);`
 				* [\_\_slab\_free](https://github.com/torvalds/linux/blob/9c01e9af171f13cf6573f404ecaf96dfa48233ab/mm/slub.c#L3300-L3302)
-					* [set\_freepointer](https://github.com/torvalds/linux/blob/9c01e9af171f13cf6573f404ecaf96dfa48233ab/mm/slub.c#L379-L383)
-						* `BUG_ON(object == fp);`
-					* `put_cpu_partial(s, slab, 1);`
 * *case CONFIG\_SLAB*
 	* [kfree](https://github.com/torvalds/linux/blob/6e48a966dfd18987fec9385566a67d36e2b5fc11/mm/slab.c#L3794)
 		* [\_\_\_cache\_free](https://github.com/torvalds/linux/blob/6e48a966dfd18987fec9385566a67d36e2b5fc11/mm/slab.c#L3448)
@@ -326,6 +326,7 @@ Date:   Sun Mar 13 13:23:37 2022 -0700
 	* [ksys\_msgrcv](https://github.com/torvalds/linux/blob/18319498fdd4cdf8c1c2c48cd432863b1f915d6f/ipc/msg.c#L1261)
 		* [do\_msgrcv](https://github.com/torvalds/linux/blob/18319498fdd4cdf8c1c2c48cd432863b1f915d6f/ipc/msg.c#L1152-L1155)
 			* `#define MSG_COPY 040000`
+			* [copy\_msg](https://github.com/torvalds/linux/blob/137ec390fad41928307216ea9f91acf5cf6f4204/ipc/msgutil.c#L118)
 
 ### [subprocess\_info](https://github.com/torvalds/linux/blob/55e6074e3fa67e1fb9ec140904db7e6cae6eda4b/include/linux/umh.h#L19)
 
