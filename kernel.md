@@ -194,8 +194,8 @@ Date:   Sun Mar 13 13:23:37 2022 -0700
 				* `likely(slab == c->slab)` &rarr; `likely(slab == slab->slab_cache->cpu_slab->slab)`
 				* [set\_freepointer](https://github.com/torvalds/linux/blob/9c01e9af171f13cf6573f404ecaf96dfa48233ab/mm/slub.c#L379-L383)
 					* `BUG_ON(object == fp);`
-				* `put_cpu_partial(s, slab, 1);`
 				* [\_\_slab\_free](https://github.com/torvalds/linux/blob/9c01e9af171f13cf6573f404ecaf96dfa48233ab/mm/slub.c#L3300-L3302)
+					* `put_cpu_partial(s, slab, 1);`
 * *case CONFIG\_SLAB*
 	* [kfree](https://github.com/torvalds/linux/blob/6e48a966dfd18987fec9385566a67d36e2b5fc11/mm/slab.c#L3794)
 		* [\_\_\_cache\_free](https://github.com/torvalds/linux/blob/6e48a966dfd18987fec9385566a67d36e2b5fc11/mm/slab.c#L3448)
