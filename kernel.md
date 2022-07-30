@@ -439,6 +439,7 @@ Date:   Sun Mar 13 13:23:37 2022 -0700
 | -------------- | ------------------------------- |
 | modprobe\_path | /proc/sys/kernel/modprobe       |
 | core\_pattern  | /proc/sys/kernel/core_pattern   |
+| poweroff\_cmd  |                                 |
 | n\_tty\_ops    | (read) `scanf`, (ioctl) `fgets` |
 
 ### [modprobe\_path](https://github.com/torvalds/linux/blob/17652f4240f7a501ecc13e9fdb06982569cde51f/kernel/kmod.c#L61)
