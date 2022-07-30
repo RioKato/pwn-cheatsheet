@@ -186,11 +186,9 @@ Date:   Sun Mar 13 13:23:37 2022 -0700
 							* [new\_slab](https://github.com/torvalds/linux/blob/9c01e9af171f13cf6573f404ecaf96dfa48233ab/mm/slub.c#L2004-L2005)
 								* [allocate\_slab](https://github.com/torvalds/linux/blob/9c01e9af171f13cf6573f404ecaf96dfa48233ab/mm/slub.c#L1923)
 									* [alloc\_slab\_page](https://github.com/torvalds/linux/blob/9c01e9af171f13cf6573f404ecaf96dfa48233ab/mm/slub.c#L1796-L1799)
-										* `folio = (struct folio *)alloc_pages(flags, order);`
 									* [shuffle\_freelist](https://github.com/torvalds/linux/blob/9c01e9af171f13cf6573f404ecaf96dfa48233ab/mm/slub.c#L1878)
 					* [get\_freepointer\_safe](https://github.com/torvalds/linux/blob/9c01e9af171f13cf6573f404ecaf96dfa48233ab/mm/slub.c#L369-L371)
 						* [freelist\_ptr](https://github.com/torvalds/linux/blob/9c01e9af171f13cf6573f404ecaf96dfa48233ab/mm/slub.c#L334-L335)
-						* `get_freepointer_safe(cache, object) = (object + cache->offset) ^ *(object + cache->offset) ^ cache->random`
 	* *case CONFIG\_SLAB*
 		* [kmem\_cache\_alloc\_trace](https://github.com/torvalds/linux/blob/6e48a966dfd18987fec9385566a67d36e2b5fc11/mm/slab.c#L3561)
 			* [slab\_alloc](https://github.com/torvalds/linux/blob/6e48a966dfd18987fec9385566a67d36e2b5fc11/mm/slab.c#L3289-L3290)
@@ -201,7 +199,6 @@ Date:   Sun Mar 13 13:23:37 2022 -0700
 						* [cache\_grow\_begin](https://github.com/torvalds/linux/blob/6e48a966dfd18987fec9385566a67d36e2b5fc11/mm/slab.c#L2556-L2557)
 							* [kmem\_getpages](https://github.com/torvalds/linux/blob/6e48a966dfd18987fec9385566a67d36e2b5fc11/mm/slab.c#L1378)
 								* [\_\_alloc\_pages\_node](https://github.com/torvalds/linux/blob/04a536bfbd0f885338eecc2a4503dfca50ac94dd/include/linux/gfp.h#L572)
-									* `return __alloc_pages(gfp_mask, order, nid, NULL);`
 							* [cache\_init\_objs](https://github.com/torvalds/linux/blob/6e48a966dfd18987fec9385566a67d36e2b5fc11/mm/slab.c#L2496)
 								* [shuffle\_freelist](https://github.com/torvalds/linux/blob/6e48a966dfd18987fec9385566a67d36e2b5fc11/mm/slab.c#L2432)
 
@@ -343,10 +340,6 @@ Date:   Sun Mar 13 13:23:37 2022 -0700
 * [stat\_open](https://github.com/torvalds/linux/blob/a130e8fbc7de796eb6e680724d87f4737a26d0ac/fs/proc/stat.c#L226)
 	* [single\_open\_size](https://github.com/torvalds/linux/blob/372904c080be44629d84bb15ed5e12eed44b5f9f/fs/seq_file.c#L600)
 		* [single\_open](https://github.com/torvalds/linux/blob/372904c080be44629d84bb15ed5e12eed44b5f9f/fs/seq_file.c#L575)
-			* `start = single_start`
-			* `next = single_next`
-			* `stop = single_stop`
-			* `show = show`
 * [seq\_read\_iter](https://github.com/torvalds/linux/blob/372904c080be44629d84bb15ed5e12eed44b5f9f/fs/seq_file.c#L225)
 	* `m->op->start`
 
