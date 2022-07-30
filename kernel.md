@@ -220,10 +220,11 @@ Date:   Sun Mar 13 13:23:37 2022 -0700
 					* [\_\_pfn\_to\_page](https://github.com/torvalds/linux/blob/bb1c50d3967f69f413b333713c2718d48d1ab7ea/include/asm-generic/memory_model.h#L25)
 						* [vmemmap](https://github.com/torvalds/linux/blob/e96ec8cf9ca12a8d6b3b896a2eccd4b92a1893ab/arch/x86/include/asm/pgtable_64.h#L256)
 							* [VMEMMAP\_START](https://github.com/torvalds/linux/blob/14df32670291588036a498051a54cd8462d7f611/arch/x86/include/asm/pgtable_64_types.h#L135)
+								* `vmemmap_base`
 			* [page\_folio](https://github.com/torvalds/linux/blob/e3a8b6a1e70c37702054ae3c7c07ed828435d8ee/include/linux/page-flags.h#L217)
 				* [\_compound\_head](https://github.com/torvalds/linux/blob/e3a8b6a1e70c37702054ae3c7c07ed828435d8ee/include/linux/page-flags.h#L193)
-					* slab is a type of [page](https://github.com/torvalds/linux/blob/5c26f6ac9416b63d093e29c30e79b3297e425472/include/linux/mm_types.h#L73)
 					* [pageflags](https://github.com/torvalds/linux/blob/e3a8b6a1e70c37702054ae3c7c07ed828435d8ee/include/linux/page-flags.h#L110)
+		* [folio\_slab](https://github.com/torvalds/linux/blob/e3a8b6a1e70c37702054ae3c7c07ed828435d8ee/mm/slab.h#L89)
 		* [slab\_free](https://github.com/torvalds/linux/blob/9c01e9af171f13cf6573f404ecaf96dfa48233ab/mm/slub.c#L3510)
 			* [do\_slab\_free](https://github.com/torvalds/linux/blob/9c01e9af171f13cf6573f404ecaf96dfa48233ab/mm/slub.c#L3432-L3434)
 				* `likely(slab == c->slab)` &rarr; `likely(slab == slab->slab_cache->cpu_slab->slab)`
@@ -247,6 +248,7 @@ Date:   Sun Mar 13 13:23:37 2022 -0700
 		* `secondary_startup_64` can be found at `page_offset_base + offset`
 	* `vmalloc_base`
 	* `vmemmap_base`
+		* base address of [pages](https://github.com/torvalds/linux/blob/5c26f6ac9416b63d093e29c30e79b3297e425472/include/linux/mm_types.h#L72)
 
 ## Paging
 
