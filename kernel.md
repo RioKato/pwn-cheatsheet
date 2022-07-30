@@ -209,6 +209,21 @@ Date:   Sun Mar 13 13:23:37 2022 -0700
 
 * *case CONFIG\_SLUB*
 	* [kfree](https://github.com/torvalds/linux/blob/9c01e9af171f13cf6573f404ecaf96dfa48233ab/mm/slub.c#L4562)
+		* [virt\_to\_folio](https://github.com/torvalds/linux/blob/5c26f6ac9416b63d093e29c30e79b3297e425472/include/linux/mm.h#L842)
+			* [virt\_to\_page](https://github.com/torvalds/linux/blob/92638b4e1b47f97d7269e74465dedf73096f777d/arch/x86/include/asm/page.h#L69)
+				* [\_\_pa](https://github.com/torvalds/linux/blob/92638b4e1b47f97d7269e74465dedf73096f777d/arch/x86/include/asm/page.h#L42)
+					* [\_\_phys\_addr](https://github.com/torvalds/linux/blob/e1cd82a339024beda8439fb2e20718363ee989a8/arch/x86/include/asm/page_64.h#L33)
+						* [\_\_phys\_addr\_nodebug](https://github.com/torvalds/linux/blob/e1cd82a339024beda8439fb2e20718363ee989a8/arch/x86/include/asm/page_64.h#L19)
+							* `x - __START_KERNEL_map + __START_KERNEL_map - PAGE_OFFSET`
+							* `#define __PAGE_OFFSET page_offset_base`
+				* [pfn\_to\_page](https://github.com/torvalds/linux/blob/bb1c50d3967f69f413b333713c2718d48d1ab7ea/include/asm-generic/memory_model.h#L53)
+					* [\_\_pfn\_to\_page](https://github.com/torvalds/linux/blob/bb1c50d3967f69f413b333713c2718d48d1ab7ea/include/asm-generic/memory_model.h#L25)
+						* [vmemmap](https://github.com/torvalds/linux/blob/e96ec8cf9ca12a8d6b3b896a2eccd4b92a1893ab/arch/x86/include/asm/pgtable_64.h#L256)
+							* [VMEMMAP\_START](https://github.com/torvalds/linux/blob/14df32670291588036a498051a54cd8462d7f611/arch/x86/include/asm/pgtable_64_types.h#L135)
+			* [page\_folio](https://github.com/torvalds/linux/blob/e3a8b6a1e70c37702054ae3c7c07ed828435d8ee/include/linux/page-flags.h#L217)
+				* [\_compound\_head](https://github.com/torvalds/linux/blob/e3a8b6a1e70c37702054ae3c7c07ed828435d8ee/include/linux/page-flags.h#L193)
+					* slab is a type of [page](https://github.com/torvalds/linux/blob/5c26f6ac9416b63d093e29c30e79b3297e425472/include/linux/mm_types.h#L73)
+					* [pageflags](https://github.com/torvalds/linux/blob/e3a8b6a1e70c37702054ae3c7c07ed828435d8ee/include/linux/page-flags.h#L110)
 		* [slab\_free](https://github.com/torvalds/linux/blob/9c01e9af171f13cf6573f404ecaf96dfa48233ab/mm/slub.c#L3510)
 			* [do\_slab\_free](https://github.com/torvalds/linux/blob/9c01e9af171f13cf6573f404ecaf96dfa48233ab/mm/slub.c#L3432-L3434)
 				* `likely(slab == c->slab)` &rarr; `likely(slab == slab->slab_cache->cpu_slab->slab)`
