@@ -176,6 +176,8 @@ Date:   Sun Mar 13 13:23:37 2022 -0700
 * [start\_kernel](https://github.com/torvalds/linux/blob/2dba5eb1c73b6ba2988ced07250edeac0f8cbf5a/init/main.c#L985)
 	* [mm\_init](https://github.com/torvalds/linux/blob/2dba5eb1c73b6ba2988ced07250edeac0f8cbf5a/init/main.c#L840)
 		* [kmem\_cache\_init](https://github.com/torvalds/linux/blob/6e48a966dfd18987fec9385566a67d36e2b5fc11/mm/slab.c#L1259-L1263)
+			* `useroffset = 0`
+			* `usersize = kmalloc_info[INDEX_NODE].size`
 			* [create\_kmalloc\_cache](https://github.com/torvalds/linux/blob/f56caedaf94f9ced5dbfcdb0060a3e788d2078af/mm/slab_common.c#L667)
 				* [create\_boot\_cache](https://github.com/torvalds/linux/blob/f56caedaf94f9ced5dbfcdb0060a3e788d2078af/mm/slab_common.c#L649)
 					* `__kmem_cache_create`
