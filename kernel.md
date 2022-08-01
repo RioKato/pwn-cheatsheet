@@ -13,7 +13,7 @@
 	- [kfree](#kfree)
 - [Physmem](#physmem)
 - [Paging](#paging)
-- [Copy from/to user](#copy-fromto-user)
+- [Usercopy](#usercopy)
 - [Symbol](#symbol)
 - [Snippet](#snippet)
 - [Structures](#structures)
@@ -45,21 +45,21 @@ Date:   Sun Mar 13 13:23:37 2022 -0700
 
 ## Kernel config
 
-| config                        | memo                                                        |
-| ----------------------------- | ----------------------------------------------------------- |
-| CONFIG_KALLSYMS               | /proc/sys/kernel/kptr_restrict                              |
-| CONFIG_USERFAULTFD            | /proc/sys/vm/unprivileged_userfaultfd                       |
-| CONFIG_STATIC_USERMODEHELPER  |                                                             |
-| CONFIG_SLUB                   | default allocator                                           |
-| CONFIG_SLAB                   |                                                             |
-| CONFIG_SLAB_FREELIST_RANDOM   |                                                             |
-| CONFIG_SLAB_FREELIST_HARDENED |                                                             |
-| CONFIG_FG_KASLR               |                                                             |
-| CONFIG_BPF                    | /proc/sys/kernel/unprivileged_bpf_disabled                  |
-| CONFIG_SMP                    | multi-processor                                             |
-| CONFIG_HAVE_STACKPROTECTOR    | cannary                                                     |
-| CONFIG_RANDOMIZE_BASE         | kaslr                                                       |
-| CONFIG_HARDENED_USERCOPY      | prohibit copying outside a specific region within an object |
+| config                        | memo                                                            |
+| ----------------------------- | --------------------------------------------------------------- |
+| CONFIG_KALLSYMS               | /proc/sys/kernel/kptr_restrict                                  |
+| CONFIG_USERFAULTFD            | /proc/sys/vm/unprivileged_userfaultfd                           |
+| CONFIG_STATIC_USERMODEHELPER  |                                                                 |
+| CONFIG_SLUB                   | default allocator                                               |
+| CONFIG_SLAB                   |                                                                 |
+| CONFIG_SLAB_FREELIST_RANDOM   |                                                                 |
+| CONFIG_SLAB_FREELIST_HARDENED |                                                                 |
+| CONFIG_FG_KASLR               |                                                                 |
+| CONFIG_BPF                    | /proc/sys/kernel/unprivileged_bpf_disabled                      |
+| CONFIG_SMP                    | multi-processor                                                 |
+| CONFIG_HAVE_STACKPROTECTOR    | cannary                                                         |
+| CONFIG_RANDOMIZE_BASE         | kaslr                                                           |
+| CONFIG_HARDENED_USERCOPY      | prohibit usercopying outside a specific region within an object |
 
 
 ## Process management
@@ -279,7 +279,7 @@ Date:   Sun Mar 13 13:23:37 2022 -0700
 * see [5.3.3 4-Kbyte Page Translation / AMD64 Architecture Programmer's Manual, Volume 2](doc/AMD64_Architecture_Programmers_Manual_Volume2.pdf#page=203) for details
 * last byte of `Page Global Directory(PML4E)` often be 0x67(0b01100111)
 
-## Copy from/to user
+## Usercopy
 
 * [copy\_from\_user](https://github.com/torvalds/linux/blob/a7a08b275a8bbade798c4bdaad07ade68fe7003c/include/linux/uaccess.h#L191)
 	* [check\_copy\_size](https://github.com/torvalds/linux/blob/7ad639840acf2800b5f387c495795f995a67a329/include/linux/thread_info.h#L232)
