@@ -8,7 +8,7 @@
 - [Syscall](#syscall)
 - [Memory allocator](#memory-allocator)
 	- [kmem\_cache](#kmem_cache)
-	- [create\_kmalloc\_cache](#create_kmalloc_cache)
+	- [kmem\_cache\_create](#kmem_cache_create)
 	- [kmalloc](#kmalloc)
 	- [kfree](#kfree)
 - [Physmem](#physmem)
@@ -75,6 +75,13 @@ Date:   Sun Mar 13 13:23:37 2022 -0700
 			* [init\_cred](https://github.com/torvalds/linux/blob/a55d07294f1e9b576093bdfa95422f8119941e83/kernel/cred.c#L41)
 	* `comm`
 		* `prctl(PR_SET_NAME, name);`
+	* [thread_struct](https://github.com/torvalds/linux/blob/03b122da74b22fbe7cd98184fa5657a9ce13970c/arch/x86/include/asm/processor.h#L467)
+* [start\_kernel](https://github.com/torvalds/linux/blob/2dba5eb1c73b6ba2988ced07250edeac0f8cbf5a/init/main.c#L1112-L1113)
+	* [cred\_init](https://github.com/torvalds/linux/blob/a55d07294f1e9b576093bdfa95422f8119941e83/kernel/cred.c#L689)
+	* [fork\_init](https://github.com/torvalds/linux/blob/5c26f6ac9416b63d093e29c30e79b3297e425472/kernel/fork.c#L823-L827)
+		* [task\_struct\_whitelist](https://github.com/torvalds/linux/blob/5c26f6ac9416b63d093e29c30e79b3297e425472/kernel/fork.c#L796)
+			* [arch\_thread\_struct\_whitelist](https://github.com/torvalds/linux/blob/03b122da74b22fbe7cd98184fa5657a9ce13970c/arch/x86/include/asm/processor.h#L544)
+				* [fpu\_thread\_struct\_whitelist](https://github.com/torvalds/linux/blob/79e06c4c4950be2abd8ca5d2428a8c915aa62c24/arch/x86/kernel/fpu/core.c#L625)
 
 ### current
 
@@ -148,21 +155,30 @@ Date:   Sun Mar 13 13:23:37 2022 -0700
 		* [kmem\_cache\_node](https://github.com/torvalds/linux/blob/e3a8b6a1e70c37702054ae3c7c07ed828435d8ee/mm/slab.h#L746)
 			* `shared`
 
-### create\_kmalloc\_cache
+### kmem\_cache\_create
 
-* [create\_kmalloc\_cache](https://github.com/torvalds/linux/blob/f56caedaf94f9ced5dbfcdb0060a3e788d2078af/mm/slab_common.c#L667)
-	* [create\_boot\_cache](https://github.com/torvalds/linux/blob/f56caedaf94f9ced5dbfcdb0060a3e788d2078af/mm/slab_common.c#L649)
-		* *case CONFIG\_SLUB*
-			* [\_\_kmem\_cache\_create](https://github.com/torvalds/linux/blob/9c01e9af171f13cf6573f404ecaf96dfa48233ab/mm/slub.c#L4893)
-				* [kmem\_cache\_open](https://github.com/torvalds/linux/blob/9c01e9af171f13cf6573f404ecaf96dfa48233ab/mm/slub.c#L4185)
-					* [calculate\_order](https://github.com/torvalds/linux/blob/9c01e9af171f13cf6573f404ecaf96dfa48233ab/mm/slub.c#L3815)
-					* [calculate\_sizes](https://github.com/torvalds/linux/blob/9c01e9af171f13cf6573f404ecaf96dfa48233ab/mm/slub.c#L4156-L4177)
-						* [oo\_make](https://github.com/torvalds/linux/blob/9c01e9af171f13cf6573f404ecaf96dfa48233ab/mm/slub.c#L401)
-							* [order\_objects](https://github.com/torvalds/linux/blob/9c01e9af171f13cf6573f404ecaf96dfa48233ab/mm/slub.c#L394)
-		* *case CONFIG\_SLAB*
-			* [\_\_kmem\_cache\_create](https://github.com/torvalds/linux/blob/6e48a966dfd18987fec9385566a67d36e2b5fc11/mm/slab.c#L2039)
-				* [set\_objfreelist\_slab\_cache](https://github.com/torvalds/linux/blob/6e48a966dfd18987fec9385566a67d36e2b5fc11/mm/slab.c#L1839-L1840)
-					* [calculate\_slab\_order](https://github.com/torvalds/linux/blob/6e48a966dfd18987fec9385566a67d36e2b5fc11/mm/slab.c#L1709)
+* [kmem\_cache\_create](https://github.com/torvalds/linux/blob/f56caedaf94f9ced5dbfcdb0060a3e788d2078af/mm/slab_common.c#L414-L415)
+	* `useroffset = 0`
+	* `usersize = 0`
+	* [kmem\_cache\_create\_usercopy](https://github.com/torvalds/linux/blob/f56caedaf94f9ced5dbfcdb0060a3e788d2078af/mm/slab_common.c#L359-L361)
+		* [create\_cache](https://github.com/torvalds/linux/blob/f56caedaf94f9ced5dbfcdb0060a3e788d2078af/mm/slab_common.c#L257)
+			* *case CONFIG\_SLUB*
+				* [\_\_kmem\_cache\_create](https://github.com/torvalds/linux/blob/9c01e9af171f13cf6573f404ecaf96dfa48233ab/mm/slub.c#L4893)
+					* [kmem\_cache\_open](https://github.com/torvalds/linux/blob/9c01e9af171f13cf6573f404ecaf96dfa48233ab/mm/slub.c#L4185)
+						* [calculate\_order](https://github.com/torvalds/linux/blob/9c01e9af171f13cf6573f404ecaf96dfa48233ab/mm/slub.c#L3815)
+						* [calculate\_sizes](https://github.com/torvalds/linux/blob/9c01e9af171f13cf6573f404ecaf96dfa48233ab/mm/slub.c#L4156-L4177)
+							* [oo\_make](https://github.com/torvalds/linux/blob/9c01e9af171f13cf6573f404ecaf96dfa48233ab/mm/slub.c#L401)
+								* [order\_objects](https://github.com/torvalds/linux/blob/9c01e9af171f13cf6573f404ecaf96dfa48233ab/mm/slub.c#L394)
+			* *case CONFIG\_SLAB*
+				* [\_\_kmem\_cache\_create](https://github.com/torvalds/linux/blob/6e48a966dfd18987fec9385566a67d36e2b5fc11/mm/slab.c#L2039)
+					* [set\_objfreelist\_slab\_cache](https://github.com/torvalds/linux/blob/6e48a966dfd18987fec9385566a67d36e2b5fc11/mm/slab.c#L1839-L1840)
+						* [calculate\_slab\_order](https://github.com/torvalds/linux/blob/6e48a966dfd18987fec9385566a67d36e2b5fc11/mm/slab.c#L1709)
+* [start\_kernel](https://github.com/torvalds/linux/blob/2dba5eb1c73b6ba2988ced07250edeac0f8cbf5a/init/main.c#L985)
+	* [mm\_init](https://github.com/torvalds/linux/blob/2dba5eb1c73b6ba2988ced07250edeac0f8cbf5a/init/main.c#L840)
+		* [kmem\_cache\_init](https://github.com/torvalds/linux/blob/6e48a966dfd18987fec9385566a67d36e2b5fc11/mm/slab.c#L1259-L1263)
+			* [create\_kmalloc\_cache](https://github.com/torvalds/linux/blob/f56caedaf94f9ced5dbfcdb0060a3e788d2078af/mm/slab_common.c#L667)
+				* [create\_boot\_cache](https://github.com/torvalds/linux/blob/f56caedaf94f9ced5dbfcdb0060a3e788d2078af/mm/slab_common.c#L649)
+					* `__kmem_cache_create`
 
 ### kmalloc
 
@@ -271,9 +287,9 @@ Date:   Sun Mar 13 13:23:37 2022 -0700
 					* [check\_heap\_object](https://github.com/torvalds/linux/blob/0b3eb091d5759479d44cb793fad2c51ea06bdcec/mm/usercopy.c#L241)
 						* *case CONFIG_HARDENED_USERCOPY*
 							* *case CONFIG\_SLUB*
-								* [\_\_check\_heap\_object](https://github.com/torvalds/linux/blob/9c01e9af171f13cf6573f404ecaf96dfa48233ab/mm/slub.c#L4488-L4489)
+								* [\_\_check\_heap\_object](https://github.com/torvalds/linux/blob/9c01e9af171f13cf6573f404ecaf96dfa48233ab/mm/slub.c#L4520-L4523)
 							* *case CONFIG\_SLAB*
-								* [\_\_check\_heap\_object](https://github.com/torvalds/linux/blob/6e48a966dfd18987fec9385566a67d36e2b5fc11/mm/slab.c#L4172-L4173)
+								* [\_\_check\_heap\_object](https://github.com/torvalds/linux/blob/6e48a966dfd18987fec9385566a67d36e2b5fc11/mm/slab.c#L4193-L4196)
 						* *otherwise*
 							* [\_\_check\_heap\_object](https://github.com/torvalds/linux/blob/e3a8b6a1e70c37702054ae3c7c07ed828435d8ee/mm/slab.h#L861-L863)
 						* [check\_page\_span](https://github.com/torvalds/linux/blob/0b3eb091d5759479d44cb793fad2c51ea06bdcec/mm/usercopy.c#L161-L162)
