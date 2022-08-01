@@ -8,7 +8,7 @@
 - [Syscall](#syscall)
 - [Memory allocator](#memory-allocator)
 	- [kmem\_cache](#kmem_cache)
-	- [\_\_kmem\_cache\_create](#__kmem_cache_create)
+	- [create\_kmalloc\_cache](#create_kmalloc_cache)
 	- [kmalloc](#kmalloc)
 	- [kfree](#kfree)
 - [Physmem](#physmem)
@@ -148,19 +148,21 @@ Date:   Sun Mar 13 13:23:37 2022 -0700
 		* [kmem\_cache\_node](https://github.com/torvalds/linux/blob/e3a8b6a1e70c37702054ae3c7c07ed828435d8ee/mm/slab.h#L746)
 			* `shared`
 
-### \_\_kmem\_cache\_create
+### create\_kmalloc\_cache
 
-* *case CONFIG\_SLUB*
-	* [\_\_kmem\_cache\_create](https://github.com/torvalds/linux/blob/9c01e9af171f13cf6573f404ecaf96dfa48233ab/mm/slub.c#L4893)
-		* [kmem\_cache\_open](https://github.com/torvalds/linux/blob/9c01e9af171f13cf6573f404ecaf96dfa48233ab/mm/slub.c#L4185)
-			* [calculate\_order](https://github.com/torvalds/linux/blob/9c01e9af171f13cf6573f404ecaf96dfa48233ab/mm/slub.c#L3815)
-			* [calculate\_sizes](https://github.com/torvalds/linux/blob/9c01e9af171f13cf6573f404ecaf96dfa48233ab/mm/slub.c#L4156-L4177)
-				* [oo\_make](https://github.com/torvalds/linux/blob/9c01e9af171f13cf6573f404ecaf96dfa48233ab/mm/slub.c#L401)
-					* [order\_objects](https://github.com/torvalds/linux/blob/9c01e9af171f13cf6573f404ecaf96dfa48233ab/mm/slub.c#L394)
-* *case CONFIG\_SLAB*
-	* [\_\_kmem\_cache\_create](https://github.com/torvalds/linux/blob/6e48a966dfd18987fec9385566a67d36e2b5fc11/mm/slab.c#L2039)
-		* [set\_objfreelist\_slab\_cache](https://github.com/torvalds/linux/blob/6e48a966dfd18987fec9385566a67d36e2b5fc11/mm/slab.c#L1839-L1840)
-			* [calculate\_slab\_order](https://github.com/torvalds/linux/blob/6e48a966dfd18987fec9385566a67d36e2b5fc11/mm/slab.c#L1709)
+* [create\_kmalloc\_cache](https://github.com/torvalds/linux/blob/f56caedaf94f9ced5dbfcdb0060a3e788d2078af/mm/slab_common.c#L667)
+	* [create\_boot\_cache](https://github.com/torvalds/linux/blob/f56caedaf94f9ced5dbfcdb0060a3e788d2078af/mm/slab_common.c#L649)
+		* *case CONFIG\_SLUB*
+			* [\_\_kmem\_cache\_create](https://github.com/torvalds/linux/blob/9c01e9af171f13cf6573f404ecaf96dfa48233ab/mm/slub.c#L4893)
+				* [kmem\_cache\_open](https://github.com/torvalds/linux/blob/9c01e9af171f13cf6573f404ecaf96dfa48233ab/mm/slub.c#L4185)
+					* [calculate\_order](https://github.com/torvalds/linux/blob/9c01e9af171f13cf6573f404ecaf96dfa48233ab/mm/slub.c#L3815)
+					* [calculate\_sizes](https://github.com/torvalds/linux/blob/9c01e9af171f13cf6573f404ecaf96dfa48233ab/mm/slub.c#L4156-L4177)
+						* [oo\_make](https://github.com/torvalds/linux/blob/9c01e9af171f13cf6573f404ecaf96dfa48233ab/mm/slub.c#L401)
+							* [order\_objects](https://github.com/torvalds/linux/blob/9c01e9af171f13cf6573f404ecaf96dfa48233ab/mm/slub.c#L394)
+		* *case CONFIG\_SLAB*
+			* [\_\_kmem\_cache\_create](https://github.com/torvalds/linux/blob/6e48a966dfd18987fec9385566a67d36e2b5fc11/mm/slab.c#L2039)
+				* [set\_objfreelist\_slab\_cache](https://github.com/torvalds/linux/blob/6e48a966dfd18987fec9385566a67d36e2b5fc11/mm/slab.c#L1839-L1840)
+					* [calculate\_slab\_order](https://github.com/torvalds/linux/blob/6e48a966dfd18987fec9385566a67d36e2b5fc11/mm/slab.c#L1709)
 
 ### kmalloc
 
