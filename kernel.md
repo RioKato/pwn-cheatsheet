@@ -45,21 +45,21 @@ Date:   Sun Mar 13 13:23:37 2022 -0700
 
 ## Kernel config
 
-| config                        | memo                                                            |
-| ----------------------------- | --------------------------------------------------------------- |
-| CONFIG_KALLSYMS               | /proc/sys/kernel/kptr_restrict                                  |
-| CONFIG_USERFAULTFD            | /proc/sys/vm/unprivileged_userfaultfd                           |
-| CONFIG_STATIC_USERMODEHELPER  |                                                                 |
-| CONFIG_SLUB                   | default allocator                                               |
-| CONFIG_SLAB                   |                                                                 |
-| CONFIG_SLAB_FREELIST_RANDOM   |                                                                 |
-| CONFIG_SLAB_FREELIST_HARDENED |                                                                 |
-| CONFIG_HAVE_STACKPROTECTOR    | cannary                                                         |
-| CONFIG_RANDOMIZE_BASE         | kaslr                                                           |
-| CONFIG_HARDENED_USERCOPY      | prohibit usercopying outside a specific region within an object |
-| CONFIG_SMP                    | multi-processor                                                 |
-| CONFIG_BPF                    | /proc/sys/kernel/unprivileged_bpf_disabled                      |
-| CONFIG_FG_KASLR               |                                                                 |
+| config                        | path                                       |
+| ----------------------------- | ------------------------------------------ |
+| CONFIG_KALLSYMS               | /proc/sys/kernel/kptr_restrict             |
+| CONFIG_USERFAULTFD            | /proc/sys/vm/unprivileged_userfaultfd      |
+| CONFIG_STATIC_USERMODEHELPER  |                                            |
+| CONFIG_SLUB                   |                                            |
+| CONFIG_SLAB                   |                                            |
+| CONFIG_SLAB_FREELIST_RANDOM   |                                            |
+| CONFIG_SLAB_FREELIST_HARDENED |                                            |
+| CONFIG_HAVE_STACKPROTECTOR    |                                            |
+| CONFIG_RANDOMIZE_BASE         |                                            |
+| CONFIG_HARDENED_USERCOPY      |                                            |
+| CONFIG_SMP                    |                                            |
+| CONFIG_BPF                    | /proc/sys/kernel/unprivileged_bpf_disabled |
+| CONFIG_FG_KASLR               |                                            |
 
 
 ## Process management
