@@ -236,7 +236,10 @@ Date:   Sun Mar 13 13:23:37 2022 -0700
 					* [\_\_phys\_addr](https://github.com/torvalds/linux/blob/e1cd82a339024beda8439fb2e20718363ee989a8/arch/x86/include/asm/page_64.h#L33)
 						* [\_\_phys\_addr\_nodebug](https://github.com/torvalds/linux/blob/e1cd82a339024beda8439fb2e20718363ee989a8/arch/x86/include/asm/page_64.h#L19)
 							* `x - __START_KERNEL_map + __START_KERNEL_map - PAGE_OFFSET`
-							* `#define __PAGE_OFFSET page_offset_base`
+							* [PAGE\_OFFSET](https://github.com/torvalds/linux/blob/c164fbb40c43f8041f4d05ec9996d8ee343c92b1/arch/x86/include/asm/page_types.h#L36)
+								* *case CONFIG\_DYNAMIC\_MEMORY\_LAYOUT*
+									* [\_\_PAGE\_OFFSET](https://github.com/torvalds/linux/blob/7fae4c24a2b84a66c7be399727aca11e7a888462/arch/x86/include/asm/page_64_types.h#L45)
+										* `page_offset_base`
 				* [pfn\_to\_page](https://github.com/torvalds/linux/blob/bb1c50d3967f69f413b333713c2718d48d1ab7ea/include/asm-generic/memory_model.h#L53)
 					* [\_\_pfn\_to\_page](https://github.com/torvalds/linux/blob/bb1c50d3967f69f413b333713c2718d48d1ab7ea/include/asm-generic/memory_model.h#L25)
 						* [vmemmap](https://github.com/torvalds/linux/blob/e96ec8cf9ca12a8d6b3b896a2eccd4b92a1893ab/arch/x86/include/asm/pgtable_64.h#L256)
