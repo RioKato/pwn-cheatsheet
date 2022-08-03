@@ -11,10 +11,12 @@
 	- [kmem\_cache\_create](#kmem_cache_create)
 	- [kmalloc](#kmalloc)
 	- [kfree](#kfree)
-- [Physmem](#physmem)
+- [Memory layout](#memory-layout)
+- [Module](#module)
 - [Paging](#paging)
 - [Usercopy](#usercopy)
 - [Symbol](#symbol)
+- [BPF](#bpf)
 - [Snippet](#snippet)
 - [Structures](#structures)
 	- [ldt\_struct](#ldt_struct)
@@ -32,7 +34,6 @@
 	- [core\_pattern](#core_pattern)
 	- [poweroff\_cmd](#poweroff_cmd)
 	- [n\_tty\_ops](#n_tty_ops)
-
 
 ## Kernel version
 ```
@@ -268,7 +269,7 @@ Date:   Sun Mar 13 13:23:37 2022 -0700
 				* `WARN_ON_ONCE(ac->avail > 0 && ac->entry[ac->avail - 1] == objp)`
 
 
-## Physmem
+## Memory layout
 
 * [page tables](https://github.com/torvalds/linux/blob/251a7b3edc197a3947b8cb56fffe61d811aba0a5/Documentation/x86/x86_64/mm.rst#L45-L50)
 	* `page_offset_base`
