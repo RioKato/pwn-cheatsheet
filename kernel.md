@@ -147,11 +147,15 @@ Date:   Sun Mar 13 13:23:37 2022 -0700
 				* `freelist`
 		* `offset`
 		* `random`
+		* `useroffset`
+		* `usersize`
 		* [kmem\_cache\_node](https://github.com/torvalds/linux/blob/e3a8b6a1e70c37702054ae3c7c07ed828435d8ee/mm/slab.h#L746)
 * *case CONFIG\_SLAB*
 	* [kmem\_cache](https://github.com/torvalds/linux/blob/40f3bf0cb04c91d33531b1b95788ad2f0e4062cf/include/linux/slab_def.h#L12)
 		* [array\_cache](https://github.com/torvalds/linux/blob/6e48a966dfd18987fec9385566a67d36e2b5fc11/mm/slab.c#L185)
 			* `entry`
+		* `useroffset`
+		* `usersize`
 		* [kmem\_cache\_node](https://github.com/torvalds/linux/blob/e3a8b6a1e70c37702054ae3c7c07ed828435d8ee/mm/slab.h#L746)
 			* `shared`
 
