@@ -278,6 +278,16 @@ Date:   Sun Mar 13 13:23:37 2022 -0700
 	* `vmemmap_base`
 		* base address of [pages](https://github.com/torvalds/linux/blob/5c26f6ac9416b63d093e29c30e79b3297e425472/include/linux/mm_types.h#L72)
 
+## Module
+
+* [module\_alloc](https://github.com/torvalds/linux/blob/5adf349439d29f92467e864f728dfc23180f3ef9/arch/x86/kernel/module.c#L76-L80)
+	* *case CONFIG\_RANDOMIZE\_BASE*
+		* [get\_module\_load\_offset](https://github.com/torvalds/linux/blob/5adf349439d29f92467e864f728dfc23180f3ef9/arch/x86/kernel/module.c#L55-L56)
+		* [MODULES\_VADDR](https://github.com/torvalds/linux/blob/14df32670291588036a498051a54cd8462d7f611/arch/x86/include/asm/pgtable_64_types.h#L144)
+			* [\_\_START\_KERNEL\_map](https://github.com/torvalds/linux/blob/7fae4c24a2b84a66c7be399727aca11e7a888462/arch/x86/include/asm/page_64_types.h#L50)
+			* *case CONFIG\_RANDOMIZE\_BASE*
+				* [KERNEL\_IMAGE\_SIZE](https://github.com/torvalds/linux/blob/7fae4c24a2b84a66c7be399727aca11e7a888462/arch/x86/include/asm/page_64_types.h#L96)
+
 ## Paging
 
 * `CR3`, `Page Global Directory`, `Page Upper Directory`, `Page Middle Directory`, `Page Table Entry` are used
@@ -290,11 +300,11 @@ Date:   Sun Mar 13 13:23:37 2022 -0700
 
 * [copy\_from\_user](https://github.com/torvalds/linux/blob/a7a08b275a8bbade798c4bdaad07ade68fe7003c/include/linux/uaccess.h#L191)
 	* [check\_copy\_size](https://github.com/torvalds/linux/blob/7ad639840acf2800b5f387c495795f995a67a329/include/linux/thread_info.h#L232)
-		* *case CONFIG_HARDENED_USERCOPY*
+		* *case CONFIG\_HARDENED\_USERCOPY*
 			* [check\_object\_size](https://github.com/torvalds/linux/blob/7ad639840acf2800b5f387c495795f995a67a329/include/linux/thread_info.h#L199)
 				* [\_\_check\_object\_size](https://github.com/torvalds/linux/blob/0b3eb091d5759479d44cb793fad2c51ea06bdcec/mm/usercopy.c#L287)
 					* [check\_heap\_object](https://github.com/torvalds/linux/blob/0b3eb091d5759479d44cb793fad2c51ea06bdcec/mm/usercopy.c#L241)
-						* *case CONFIG_HARDENED_USERCOPY*
+						* *case CONFIG\_HARDENED\_USERCOPY*
 							* *case CONFIG\_SLUB*
 								* [\_\_check\_heap\_object](https://github.com/torvalds/linux/blob/9c01e9af171f13cf6573f404ecaf96dfa48233ab/mm/slub.c#L4520-L4523)
 							* *case CONFIG\_SLAB*
@@ -320,6 +330,21 @@ Date:   Sun Mar 13 13:23:37 2022 -0700
 								* [RO\_DATA](https://github.com/torvalds/linux/blob/95faf6ba654dd334617f347023e65b06d791c4a6/include/asm-generic/vmlinux.lds.h#L484-L489)
 * [kernel\_symbol\_value](https://github.com/torvalds/linux/blob/67d6212afda218d564890d1674bab28e8612170f/kernel/module.c#L465)
 	* [offset\_to\_ptr](https://github.com/torvalds/linux/blob/bfb1a7c91fb7758273b4a8d735313d9cc388b502/include/linux/compiler.h#L241)
+
+## BPF
+
+* [bpf](https://github.com/torvalds/linux/blob/75134f16e7dd0007aa474b281935c5f42e79f2c8/kernel/bpf/syscall.c#L4741)
+	* [\_\_sys\_bpf](https://github.com/torvalds/linux/blob/75134f16e7dd0007aa474b281935c5f42e79f2c8/kernel/bpf/syscall.c#L4637)
+		* [bpf\_prog\_load](https://github.com/torvalds/linux/blob/75134f16e7dd0007aa474b281935c5f42e79f2c8/kernel/bpf/syscall.c#L2347-L2353)
+			* [bpf\_check](https://github.com/torvalds/linux/blob/a672b2e36a648afb04ad3bda93b6bda947a479a5/kernel/bpf/verifier.c#L14329)
+				* [do\_check\_main](https://github.com/torvalds/linux/blob/a672b2e36a648afb04ad3bda93b6bda947a479a5/kernel/bpf/verifier.c#L13760)
+					* [do\_check\_common](https://github.com/torvalds/linux/blob/a672b2e36a648afb04ad3bda93b6bda947a479a5/kernel/bpf/verifier.c#L13634)
+			* [bpf\_prog\_select\_runtime](https://github.com/torvalds/linux/blob/06edc59c1fd7aababc8361655b20f4cc9870aef2/kernel/bpf/core.c#L1931)
+				* [bpf\_int\_jit\_compile](https://github.com/torvalds/linux/blob/d45476d9832409371537013ebdd8dc1a7781f97a/arch/x86/net/bpf_jit_comp.c#L2335-L2365)
+					* [do\_jit](https://github.com/torvalds/linux/blob/d45476d9832409371537013ebdd8dc1a7781f97a/arch/x86/net/bpf_jit_comp.c#L870-L871)
+					* [bpf\_jit\_binary\_alloc](https://github.com/torvalds/linux/blob/06edc59c1fd7aababc8361655b20f4cc9870aef2/kernel/bpf/core.c#L884)
+						* [bpf\_jit\_alloc\_exec](https://github.com/torvalds/linux/blob/06edc59c1fd7aababc8361655b20f4cc9870aef2/kernel/bpf/core.c#L856)
+							* `return module_alloc(size);`
 
 ## Snippet
 
