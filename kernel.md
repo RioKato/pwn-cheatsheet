@@ -335,17 +335,37 @@ Date:   Sun Mar 13 13:23:37 2022 -0700
 ## BPF
 
 * [bpf](https://github.com/torvalds/linux/blob/75134f16e7dd0007aa474b281935c5f42e79f2c8/kernel/bpf/syscall.c#L4741)
-	* [\_\_sys\_bpf](https://github.com/torvalds/linux/blob/75134f16e7dd0007aa474b281935c5f42e79f2c8/kernel/bpf/syscall.c#L4637)
+	* [\_\_sys\_bpf](https://github.com/torvalds/linux/blob/75134f16e7dd0007aa474b281935c5f42e79f2c8/kernel/bpf/syscall.c#L4595)
 		* [bpf\_prog\_load](https://github.com/torvalds/linux/blob/75134f16e7dd0007aa474b281935c5f42e79f2c8/kernel/bpf/syscall.c#L2347-L2353)
-			* [bpf\_check](https://github.com/torvalds/linux/blob/a672b2e36a648afb04ad3bda93b6bda947a479a5/kernel/bpf/verifier.c#L14329)
+			* [bpf\_check](https://github.com/torvalds/linux/blob/a672b2e36a648afb04ad3bda93b6bda947a479a5/kernel/bpf/verifier.c#L14324-L14329)
+				* [check\_cfg](https://github.com/torvalds/linux/blob/a672b2e36a648afb04ad3bda93b6bda947a479a5/kernel/bpf/verifier.c#L10049)
+					* verify loop
 				* [do\_check\_main](https://github.com/torvalds/linux/blob/a672b2e36a648afb04ad3bda93b6bda947a479a5/kernel/bpf/verifier.c#L13760)
-					* [do\_check\_common](https://github.com/torvalds/linux/blob/a672b2e36a648afb04ad3bda93b6bda947a479a5/kernel/bpf/verifier.c#L13634)
+					* [do\_check\_common](https://github.com/torvalds/linux/blob/a672b2e36a648afb04ad3bda93b6bda947a479a5/kernel/bpf/verifier.c#L13697)
+						* [do\_check](https://github.com/torvalds/linux/blob/a672b2e36a648afb04ad3bda93b6bda947a479a5/kernel/bpf/verifier.c#L11314)
+							* [check\_alu\_op](https://github.com/torvalds/linux/blob/a672b2e36a648afb04ad3bda93b6bda947a479a5/kernel/bpf/verifier.c#L8372)
+								* [\_\_update\_reg\_bounds](https://github.com/torvalds/linux/blob/a672b2e36a648afb04ad3bda93b6bda947a479a5/kernel/bpf/verifier.c#L1318)
+								* [\_\_reg_deduce\_bounds](https://github.com/torvalds/linux/blob/a672b2e36a648afb04ad3bda93b6bda947a479a5/kernel/bpf/verifier.c#L1393)
+								* [\_\_reg_bound\_offset](https://github.com/torvalds/linux/blob/a672b2e36a648afb04ad3bda93b6bda947a479a5/kernel/bpf/verifier.c#L1400)
+								* [adjust\_reg\_min\_max\_vals](https://github.com/torvalds/linux/blob/a672b2e36a648afb04ad3bda93b6bda947a479a5/kernel/bpf/verifier.c#L8368)
+									* [adjust_scalar_min_max_vals](https://github.com/torvalds/linux/blob/a672b2e36a648afb04ad3bda93b6bda947a479a5/kernel/bpf/verifier.c#L8172)
+							* [check\_mem\_access](https://github.com/torvalds/linux/blob/a672b2e36a648afb04ad3bda93b6bda947a479a5/kernel/bpf/verifier.c#L4454)
+								* [check\_ctx\_access](https://github.com/torvalds/linux/blob/a672b2e36a648afb04ad3bda93b6bda947a479a5/kernel/bpf/verifier.c#L3601)
+							* [check\_helper\_call](https://github.com/torvalds/linux/blob/a672b2e36a648afb04ad3bda93b6bda947a479a5/kernel/bpf/verifier.c#L6546)
 			* [bpf\_prog\_select\_runtime](https://github.com/torvalds/linux/blob/06edc59c1fd7aababc8361655b20f4cc9870aef2/kernel/bpf/core.c#L1931)
 				* [bpf\_int\_jit\_compile](https://github.com/torvalds/linux/blob/d45476d9832409371537013ebdd8dc1a7781f97a/arch/x86/net/bpf_jit_comp.c#L2335-L2365)
 					* [do\_jit](https://github.com/torvalds/linux/blob/d45476d9832409371537013ebdd8dc1a7781f97a/arch/x86/net/bpf_jit_comp.c#L870-L871)
 					* [bpf\_jit\_binary\_alloc](https://github.com/torvalds/linux/blob/06edc59c1fd7aababc8361655b20f4cc9870aef2/kernel/bpf/core.c#L884)
 						* [bpf\_jit\_alloc\_exec](https://github.com/torvalds/linux/blob/06edc59c1fd7aababc8361655b20f4cc9870aef2/kernel/bpf/core.c#L856)
 							* `return module_alloc(size);`
+		* [map\_create](https://github.com/torvalds/linux/blob/75134f16e7dd0007aa474b281935c5f42e79f2c8/kernel/bpf/syscall.c#L865)
+			* [find\_and\_alloc\_map](https://github.com/torvalds/linux/blob/75134f16e7dd0007aa474b281935c5f42e79f2c8/kernel/bpf/syscall.c#L117-L132)
+		* [bpf\_obj\_get\_info\_by\_fd](https://github.com/torvalds/linux/blob/75134f16e7dd0007aa474b281935c5f42e79f2c8/kernel/bpf/syscall.c#L4018)
+			* [bpf\_map\_get\_info\_by\_fd](https://github.com/torvalds/linux/blob/75134f16e7dd0007aa474b281935c5f42e79f2c8/kernel/bpf/syscall.c#L3925-L3929)
+* [bpf\_reg\_state](https://github.com/torvalds/linux/blob/be80a1d3f9dbe5aee79a325964f7037fe2d92f30/include/linux/bpf_verifier.h#L145-L152)
+* [bpf\_map](https://github.com/torvalds/linux/blob/4a01e748a51cdc0527fdc913546dd46e822aa00d/include/linux/bpf.h#L158)
+	* [bpf\_map\_ops](https://github.com/torvalds/linux/blob/4a01e748a51cdc0527fdc913546dd46e822aa00d/include/linux/bpf.h#L63)
+	* [btf](https://github.com/torvalds/linux/blob/45ce4b4f9009102cd9f581196d480a59208690c1/kernel/bpf/btf.c#L201)
 
 ## Snippet
 
