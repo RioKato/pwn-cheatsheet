@@ -360,6 +360,15 @@ Date:   Sun Mar 13 13:23:37 2022 -0700
 							* `return module_alloc(size);`
 		* [map\_create](https://github.com/torvalds/linux/blob/75134f16e7dd0007aa474b281935c5f42e79f2c8/kernel/bpf/syscall.c#L865)
 			* [find\_and\_alloc\_map](https://github.com/torvalds/linux/blob/75134f16e7dd0007aa474b281935c5f42e79f2c8/kernel/bpf/syscall.c#L117-L132)
+				* [bpf\_map\_types](https://github.com/torvalds/linux/blob/75134f16e7dd0007aa474b281935c5f42e79f2c8/kernel/bpf/syscall.c#L57)
+					* [linux/bpf\_types.h](https://github.com/torvalds/linux/blob/b7b98f868987cd3e86c9bd9a6db048614933d7a0/include/linux/bpf_types.h#L83-L128)
+						* [array\_map\_ops](https://github.com/torvalds/linux/blob/7df621a3eea6761bc83e641aaca6963210c7290d/kernel/bpf/arraymap.c#L684)
+							* [array\_map\_alloc](https://github.com/torvalds/linux/blob/7df621a3eea6761bc83e641aaca6963210c7290d/kernel/bpf/arraymap.c#L133-L139)
+								* [bpf\_map\_area\_mmapable\_alloc](https://github.com/torvalds/linux/blob/75134f16e7dd0007aa474b281935c5f42e79f2c8/kernel/bpf/syscall.c#L341)
+									* [\_\_bpf\_map\_area\_alloc](https://github.com/torvalds/linux/blob/75134f16e7dd0007aa474b281935c5f42e79f2c8/kernel/bpf/syscall.c#L323-L324)
+										* `GFP_USER`
+								* [bpf\_map\_area\_alloc](https://github.com/torvalds/linux/blob/75134f16e7dd0007aa474b281935c5f42e79f2c8/kernel/bpf/syscall.c#L336)
+									* `__bpf_map_area_alloc(size, numa_node, false);`
 		* [bpf\_obj\_get\_info\_by\_fd](https://github.com/torvalds/linux/blob/75134f16e7dd0007aa474b281935c5f42e79f2c8/kernel/bpf/syscall.c#L4018)
 			* [bpf\_map\_get\_info\_by\_fd](https://github.com/torvalds/linux/blob/75134f16e7dd0007aa474b281935c5f42e79f2c8/kernel/bpf/syscall.c#L3925-L3929)
 * [bpf\_reg\_state](https://github.com/torvalds/linux/blob/be80a1d3f9dbe5aee79a325964f7037fe2d92f30/include/linux/bpf_verifier.h#L145-L152)
